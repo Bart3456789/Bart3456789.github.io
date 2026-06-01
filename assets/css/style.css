@@ -1,0 +1,50 @@
+:root {
+    --color-light: #F4F7F3;
+    --color-beige: #B2A49F;
+    --color-accent: #DF9F4D;
+    --color-gray: #8F8E93;
+    --color-dark: #273334;
+    }
+
+/* Background Colors */
+    .bg-light {
+        background-color: var(--color-light);
+    }
+    .bg-beige {
+        background-color: var(--color-beige);
+    }
+    .bg-accent {
+        background-color: var(--color-accent);
+    }
+    .bg-gray {
+        background-color: var(--color-gray);
+    }
+    .bg-dark {
+        background-color: var(--color-dark);
+    }
+
+/* Text Colors */
+    .light {
+        color: var(--color-light);
+    }
+    .beige {
+        color: var(--color-beige);
+    }
+    .accent {
+        color: var(--color-accent);
+    }
+    .gray {
+        color: var(--color-gray);
+    }
+    .dark {
+        color: var(--color-dark);
+    }
+
+/* Custom Font */
+    @font-face {
+        font-family: 'Core';
+        src: url('assets/Core.ttf') format('truetype');
+    }
+    .font {
+        font-family: 'Core', sans-serif;
+    }
