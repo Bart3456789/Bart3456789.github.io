@@ -1,0 +1,173 @@
+base van alle paginas:
+    *Voor de basis van alle pagina’s wil ik één consistente en 
+    herbruikbare layout gebruiken, zodat de hele website 
+    een uniforme en professionele uitstraling krijgt.
+    Elke pagina moet een vaste structuur hebben met bovenaan 
+    een header. In deze header komt mijn logo te staan, samen met 
+    navigatieknoppen naar de belangrijkste pagina’s: Home, Skills, 
+    About, Projecten en Contact. De header moet op elke pagina 
+    identiek zijn, zodat gebruikers altijd makkelijk kunnen 
+    navigeren zonder te zoeken.
+    De kleuren van de website moeten gebaseerd zijn op 
+    het bestaande voorbeeld-thema (de “voorbeeld look foto”). 
+    Dit kleurenpalet vormt de basis voor de styling van de hele 
+    site, zodat alles visueel één geheel vormt.
+    Direct onder de header komt een duidelijke scheidingslijn 
+    (border) van ongeveer 3 tot 4 pixels in de accentkleur. 
+    Deze dient als visuele scheiding tussen navigatie en content.
+    Daaronder bevindt zich de main content, waar de inhoud 
+    van de specifieke pagina wordt weergegeven. Dit gedeelte verschilt 
+    per pagina, maar moet altijd dezelfde structuur en spacing behouden voor consistentie.
+    Onderaan elke pagina komt een footer met een hoogte van 
+    ongeveer 6 tot 8 pixels. Deze footer gebruikt dezelfde kleur 
+    als de header, zodat de pagina visueel “afgesloten” wordt en een strak geheel vormt.
+    De website moet volledig responsive zijn, wat betekent 
+    dat alles goed moet werken op zowel telefoons als computers. 
+    De layout moet zich automatisch aanpassen aan kleinere 
+    schermen zonder dat elementen overlappen of onleesbaar worden.
+    Voor dynamische pagina’s zoals “animeWatched” en “gametrophys” 
+    wil ik dat ze eenvoudig uitbreidbaar zijn. Deze pagina’s moeten 
+    gebruik maken van JavaScript om automatisch content te laden 
+    uit specifieke folders. Bijvoorbeeld: afbeeldingen of kaarten 
+    worden automatisch ingeladen uit de juiste directory en weergegeven 
+    op de pagina. Hierdoor hoef ik later alleen bestanden toe te 
+    voegen aan een map, zonder handmatig de HTML aan te passen.
+    Ditzelfde principe moet ook gelden voor andere showcase-pagina’s 
+    zoals projecten of games, zodat de website makkelijk 
+    schaalbaar en onderhoudsvriendelijk blijft.
+    Het eindresultaat moet een strakke, moderne en consistente 
+    portfolio website zijn die zowel visueel sterk als technisch slim opgebouwd is.
+
+
+index page:
+- a picture of something ( dont really care what even a random pic from the internet that would look good there )
+- some stuff that should be there
+    *Op de indexpagina wil ik een visueel sterke eerste indruk creëren met een grote, 
+    opvallende afbeelding die meteen de aandacht trekt. Deze afbeelding hoeft niet per
+    se specifiek of inhoudelijk belangrijk te zijn; het gaat vooral om de uitstraling en sfeer
+    van de website. Een willekeurige, maar kwalitatief mooie afbeelding van het internet is
+    hiervoor geschikt, zolang deze professioneel oogt en past bij de algemene stijl van de portfolio.
+    De homepage moet simpel en overzichtelijk blijven, zodat de bezoeker direct begrijpt waar
+    de website over gaat zonder te veel informatie in één keer te zien. De afbeelding fungeert
+    als een soort “hero image” en zet de toon voor de rest van de website, waardoor
+    het geheel er moderner en aantrekkelijker uitziet.
+
+
+about page:
+- a picture of me ( me folder pic )
+- text about me
+- conected pages
+    *Op de “About Me” pagina wil ik een persoonlijke en dynamische layout 
+    creëren waarin zowel visuele als informatieve elementen worden gecombineerd.
+    Bovenaan of centraal op de pagina wil ik twee foto’s van mezelf plaatsen 
+    die automatisch of regelmatig wisselen. Deze afbeeldingen geven de pagina 
+    een levendig effect en zorgen ervoor dat de bezoeker een beter beeld krijgt van wie ik ben.
+    Naast of onder deze afbeeldingen komt een duidelijke tekstsectie met 
+    basisinformatie over mij, zoals mijn voornaam, achternaam, geboortejaar, de talen 
+    die ik spreek, mijn hobby’s en mijn interesses. Deze informatie moet 
+    overzichtelijk en goed gestructureerd worden weergegeven, zodat het makkelijk te lezen is.
+    Bij de hobby’s wil ik extra interactie toevoegen. De hobby’s “anime” en “gaming” 
+    moeten klikbaar zijn. Wanneer een bezoeker op “anime” klikt, wordt
+    hij doorgestuurd naar een aparte pagina genaamd animeWatched.html. Wanneer er op “gaming”
+    wordt geklikt, moet de gebruiker worden doorgestuurd naar gameTrophy.html.
+    Het doel van deze pagina is om niet alleen informatie te geven, maar
+    ook een interactieve ervaring te creëren die mijn
+    interesses op een visuele en toegankelijke manier laat zien.
+
+
+project page:
+- carten met foto van project uitleg over de project en wat ik van die project leerde
+    *Op de “Projecten” pagina wil ik mijn werk op een overzichtelijke
+    en visueel aantrekkelijke manier presenteren.
+    De pagina moet bestaan uit meerdere kaarten (cards), waarbij
+    elke kaart één project laat zien. In elke kaart komt een afbeelding
+    die het project visueel weergeeft, zodat bezoekers meteen een idee
+    krijgen van wat het project inhoudt. De afbeeldingen moeten duidelijk
+    en representatief zijn voor het eindresultaat of het
+    belangrijkste onderdeel van het project.
+    Bij elke kaart komt ook een korte uitleg. Deze beschrijving legt
+    uit wat het project precies is, wat het doel ervan was en hoe het
+    werkt. Daarnaast wil ik per project toevoegen wat ik heb geleerd
+    tijdens het maken ervan, zoals nieuwe technieken, problemen die
+    ik heb opgelost of vaardigheden die ik heb ontwikkeld.
+    De layout moet strak en modern zijn, met goed gestructureerde kaarten
+    die makkelijk te scannen zijn. Het doel is dat bezoekers snel door mijn
+    projecten kunnen bladeren, maar toch genoeg informatie krijgen om 
+    mijn groei en ervaring te begrijpen.
+    De pagina moet niet alleen mijn werk laten zien, maar ook duidelijk
+    maken hoe ik mezelf heb ontwikkeld als developer.
+
+
+contact page:
+- contact gegevens
+    *Op de “Contact” pagina wil ik mijn contactgegevens duidelijk en overzichtelijk 
+    presenteren, zodat bezoekers mij eenvoudig kunnen bereiken. 
+    Dit kan bijvoorbeeld mijn e-mailadres en eventueel andere contactmethodes 
+    bevatten, zoals social media of een contactformulier.
+    De informatie moet simpel en direct zijn, zonder te veel afleiding,
+    zodat het doel van de pagina meteen duidelijk is.
+    Om de pagina niet leeg of saai te laten aanvoelen, 
+    wil ik extra inhoud toevoegen die de pagina visueel aanvult. 
+    Dit kan bijvoorbeeld een achtergrondafbeelding, een subtiele design-layout, 
+    of een kleine introductietekst zijn die de bezoeker welkom heet en uitlegt 
+    dat ze contact kunnen opnemen voor vragen of samenwerkingen.
+    Het belangrijkste is dat de pagina professioneel oogt, goed
+    leesbaar blijft en een nette, volledige indruk geeft van de website.
+
+
+animeWatched page:
+- een pagina met alle caarten van anime die ik keek
+    *Op de “animeWatched” pagina wil ik een overzicht maken van alle
+    anime die ik heb bekeken, gepresenteerd als een visuele showcase.
+    De pagina moet automatisch alle afbeeldingen en content uit de map
+    “anime” laden en weergeven als kaarten (cards). Elke kaart stelt één
+    anime voor en bevat een afbeelding (cover/poster) die de anime herkenbaar maakt.
+    De layout moet strak en overzichtelijk zijn, zodat het voelt als een
+    persoonlijke gallery. De kaarten moeten netjes in een grid worden 
+    geplaatst, zodat ze goed schaalbaar zijn op verschillende schermformaten.
+    Het doel van deze pagina is puur een showcase: bezoekers moeten in één 
+    oogopslag kunnen zien welke anime ik heb gekeken, zonder dat er te 
+    veel tekst of afleiding is. Optioneel kan er op elke kaart later nog extra 
+    informatie worden toegevoegd, maar de focus ligt vooral op de visuele 
+    presentatie van de anime collectie uit de map.
+
+
+gametrophy page:
+- trophy card van games die ik geplat heb
+    *Op de “Game Trophies” pagina wil ik een showcase maken van 
+    alle games die ik heb gespeeld of voltooid.
+    De pagina moet automatisch alle afbeeldingen en kaarten laden 
+    vanuit een specifieke folder genaamd games. Elke game in die folder 
+    wordt weergegeven als een aparte kaart, inclusief een afbeelding 
+    die de game representeert. Hierdoor wordt de pagina dynamisch 
+    en schaalbaar, omdat nieuwe games simpel toegevoegd kunnen 
+    worden door alleen een nieuwe afbeelding in de map te plaatsen.
+    Elke kaart dient als een visuele showcase en kan, indien gewenst, 
+    ook extra informatie bevatten zoals de naam van de game of een 
+    korte beschrijving van wat ik ermee heb bereikt (bijvoorbeeld 
+    uitgespeeld, 100% completion of belangrijke achievements).
+    De layout moet overzichtelijk en aantrekkelijk zijn, met een 
+    grid-structuur zodat alle games netjes naast elkaar worden weergegeven. 
+    Het doel is om een visuele “trophy gallery” te creëren die mijn 
+    gaming-progress en prestaties laat zien op een simpele maar stijlvolle manier.
+
+
+skills page:
+- alle skills die ik heb (html, css, php, db, js, blender, unity)
+    *Op de “Skills” pagina wil ik een visueel aantrekkelijke en interactieve
+    layout maken die mijn technische vaardigheden duidelijk laat zien.
+    De pagina moet bestaan uit meerdere blokken (cards/tegels), waarbij
+    elke tegel een specifieke skill vertegenwoordigt. In deze blokken komen
+    logo’s van de technologieën die ik beheers, zoals HTML, CSS, JavaScript,
+    PHP, databases (DB), Unity en Blender. Elke skill moet direct herkenbaar
+    zijn door het gebruik van een duidelijk en professioneel icoon.
+    De stijl van de blokken moet modern en strak zijn, met voldoende ruimte
+    tussen de elementen zodat de pagina overzichtelijk blijft. Het doel is dat
+    de bezoeker in één oogopslag kan zien welke vaardigheden ik heb, maar
+    toch een aantrekkelijke en “levendige” ervaring krijgt.
+    Daarnaast wil ik dat elke skill-blok klikbaar is. Wanneer een gebruiker
+    op een blok klikt, wordt hij automatisch doorgestuurd naar de projectenpagina.
+    Op die pagina kunnen mijn uitgewerkte projecten per skill bekeken worden,
+    zodat er een duidelijke link ontstaat tussen mijn vaardigheden en wat ik ermee
+    heb gemaakt. De Skills pagina moet dus niet alleen informatief zijn,
+    maar ook interactief en uitnodigend om verder te verkennen binnen de website.
