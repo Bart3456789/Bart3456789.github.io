@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skills | Bart-HUB</title>
     <link rel="icon" type="image/png" href="assets/img/logo/logoTab.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body class="d-flex flex-column">
-    <header class="site-header">
+    <header class="site-header sticky-top">
         <nav class="navbar navbar-expand-lg py-2" data-bs-theme="dark">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="index.html" aria-label="Bart-HUB home">
@@ -33,22 +33,21 @@
     </header>
 
     <main class="flex-grow-1">
-        <section class="container py-5">
-            <div class="mb-4">
-                <span class="badge bg-site-accent text-site-dark mb-3">Tech stack</span>
+        <section class="container page-shell">
+            <div class="surface-panel p-4 p-md-5 mb-4">
+                <span class="badge badge-soft mb-3">Tech stack</span>
                 <h1 class="fw-bold mb-2">Skills</h1>
-                <p class="lead mb-0">Klik op een skill om naar mijn projecten te gaan.</p>
+                <p class="lead text-site-muted mb-0">Elke skill is klikbaar en filtert meteen de projecten die erbij horen.</p>
             </div>
             <div class="row g-4" data-skills></div>
         </section>
     </main>
 
     <footer class="site-footer mt-auto" aria-label="Pagina einde">
-        <div class="container py-1"></div>
+        <div class="container py-2"></div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>
-

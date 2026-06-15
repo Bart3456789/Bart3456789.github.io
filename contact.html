@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Bart-HUB</title>
     <link rel="icon" type="image/png" href="assets/img/logo/logoTab.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body class="d-flex flex-column">
-    <header class="site-header">
+    <header class="site-header sticky-top">
         <nav class="navbar navbar-expand-lg py-2" data-bs-theme="dark">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="index.html" aria-label="Bart-HUB home">
@@ -33,36 +33,50 @@
     </header>
 
     <main class="flex-grow-1">
-        <section class="container py-5">
-            <div class="row g-4 align-items-stretch">
-                <div class="col-12 col-lg-6">
-                    <div class="p-4 p-md-5 bg-site-light rounded theme-card h-100">
-                        <span class="badge bg-site-accent text-site-dark mb-3">Contact</span>
-                        <h1 class="fw-bold mb-3">Neem contact op</h1>
-                        <p class="lead">Voor vragen, projecten of samenwerkingen kun je mij makkelijk bereiken.</p>
+        <section class="container page-shell">
+            <div class="row g-4 g-xl-5 align-items-stretch">
+                <div class="col-12 col-lg-5">
+                    <div class="surface-panel p-4 p-md-5 h-100">
+                        <span class="badge badge-soft mb-3">Contact</span>
+                        <h1 class="fw-bold mb-3">Laten we praten.</h1>
+                        <p class="lead text-site-muted">Voor vragen, projecten of samenwerkingen kun je mij bereiken via mail of GitHub.</p>
                         <div class="list-group list-group-flush rounded overflow-hidden mt-4">
-                            <a href="mailto:bart@example.com" class="list-group-item list-group-item-action py-3">bart@example.com</a>
-                            <a href="https://github.com/Bart3456789" class="list-group-item list-group-item-action py-3">github.com/Bart3456789</a>
+                            <a href="mailto:bart@example.com" class="list-group-item list-group-item-action contact-link py-3">bart@example.com</a>
+                            <a href="https://github.com/Bart3456789" class="list-group-item list-group-item-action contact-link py-3">github.com/Bart3456789</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-6">
-                    <div class="p-4 p-md-5 bg-site-dark text-site-light rounded theme-card h-100 d-flex flex-column justify-content-center">
-                        <h2 class="h3 mb-3">Portfolio met ruimte om te groeien</h2>
-                        <p class="mb-4">Deze site is gebouwd met Bootstrap, losse pagina's en kleine JavaScript-data blokken zodat nieuwe projecten, anime en games makkelijk toegevoegd kunnen worden.</p>
-                        <a href="projects.html" class="btn btn-site align-self-start">Bekijk projecten</a>
-                    </div>
+                <div class="col-12 col-lg-7">
+                    <form class="surface-panel p-4 p-md-5 h-100" data-contact-form>
+                        <h2 class="h3 fw-bold mb-4">Stuur snel een bericht</h2>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="name" class="form-label">Naam</label>
+                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Jouw naam">
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="jij@example.com">
+                            </div>
+                            <div class="col-12">
+                                <label for="message" class="form-label">Bericht</label>
+                                <textarea class="form-control" id="message" name="message" rows="6" placeholder="Waar wil je contact over opnemen?"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-site btn-lg" type="submit">Open mail</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="site-footer mt-auto" aria-label="Pagina einde">
-        <div class="container py-1"></div>
+        <div class="container py-2"></div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>
-
