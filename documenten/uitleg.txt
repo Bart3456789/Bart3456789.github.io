@@ -171,3 +171,21 @@ skills page:
     zodat er een duidelijke link ontstaat tussen mijn vaardigheden en wat ik ermee
     heb gemaakt. De Skills pagina moet dus niet alleen informatief zijn,
     maar ook interactief en uitnodigend om verder te verkennen binnen de website.
+
+
+    project uitlegg:
+
+        project 1:
+            in deze project we gebruikte html, JavaScript en css om een mooi werkende quiz pagina makken
+
+        project 2:
+            in deze project gebruikte ik html, JavaScript en css om een game temaken ik maakte een slotmashiende
+
+        project 3:
+            in deze project makte ik een website met gebruik van php, db, html, bootstrap om een mon-in website maken
+
+        project 4:
+             colectie pagina gemaakt met gebruik van php, db, html, bootstrap
+
+        project 5 (game development):
+            met gebruik van c# en unity een simpel prototype van een game
