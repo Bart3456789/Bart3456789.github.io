@@ -69,7 +69,7 @@ function renderProjectFilters() {
         const isAll = skill === "all";
         const active = current === skill.toLowerCase() || (isAll && current === "all");
         const href = isAll ? "projects.html" : `projects.html?skill=${encodeURIComponent(skill)}`;
-        return `<a href="${href}" class="btn btn-sm btn-outline-site btn-filter ${active ? "active" : ""}">${isAll ? "All" : skill}</a>`;
+        return `<a href="${href}" class="btn btn-sm btn-outline-light fw-bold btn-filter ${active ? "active" : ""}">${isAll ? "All" : skill}</a>`;
     }).join("");
 }
 
@@ -84,16 +84,16 @@ function renderProjects() {
 
     target.innerHTML = projects.map(project => `
         <div class="col-12 col-md-6 col-xl-4">
-            <article class="card theme-card project-card h-100 text-white">
-                <img src="${project.image}" class="card-img-top card-img-fixed" alt="${project.title}">
+            <article class="card h-100 text-white bg-dark bg-opacity-75 border border-secondary rounded-4 shadow-lg overflow-hidden glass hover-lift">
+                <img src="${project.image}" class="card-img-top card-img-fixed bg-dark" alt="${project.title}">
                 <div class="card-body d-flex flex-column p-4">
                     <div class="d-flex flex-wrap gap-2 mb-3">
-                        ${project.tools.map(tool => `<span class="badge badge-soft">${tool}</span>`).join("")}
+                        ${project.tools.map(tool => `<span class="badge rounded-pill bg-void-soft">${tool}</span>`).join("")}
                     </div>
                     <h2 class="h5 card-title fw-bold">${project.title}</h2>
-                    <p class="card-text text-site-muted">${project.text}</p>
-                    <div class="mt-auto pt-3 border-top border-secondary-subtle">
-                        <p class="small mb-0"><strong class="text-site-void">Geleerd:</strong> ${project.learned}</p>
+                    <p class="card-text text-white-50">${project.text}</p>
+                    <div class="mt-auto pt-3 border-top border-secondary">
+                        <p class="small mb-0"><strong class="text-void">Geleerd:</strong> ${project.learned}</p>
                     </div>
                 </div>
             </article>
@@ -109,10 +109,10 @@ function renderImageGallery(selector, folder, files, badgeText) {
         const title = titleFromFile(file);
         return `
             <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-                <article class="card theme-card gallery-card h-100 text-white">
-                    <img src="assets/img/${folder}/${file}" class="card-img-top poster-img" alt="${title}">
+                <article class="card h-100 text-white bg-dark bg-opacity-75 border border-secondary rounded-4 shadow-lg overflow-hidden glass hover-lift">
+                    <img src="assets/img/${folder}/${file}" class="card-img-top poster-img bg-dark" alt="${title}">
                     <div class="card-body p-4">
-                        <span class="badge badge-soft mb-2">${badgeText}</span>
+                        <span class="badge rounded-pill bg-void-soft mb-2">${badgeText}</span>
                         <h2 class="h6 card-title fw-bold mb-0">${title}</h2>
                     </div>
                 </article>
@@ -127,11 +127,11 @@ function renderSkills() {
 
     target.innerHTML = data.skills.map(skill => `
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-            <a href="projects.html?skill=${encodeURIComponent(skill.name)}" class="card theme-card skill-card h-100 text-decoration-none text-white">
+            <a href="projects.html?skill=${encodeURIComponent(skill.name)}" class="card h-100 text-white text-decoration-none bg-dark bg-opacity-75 border border-secondary rounded-4 shadow-lg glass hover-lift">
                 <div class="card-body text-center p-4">
                     <img src="${skill.icon}" class="skill-icon mb-3" alt="${skill.name} logo">
                     <h2 class="h5 fw-bold mb-2">${skill.name}</h2>
-                    <p class="small text-site-muted mb-0">${skill.text}</p>
+                    <p class="small text-white-50 mb-0">${skill.text}</p>
                 </div>
             </a>
         </div>
@@ -157,4 +157,3 @@ renderImageGallery("[data-anime]", "anime", data.anime, "Anime");
 renderImageGallery("[data-games]", "games", data.games, "Trophy");
 renderSkills();
 setContactForm();
-
