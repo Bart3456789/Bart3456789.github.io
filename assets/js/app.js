@@ -93,7 +93,7 @@ function renderProjects() {
                     <h2 class="h5 card-title fw-bold">${project.title}</h2>
                     <p class="card-text text-site-muted">${project.text}</p>
                     <div class="mt-auto pt-3 border-top border-secondary-subtle">
-                        <p class="small mb-0"><strong class="text-site-cyan">Geleerd:</strong> ${project.learned}</p>
+                        <p class="small mb-0"><strong class="text-site-void">Geleerd:</strong> ${project.learned}</p>
                     </div>
                 </div>
             </article>
@@ -157,3 +157,4 @@ renderImageGallery("[data-anime]", "anime", data.anime, "Anime");
 renderImageGallery("[data-games]", "games", data.games, "Trophy");
 renderSkills();
 setContactForm();
+

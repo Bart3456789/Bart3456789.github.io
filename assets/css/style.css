@@ -3,18 +3,13 @@
     --site-bg-soft: #132230;
     --site-panel: rgba(18, 30, 42, .78);
     --site-panel-solid: #121e2a;
-    --site-cyan: #48d7e8;
-    --site-purple: #b179ff;
+    --site-void-purple: #8b5cf6;
+    --site-purple: #c084fc;
     --site-orange: #ff9d3d;
     --site-red: #ff6f61;
     --site-text: #f6f7fb;
     --site-muted: #a9b4c0;
     --site-line: rgba(246, 247, 251, .12);
-}
-
-@font-face {
-    font-family: "Core";
-    src: url("Core.ttf") format("truetype");
 }
 
 * {
@@ -27,11 +22,11 @@ html {
 
 body {
     min-height: 100vh;
-    font-family: "Core", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     color: var(--site-text);
     background:
         radial-gradient(circle at 58% 22%, rgba(255, 157, 61, .2), transparent 18rem),
-        radial-gradient(circle at 30% 18%, rgba(72, 215, 232, .12), transparent 22rem),
+        radial-gradient(circle at 30% 18%, rgba(139, 92, 246, .12), transparent 22rem),
         linear-gradient(180deg, #101d28 0%, #0d1720 62%, #121017 100%);
 }
 
@@ -54,11 +49,11 @@ body::before {
 }
 
 .logo-mark {
-    color: var(--site-cyan);
+    color: var(--site-void-purple);
     font-weight: 800;
     font-size: clamp(1.1rem, 2vw, 1.45rem);
     text-decoration: none;
-    text-shadow: 0 0 18px rgba(72, 215, 232, .36);
+    text-shadow: 0 0 18px rgba(139, 92, 246, .36);
 }
 
 .logo-mark span {
@@ -83,7 +78,7 @@ body::before {
 
 .nav-link.site-link:hover,
 .nav-link.site-link.active {
-    color: var(--site-cyan);
+    color: var(--site-void-purple);
     opacity: 1;
 }
 
@@ -121,7 +116,7 @@ body::before {
     position: absolute;
     width: clamp(8rem, 18vw, 16rem);
     aspect-ratio: 1;
-    background: linear-gradient(135deg, rgba(72, 215, 232, .18), rgba(255, 157, 61, .72));
+    background: linear-gradient(135deg, rgba(139, 92, 246, .18), rgba(255, 157, 61, .72));
     box-shadow: 0 2rem 4rem rgba(0, 0, 0, .34);
     transform: rotateX(58deg) rotateZ(42deg) skew(-6deg);
     opacity: .78;
@@ -201,7 +196,7 @@ body::before {
 }
 
 .section-kicker {
-    color: var(--site-cyan);
+    color: var(--site-void-purple);
     font-weight: 800;
     text-transform: uppercase;
     font-size: .8rem;
@@ -253,7 +248,7 @@ body::before {
 .skill-card:hover,
 .gallery-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(72, 215, 232, .42);
+    border-color: rgba(139, 92, 246, .42);
     box-shadow: 0 2rem 4rem rgba(0, 0, 0, .38);
 }
 
@@ -265,25 +260,25 @@ body::before {
 
 .badge-soft {
     color: var(--site-text);
-    background: rgba(72, 215, 232, .1);
-    border: 1px solid rgba(72, 215, 232, .28);
+    background: rgba(139, 92, 246, .1);
+    border: 1px solid rgba(139, 92, 246, .28);
 }
 
 .text-site-muted {
     color: var(--site-muted);
 }
 
-.text-site-cyan {
-    color: var(--site-cyan);
+.text-site-void {
+    color: var(--site-void-purple);
 }
 
 .btn-site {
     --bs-btn-color: #071018;
-    --bs-btn-bg: var(--site-cyan);
-    --bs-btn-border-color: var(--site-cyan);
+    --bs-btn-bg: var(--site-void-purple);
+    --bs-btn-border-color: var(--site-void-purple);
     --bs-btn-hover-color: #071018;
-    --bs-btn-hover-bg: #80f0ff;
-    --bs-btn-hover-border-color: #80f0ff;
+    --bs-btn-hover-bg: #c4b5fd;
+    --bs-btn-hover-border-color: #c4b5fd;
     font-weight: 800;
 }
 
@@ -298,8 +293,8 @@ body::before {
 
 .btn-filter.active {
     color: #071018;
-    background: var(--site-cyan);
-    border-color: var(--site-cyan);
+    background: var(--site-void-purple);
+    border-color: var(--site-void-purple);
 }
 
 .form-control,
@@ -321,7 +316,7 @@ body::before {
 
 .list-group-item:hover {
     color: #071018;
-    background: var(--site-cyan);
+    background: var(--site-void-purple);
 }
 
 .site-footer {
@@ -376,3 +371,4 @@ body::before {
         height: 210px;
     }
 }
+
