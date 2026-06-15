@@ -36,28 +36,8 @@
             learned: "C# scripts, objectgedrag en prototype-denken."
         }
     ],
-    anime: [
-        "86.png",
-        "devilmen crybaby.png",
-        "goblin slayer.png",
-        "terror in resonance.png",
-        "the witch end the beast.png"
-    ],
-    games: [
-        "ARK Survival.png",
-        "Bloodborne.png",
-        "Doki Doki Literature Club .png",
-        "Elden Ring.png",
-        "Far Cry 5 .png",
-        "Far Cry 5.png",
-        "Little Nightmares 2.png",
-        "Minecraft Dungeon.png",
-        "Minecraft.png",
-        "Resident evil 7.png",
-        "Subnautica Zero.png",
-        "The Forest.png",
-        "Thief simulator.png"
-    ],
+    anime: ["86.png", "devilmen crybaby.png", "goblin slayer.png", "terror in resonance.png", "the witch end the beast.png"],
+    games: ["ARK Survival.png", "Bloodborne.png", "Doki Doki Literature Club .png", "Elden Ring.png", "Far Cry 5 .png", "Far Cry 5.png", "Little Nightmares 2.png", "Minecraft Dungeon.png", "Minecraft.png", "Resident evil 7.png", "Subnautica Zero.png", "The Forest.png", "Thief simulator.png"],
     skills: [
         { name: "HTML", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", text: "Structuur voor webpagina's." },
         { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", text: "Styling, responsive design en layouts." },
@@ -89,7 +69,7 @@ function renderProjectFilters() {
         const isAll = skill === "all";
         const active = current === skill.toLowerCase() || (isAll && current === "all");
         const href = isAll ? "projects.html" : `projects.html?skill=${encodeURIComponent(skill)}`;
-        return `<a href="${href}" class="btn btn-outline-site btn-filter ${active ? "active" : ""}">${isAll ? "Alles" : skill}</a>`;
+        return `<a href="${href}" class="btn btn-sm btn-outline-site btn-filter ${active ? "active" : ""}">${isAll ? "All" : skill}</a>`;
     }).join("");
 }
 
@@ -104,7 +84,7 @@ function renderProjects() {
 
     target.innerHTML = projects.map(project => `
         <div class="col-12 col-md-6 col-xl-4">
-            <article class="card theme-card project-card h-100">
+            <article class="card theme-card project-card h-100 text-white">
                 <img src="${project.image}" class="card-img-top card-img-fixed" alt="${project.title}">
                 <div class="card-body d-flex flex-column p-4">
                     <div class="d-flex flex-wrap gap-2 mb-3">
@@ -112,8 +92,8 @@ function renderProjects() {
                     </div>
                     <h2 class="h5 card-title fw-bold">${project.title}</h2>
                     <p class="card-text text-site-muted">${project.text}</p>
-                    <div class="mt-auto pt-3 border-top">
-                        <p class="small mb-0"><strong>Geleerd:</strong> ${project.learned}</p>
+                    <div class="mt-auto pt-3 border-top border-secondary-subtle">
+                        <p class="small mb-0"><strong class="text-site-cyan">Geleerd:</strong> ${project.learned}</p>
                     </div>
                 </div>
             </article>
@@ -129,7 +109,7 @@ function renderImageGallery(selector, folder, files, badgeText) {
         const title = titleFromFile(file);
         return `
             <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-                <article class="card theme-card gallery-card h-100">
+                <article class="card theme-card gallery-card h-100 text-white">
                     <img src="assets/img/${folder}/${file}" class="card-img-top poster-img" alt="${title}">
                     <div class="card-body p-4">
                         <span class="badge badge-soft mb-2">${badgeText}</span>
@@ -147,7 +127,7 @@ function renderSkills() {
 
     target.innerHTML = data.skills.map(skill => `
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-            <a href="projects.html?skill=${encodeURIComponent(skill.name)}" class="card theme-card skill-card h-100 text-decoration-none text-site-dark">
+            <a href="projects.html?skill=${encodeURIComponent(skill.name)}" class="card theme-card skill-card h-100 text-decoration-none text-white">
                 <div class="card-body text-center p-4">
                     <img src="${skill.icon}" class="skill-icon mb-3" alt="${skill.name} logo">
                     <h2 class="h5 fw-bold mb-2">${skill.name}</h2>
