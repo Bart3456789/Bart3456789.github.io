@@ -1,50 +1,137 @@
-:root {
-    --color-light: #F4F7F3;
-    --color-beige: #B2A49F;
-    --color-accent: #DF9F4D;
-    --color-gray: #8F8E93;
-    --color-dark: #273334;
+﻿:root {
+    --site-light: #f4f7f3;
+    --site-beige: #b2a49f;
+    --site-accent: #df9f4d;
+    --site-gray: #8f8e93;
+    --site-dark: #273334;
+}
+
+@font-face {
+    font-family: "Core";
+    src: url("Core.ttf") format("truetype");
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Core", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--site-beige);
+    color: var(--site-dark);
+}
+
+.site-header,
+.site-footer {
+    background: var(--site-dark);
+}
+
+.site-border {
+    height: 4px;
+    background: var(--site-accent);
+}
+
+.logo-img {
+    width: 68px;
+    height: 44px;
+    object-fit: contain;
+}
+
+.nav-link.site-link {
+    color: var(--site-light);
+    border: 2px solid var(--site-accent);
+    border-radius: .35rem;
+    padding: .25rem .75rem;
+    line-height: 1.1;
+}
+
+.nav-link.site-link:hover,
+.nav-link.site-link.active {
+    color: var(--site-dark);
+    background: var(--site-accent);
+}
+
+.hero-img {
+    min-height: 320px;
+    max-height: 560px;
+    object-fit: cover;
+}
+
+.card-img-fixed {
+    height: 230px;
+    object-fit: cover;
+}
+
+.poster-img {
+    height: 360px;
+    object-fit: cover;
+}
+
+.about-photo {
+    height: 420px;
+    object-fit: cover;
+}
+
+.theme-card {
+    border: 0;
+    border-radius: .5rem;
+    overflow: hidden;
+    box-shadow: 0 .75rem 1.5rem rgba(39, 51, 52, .16);
+}
+
+.skill-card {
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1rem 2rem rgba(39, 51, 52, .22);
+}
+
+.skill-icon {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+}
+
+.bg-site-dark {
+    background: var(--site-dark);
+}
+
+.bg-site-light {
+    background: var(--site-light);
+}
+
+.bg-site-accent {
+    background: var(--site-accent);
+}
+
+.text-site-dark {
+    color: var(--site-dark);
+}
+
+.text-site-light {
+    color: var(--site-light);
+}
+
+.text-site-accent {
+    color: var(--site-accent);
+}
+
+.btn-site {
+    --bs-btn-color: var(--site-dark);
+    --bs-btn-bg: var(--site-accent);
+    --bs-btn-border-color: var(--site-accent);
+    --bs-btn-hover-color: var(--site-light);
+    --bs-btn-hover-bg: var(--site-dark);
+    --bs-btn-hover-border-color: var(--site-dark);
+}
+
+@media (max-width: 575.98px) {
+    .nav-link.site-link {
+        width: 100%;
+        text-align: center;
     }
 
-/* Background Colors */
-    .bg-light {
-        background-color: var(--color-light);
+    .about-photo,
+    .poster-img {
+        height: 300px;
     }
-    .bg-beige {
-        background-color: var(--color-beige);
-    }
-    .bg-accent {
-        background-color: var(--color-accent);
-    }
-    .bg-gray {
-        background-color: var(--color-gray);
-    }
-    .bg-dark {
-        background-color: var(--color-dark);
-    }
-
-/* Text Colors */
-    .light {
-        color: var(--color-light);
-    }
-    .beige {
-        color: var(--color-beige);
-    }
-    .accent {
-        color: var(--color-accent);
-    }
-    .gray {
-        color: var(--color-gray);
-    }
-    .dark {
-        color: var(--color-dark);
-    }
-
-/* Custom Font */
-    @font-face {
-        font-family: 'Core';
-        src: url('assets/Core.ttf') format('truetype');
-    }
-    .font {
-        font-family: 'Core', sans-serif;
-    }
+}
