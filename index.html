@@ -41,8 +41,9 @@
                 <h1 class="hero-title display-1 fw-black fw-bold lh-1 text-white mb-4">BART HUB</h1>
                 <p class="hero-subtitle text-uppercase fw-bold text-white-50 mb-5">Web developer, game builder & creative portfolio.</p>
                 <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
-                    <a href="projects.html" class="btn btn-void btn-lg fw-bold px-4">View work</a>
-                    <a href="skills.html" class="btn btn-outline-light btn-lg fw-bold px-4">Expertise</a>
+                    <button id="playBtn" class="btn btn-void btn-lg fw-bold px-4" onclick="openDoom()">
+                        PLAY - DOOM
+                    </button>
                 </div>
                 <div class="featured-row opacity-75">
                     <p class="small text-uppercase text-white-50 mb-3">Portfolio sections</p>
@@ -60,6 +61,83 @@
     </main>
 
     <footer class="mt-auto border-top border-secondary py-1"></footer>
+
+    <!-- Doom Overlay -->
+    <div id="doomOverlay" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.92); align-items:center; justify-content:center; flex-direction:column;">
+        <div style="position:relative; width:min(900px,96vw); background:#000; border:2px solid rgba(139,92,246,.6); border-radius:8px; box-shadow:0 0 60px rgba(139,92,246,.35); overflow:hidden;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:.5rem 1rem; background:rgba(13,23,32,.9); border-bottom:1px solid rgba(255,255,255,.1);">
+                <span style="color:#c4b5fd; font-weight:700; font-family:monospace; font-size:.9rem; letter-spacing:.1em;">// DOOM.EXE</span>
+                <button onclick="closeDoom()" style="background:none; border:none; color:#fff; font-size:1.4rem; cursor:pointer; line-height:1; padding:0 .2rem;" title="Sluiten">&times;</button>
+            </div>
+            <div style="position:relative; padding-top:62.5%;">
+                <iframe id="doomFrame" src="about:blank" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:none;"></iframe>
+            </div>
+            <div style="padding:.4rem 1rem; background:rgba(13,23,32,.9); font-size:.72rem; color:rgba(255,255,255,.4); font-family:monospace;">
+                Tip: klik in het spel om controls te activeren &mdash; ESC sluit dit venster
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .btn-play {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: .7rem;
+            padding: 1rem 3rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 900;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #fff;
+            background: transparent;
+            border: 2px solid var(--void-purple);
+            border-radius: 4px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: color .22s, box-shadow .22s;
+        }
+        .btn-play::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--void-purple);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .28s cubic-bezier(.4,0,.2,1);
+            z-index: 0;
+        }
+        .btn-play:hover::before { transform: scaleX(1); }
+        .btn-play:hover { color: #0a0414; box-shadow: 0 0 32px rgba(139,92,246,.5); }
+        .btn-play .play-icon, .btn-play span:last-child { position: relative; z-index: 1; }
+        .play-icon { font-size: 1em; line-height: 1; }
+
+        @keyframes doom-in {
+            from { opacity: 0; transform: scale(.94); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        #doomOverlay > div { animation: doom-in .22s ease; }
+    </style>
+
+    <script>
+        function openDoom() {
+            const overlay = document.getElementById('doomOverlay');
+            const frame   = document.getElementById('doomFrame');
+            frame.src = 'https://silentspacemarine.com/';
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeDoom() {
+            const overlay = document.getElementById('doomOverlay');
+            const frame   = document.getElementById('doomFrame');
+            overlay.style.display = 'none';
+            frame.src = 'about:blank';
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && document.getElementById('doomOverlay').style.display !== 'none') closeDoom();
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
