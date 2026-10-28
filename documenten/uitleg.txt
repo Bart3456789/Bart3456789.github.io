@@ -25,7 +25,7 @@ base van alle paginas:
     dat alles goed moet werken op zowel telefoons als computers. 
     De layout moet zich automatisch aanpassen aan kleinere 
     schermen zonder dat elementen overlappen of onleesbaar worden.
-    Voor dynamische pagina’s zoals “animeWatched” en “gametrophys” 
+    Voor dynamische pagina’s zoals “gametrophys” 
     wil ik dat ze eenvoudig uitbreidbaar zijn. Deze pagina’s moeten 
     gebruik maken van JavaScript om automatisch content te laden 
     uit specifieke folders. Bijvoorbeeld: afbeeldingen of kaarten 
@@ -66,9 +66,8 @@ about page:
     basisinformatie over mij, zoals mijn voornaam, achternaam, geboortejaar, de talen 
     die ik spreek, mijn hobby’s en mijn interesses. Deze informatie moet 
     overzichtelijk en goed gestructureerd worden weergegeven, zodat het makkelijk te lezen is.
-    Bij de hobby’s wil ik extra interactie toevoegen. De hobby’s “anime” en “gaming” 
-    moeten klikbaar zijn. Wanneer een bezoeker op “anime” klikt, wordt
-    hij doorgestuurd naar een aparte pagina genaamd animeWatched.html. Wanneer er op “gaming”
+    Bij de hobby’s wil ik extra interactie toevoegen. De hobby “gaming” 
+    moeten klikbaar zijn. Wanneer er op “gaming”
     wordt geklikt, moet de gebruiker worden doorgestuurd naar gameTrophy.html.
     Het doel van deze pagina is om niet alleen informatie te geven, maar
     ook een interactieve ervaring te creëren die mijn
@@ -113,23 +112,6 @@ contact page:
     dat ze contact kunnen opnemen voor vragen of samenwerkingen.
     Het belangrijkste is dat de pagina professioneel oogt, goed
     leesbaar blijft en een nette, volledige indruk geeft van de website.
-
-
-animeWatched page:
-- een pagina met alle caarten van anime die ik keek
-    *Op de “animeWatched” pagina wil ik een overzicht maken van alle
-    anime die ik heb bekeken, gepresenteerd als een visuele showcase.
-    De pagina moet automatisch alle afbeeldingen en content uit de map
-    “anime” laden en weergeven als kaarten (cards). Elke kaart stelt één
-    anime voor en bevat een afbeelding (cover/poster) die de anime herkenbaar maakt.
-    De layout moet strak en overzichtelijk zijn, zodat het voelt als een
-    persoonlijke gallery. De kaarten moeten netjes in een grid worden 
-    geplaatst, zodat ze goed schaalbaar zijn op verschillende schermformaten.
-    Het doel van deze pagina is puur een showcase: bezoekers moeten in één 
-    oogopslag kunnen zien welke anime ik heb gekeken, zonder dat er te 
-    veel tekst of afleiding is. Optioneel kan er op elke kaart later nog extra 
-    informatie worden toegevoegd, maar de focus ligt vooral op de visuele 
-    presentatie van de anime collectie uit de map.
 
 
 gametrophy page:
@@ -189,3 +171,8 @@ skills page:
 
         project 5 (game development):
             met gebruik van c# en unity een simpel prototype van een game
+
+    gametrophy page (bijgewerkt):
+        - covers komen nu van internet (Wikipedia), niet meer uit assets/img/games
+        - games en trophies pas je aan in assets/js/app.js, onder data.games
+        - per game vul je zelf in: platinum, gold, silver, bronze
