@@ -166,9 +166,9 @@ function projectCard(project, index) {
                 <span class="p-num">${pad(index + 1)}</span>
             </div>
             <div class="p-body">
+                ${project.tagline ? `<p class="p-tag">${esc(project.tagline)}</p>` : ""}
                 <h3><button type="button" class="p-open" data-open="${esc(project.id)}">${esc(project.title)}</button></h3>
-                ${project.tagline ? `<p>${esc(project.tagline)}</p>` : ""}
-                ${project.challenge ? `<p class="p-challenge"><b>Uitdaging</b>${esc(project.challenge)}</p>` : ""}
+                ${project.challenge ? `<p class="p-challenge">${esc(project.challenge)}</p>` : ""}
                 <ul class="chips">${project.tools.map(toolChip).join("")}</ul>
                 ${links ? `<div class="p-links">${links}</div>` : ""}
                 <span class="p-more">Bekijk details</span>

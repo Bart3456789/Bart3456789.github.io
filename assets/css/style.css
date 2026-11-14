@@ -245,25 +245,34 @@ main { flex: 1; padding-top: var(--nav-h); }
     transition: transform .2s, background .2s;
     animation: rise .5s both;
 }
-.p-card::before { content: ""; position: absolute; inset: 1px; z-index: -1; background: var(--panel); clip-path: inherit; }
-.p-card:hover, .p-card:focus-within { transform: translateY(-6px); background: var(--yellow); outline: none; }
-.p-media { position: relative; margin: 1px 1px 0; aspect-ratio: 16 / 9; overflow: hidden; background: #000; }
-.p-media img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .5s, filter .3s; filter: saturate(.8); }
-.p-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(7, 7, 11, .85)); }
-.p-card:hover .p-media img { transform: scale(1.05); filter: saturate(1.1) hue-rotate(-8deg); animation: img-glitch .35s steps(2) 1; }
-.p-num { position: absolute; bottom: .7rem; right: .9rem; z-index: 2; font: 900 2.2rem var(--f-display); color: rgba(255, 255, 255, .14); }
-.p-body { display: flex; flex-direction: column; gap: .7rem; flex: 1; padding: 1.3rem 1.4rem 1.4rem; }
-.p-body h3 { font-size: 1.25rem; text-transform: uppercase; }
+.p-card::before { content: ""; position: absolute; inset: 1px; z-index: -1; background: linear-gradient(180deg, #12121d, var(--panel)); clip-path: inherit; }
+.p-card:hover, .p-card:focus-within { transform: translateY(-6px); background: var(--yellow); outline: none; box-shadow: 0 18px 40px -18px rgba(252, 238, 10, .45); }
+.p-media { position: relative; margin: 1px 1px 0; aspect-ratio: 16 / 10; overflow: hidden; background: #000; border-bottom: 1px solid var(--line); }
+.p-media img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s cubic-bezier(.2, .8, .2, 1), filter .3s; }
+.p-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 65%, rgba(7, 7, 11, .55)); pointer-events: none; }
+.p-card:hover .p-media img { transform: scale(1.04); }
+.p-num {
+    position: absolute; top: 0; left: 0; z-index: 2; padding: .25rem .6rem;
+    font: 700 .72rem var(--f-mono); letter-spacing: .12em; color: #000; background: var(--yellow);
+}
+.p-num::before { content: "#"; opacity: .6; }
+.p-body { display: flex; flex-direction: column; gap: .55rem; flex: 1; padding: 1.4rem 1.5rem 1.3rem; }
+.p-tag { font: 600 .74rem var(--f-mono) !important; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan) !important; }
+.p-body h3 { font-size: 1.15rem; line-height: 1.25; text-transform: uppercase; margin: 0 0 .25rem; }
 .p-body p { color: var(--muted); margin: 0; font-size: 1.02rem; }
 /* hele kaart klikbaar via de titel-knop; links liggen erboven */
 .p-open { all: unset; cursor: pointer; }
 .p-open::after { content: ""; position: absolute; inset: 0; z-index: 1; }
 .p-open:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
-.p-challenge { font-size: .98rem !important; color: #cfd0e0 !important; }
-.p-challenge b { display: block; font: 700 .7rem var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--yellow); margin-bottom: .2rem; }
+.p-challenge {
+    font-size: .98rem; line-height: 1.5;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.p-body .chips { margin-top: auto; padding-top: .8rem; }
+.p-body .chip { font-size: .68rem; padding: .18rem .55rem; }
 .p-links { display: flex; flex-wrap: wrap; gap: .5rem; position: relative; z-index: 2; }
 
-.p-more { margin-top: auto; padding-top: .9rem; border-top: 1px dashed rgba(255, 255, 255, .12); font: 700 .78rem var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--yellow); display: flex; justify-content: space-between; }
+.p-more { padding-top: .9rem; margin-top: .4rem; border-top: 1px solid rgba(255, 255, 255, .08); font: 700 .74rem var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--yellow); display: flex; justify-content: space-between; }
 .p-more::after { content: "→"; transition: transform .2s; }
 .p-card:hover .p-more::after { transform: translateX(5px); }
 
