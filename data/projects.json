@@ -1,5 +1,5 @@
 {
-    "_uitleg": "Elk project is een blok tussen { }. Verplicht: id (uniek, kleine letters, geen spaties), title, image en tools. tools = de technieken/talen; dat is ook de categorie waarop je filtert. Een nieuwe taal (bv. \"Python\") krijgt vanzelf een filterknop en een skill-kaart. Optioneel: tagline, challenge (één zin over het probleem dat je oploste), description (lijst met alinea's), features, learned, featured (true = op de homepage), links {\"live\": \"...\", \"code\": \"...\"} (vul in, dan verschijnen er knoppen) en gallery (lijst met extra afbeeldingen). Afbeeldingen zet je in assets/img/projects/. VERTALEN: title, tagline, challenge, description, features en learned mogen een gewone tekst zijn, of per taal: {\"en\": ..., \"nl\": ..., \"pl\": ..., \"ru\": ...}. Ontbreekt een taal, dan wordt Engels getoond.",
+    "_uitleg": "Elk project is een blok tussen { }. Verplicht: id (uniek, kleine letters, geen spaties), title, image en tools. tools = de technieken/talen; dat is ook de categorie waarop je filtert. Een nieuwe taal (bv. \"Python\") krijgt vanzelf een filterknop en een skill-kaart. Optioneel: tagline, challenge (één zin over het probleem dat je oploste), description (lijst met alinea's), features, learned, featured (true = op de homepage), links {\"live\": \"...\", \"code\": \"...\"} (vul in, dan verschijnen er knoppen) en gallery (lijst met extra afbeeldingen). Afbeeldingen zet je in assets/img/projects/. VERTALEN: title, tagline, challenge, description, features en learned mogen een gewone tekst zijn, of per taal: {\"en\": ..., \"nl\": ..., \"pl\": ..., \"ru\": ...}. Ontbreekt een taal, dan wordt Engels getoond. DIFFICULTY: \"easy\", \"medium\", \"hard\" of \"extreme\". De projectenpagina sorteert van extreme naar easy en heeft een filter op moeilijkheid.",
     "projects": [
         {
             "id": "quiz",
@@ -21,6 +21,7 @@
                 "CSS",
                 "JavaScript"
             ],
+            "difficulty": "easy",
             "challenge": {
                 "en": "The whole quiz (questions, score and lifelines) runs without reloading the page. All game state is kept in JavaScript.",
                 "nl": "De hele quiz (vragen, score en jokers) draait zonder dat de pagina herlaadt. Alle game-state wordt in JavaScript bijgehouden.",
@@ -103,6 +104,7 @@
                 "CSS",
                 "JavaScript"
             ],
+            "difficulty": "medium",
             "challenge": {
                 "en": "Random reels, bets and balance have to add up after every spin. I split the win check into small, reusable functions.",
                 "nl": "Willekeurige rollen, inzet en saldo moeten na elke spin kloppen. Ik heb de winstcontrole opgedeeld in kleine, herbruikbare functies.",
@@ -186,6 +188,7 @@
                 "HTML",
                 "Bootstrap"
             ],
+            "difficulty": "hard",
             "challenge": {
                 "en": "From static pages to a real platform: users register, log in with sessions and posts are saved to and loaded from a database.",
                 "nl": "Van statische pagina's naar een echt platform: gebruikers registreren, inloggen met sessies en posts opslaan en ophalen uit een database.",
@@ -269,6 +272,7 @@
                 "HTML",
                 "Bootstrap"
             ],
+            "difficulty": "medium",
             "challenge": {
                 "en": "Every user may only see their own collections, and the page also has to work neatly when there is no data yet.",
                 "nl": "Elke gebruiker mag alleen zijn eigen verzamelingen zien, en de pagina moet ook netjes werken als er nog geen data is.",
@@ -350,6 +354,7 @@
                 "Unity",
                 "C#"
             ],
+            "difficulty": "easy",
             "challenge": {
                 "en": "Getting a playable feel with physics, colliders and input, all driven by C# scripts.",
                 "nl": "Een speelbaar gevoel krijgen met physics, colliders en input, volledig gestuurd via C#-scripts.",
