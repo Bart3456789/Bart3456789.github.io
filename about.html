@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
-<html lang="nl">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Over mij | BART//HUB</title>
-    <meta name="description" content="Over Bartosz Jaworski: achtergrond, talen, hobby's en focus.">
+    <title>About me | BART//HUB</title>
+    <meta name="description" content="About Bartosz Jaworski: background, languages, hobbies and focus.">
     <meta name="theme-color" content="#07070b">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23fcee0a' d='M0 0h24l8 8v24H8L0 24z'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='900' font-size='15' text-anchor='middle' fill='%2307070b'%3EB%3C/text%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,33 +20,33 @@
             <div class="wrap about">
                 <div>
                     <div class="slides" data-slides>
-                        <img src="assets/img/me/1.png" alt="Foto van Bartosz" class="on">
-                        <img src="assets/img/me/2.png" alt="Nog een foto van Bartosz">
+                        <img src="assets/img/me/1.png" alt="Photo of Bartosz" data-i18n-alt="about.alt1" class="on">
+                        <img src="assets/img/me/2.png" alt="Another photo of Bartosz" data-i18n-alt="about.alt2">
                     </div>
                     <div class="slide-dots" data-slide-dots></div>
                 </div>
                 <div>
-                    <p class="eyebrow"><b>04</b> Over mij</p>
-                    <h1 class="page-title">Hoi, ik ben <em>Bartosz</em></h1>
-                    <p class="lead">Developer in opleiding die graag websites, games en interactieve projecten bouwt. Ik leer het meest door gewoon te maken: een idee uitproberen, vastlopen, oplossen en verbeteren.</p>
+                    <p class="eyebrow" data-i18n="about.eyebrow"><b>04</b> About me</p>
+                    <h1 class="page-title" data-i18n="about.title">Hi, I'm <em>Bartosz</em></h1>
+                    <p class="lead" data-i18n="about.lead">Developer in training who loves building websites, games and interactive projects. I learn the most by simply making things: trying an idea, getting stuck, solving it and improving it.</p>
 
                     <div class="data-grid">
-                        <div><span>Naam</span><b>Bartosz Jaworski</b></div>
-                        <div><span>Talen</span><b>Nederlands, Engels &amp; Pools</b></div>
-                        <div><span>Hobby's</span><b>Gaming, Gym</b></div>
-                        <div><span>Focus</span><b>Web, Unity, 3D</b></div>
+                        <div><span data-i18n="about.name">Name</span><b>Bartosz Jaworski</b></div>
+                        <div><span data-i18n="about.langs">Languages</span><b data-i18n="about.langsVal">Dutch, English &amp; Polish</b></div>
+                        <div><span data-i18n="about.hobbies">Hobbies</span><b data-i18n="about.hobbiesVal">Gaming, Gym</b></div>
+                        <div><span data-i18n="about.focus">Focus</span><b>Web, Unity, 3D</b></div>
                     </div>
 
-                    <p class="label">Mijn pad</p>
+                    <p class="label" data-i18n="about.path">My path</p>
                     <ul class="timeline">
-                        <li><b>Front-end basis</b><span>HTML, CSS en JavaScript: quizzen, games en interactieve pagina's.</span></li>
-                        <li><b>Full-stack</b><span>PHP, databases en Bootstrap: logins, accounts en dynamische data.</span></li>
-                        <li><b>Game dev &amp; 3D</b><span>Prototypes in Unity met C# en modellen in Blender.</span></li>
+                        <li><b data-i18n="about.t1">Front-end basics</b><span data-i18n="about.t1d">HTML, CSS and JavaScript: quizzes, games and interactive pages.</span></li>
+                        <li><b data-i18n="about.t2">Full-stack</b><span data-i18n="about.t2d">PHP, databases and Bootstrap: logins, accounts and dynamic data.</span></li>
+                        <li><b data-i18n="about.t3">Game dev &amp; 3D</b><span data-i18n="about.t3d">Prototypes in Unity with C# and models in Blender.</span></li>
                     </ul>
 
                     <div class="hero-cta">
-                        <a href="documenten/CV_Bart.docx" download="CV_Bart.docx" class="btn">&darr; Download CV</a>
-                        <a href="contact.html" class="btn btn-ghost btn-cyan">Neem contact op</a>
+                        <a href="documenten/CV_Bart.docx" download="CV_Bart.docx" class="btn" data-i18n="about.cv">&darr; Download CV</a>
+                        <a href="contact.html" class="btn btn-ghost btn-cyan" data-i18n="about.contact">Get in touch</a>
                     </div>
                 </div>
             </div>
@@ -55,6 +55,7 @@
 
     <footer data-foot></footer>
 
+    <script src="assets/js/i18n.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>

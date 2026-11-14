@@ -13,13 +13,7 @@ const SITE = {
     formEndpoint: ""
 };
 
-const PAGES = [
-    ["index.html", "Home"],
-    ["skills.html", "Skills"],
-    ["projects.html", "Projecten"],
-    ["about.html", "Over mij"],
-    ["contact.html", "Contact"]
-];
+const PAGES = ["index", "skills", "projects", "about", "contact"];   // teksten staan in i18n.js (nav.*)
 
 // Logo's komen van devicon.dev. Skills en projecten staan in de map data/.
 const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/";
@@ -70,17 +64,21 @@ function renderChrome() {
         nav.innerHTML = `
             <div class="wrap">
                 <a class="cp-brand glitch" data-text="${SITE.brand}//${SITE.brandAccent}" href="index.html">${SITE.brand}<span>//</span>${SITE.brandAccent}<small>v2.0</small></a>
-                <button class="cp-burger" aria-label="Menu" aria-expanded="false">MENU</button>
-                <nav class="cp-links" aria-label="Hoofdmenu">
-                    ${PAGES.map(([href, label], i) => `<a href="${href}" class="${href === current ? "on" : ""}" ${href === current ? 'aria-current="page"' : ""}><i>${pad(i + 1)}</i>${label}</a>`).join("")}
+                <nav class="cp-links" aria-label="${esc(t("nav.aria"))}">
+                    ${PAGES.map((name, i) => { const href = name + ".html"; return `<a href="${href}" class="${href === current ? "on" : ""}" ${href === current ? 'aria-current="page"' : ""}><i>${pad(i + 1)}</i>${t("nav." + name)}</a>`; }).join("")}
                 </nav>
+                <div class="cp-lang" role="group" aria-label="${esc(t("lang.label"))}">
+                    ${LANGS.map(([code, short, name]) => `<button type="button" data-lang="${code}" lang="${code}" title="${esc(name)}" aria-label="${esc(name)}" aria-pressed="${code === LANG}" class="${code === LANG ? "on" : ""}">${short}</button>`).join("")}
+                </div>
+                <button class="cp-burger" aria-label="Menu" aria-expanded="false">${t("nav.menu")}</button>
             </div>`;
         const burger = $(".cp-burger", nav);
         burger.addEventListener("click", () => {
             const open = nav.classList.toggle("open");
             burger.setAttribute("aria-expanded", open);
-            burger.textContent = open ? "SLUIT" : "MENU";
+            burger.textContent = open ? t("nav.close") : t("nav.menu");
         });
+        $$("[data-lang]", nav).forEach(b => b.addEventListener("click", () => { if (b.dataset.lang !== LANG) setLang(b.dataset.lang); }));
     }
 
     const foot = $("[data-foot]");
@@ -121,6 +119,12 @@ function loadData() {
             .map((p, i) => ({
                 ...p,
                 id: p.id || "project-" + (i + 1),
+                title: tr(p.title),
+                tagline: tr(p.tagline),
+                challenge: tr(p.challenge),
+                description: tr(p.description),
+                features: tr(p.features),
+                learned: tr(p.learned),
                 tools: unique(asList(p.tools))
             }));
 
@@ -129,7 +133,7 @@ function loadData() {
         projectsCache.flatMap(p => p.tools).forEach(tool => {
             if (!skills.some(s => same(s.name, tool))) skills.push({ name: tool, auto: true });
         });
-        SKILLS = skills.map(s => ({ ...s, iconUrl: iconFor(s) }));
+        SKILLS = skills.map(s => ({ ...s, text: tr(s.text), iconUrl: iconFor(s) }));
         return projectsCache;
     })();
     return dataPromise;
@@ -140,10 +144,8 @@ const projectsWith = tool => projectsCache.filter(p => p.tools.some(t => same(t,
 function loadError(target) {
     const local = location.protocol === "file:";
     target.innerHTML = `<div class="notice" style="grid-column:1/-1">
-        &#9888; ERROR // Kon <code>${esc(SITE.projectsFile)}</code> niet laden.
-        ${local
-            ? "<br>Je opent de site als los bestand (file://). Browsers blokkeren dan het laden van JSON. Start een lokale server, bijvoorbeeld met de VS Code-extensie <code>Live Server</code>, of bekijk de site op GitHub Pages."
-            : "<br>Controleer of het bestand bestaat en geldige JSON bevat (let op komma's en aanhalingstekens)."}
+        ${t("err.load", { file: esc(SITE.projectsFile) })}
+        <br>${local ? t("err.local") : t("err.json")}
     </div>`;
 }
 
@@ -152,8 +154,8 @@ function linkButtons(project, small = false) {
     const links = project.links || {};
     const size = small ? " btn-sm" : "";
     return [
-        links.live ? `<a class="btn${size}" href="${esc(links.live)}" target="_blank" rel="noopener">&#9654; Live demo</a>` : "",
-        links.code ? `<a class="btn btn-ghost btn-cyan${size}" href="${esc(links.code)}" target="_blank" rel="noopener">&lt;/&gt; GitHub</a>` : ""
+        links.live ? `<a class="btn${size}" href="${esc(links.live)}" target="_blank" rel="noopener">${t("card.live")}</a>` : "",
+        links.code ? `<a class="btn btn-ghost btn-cyan${size}" href="${esc(links.code)}" target="_blank" rel="noopener">${t("card.code")}</a>` : ""
     ].join("");
 }
 
@@ -163,7 +165,7 @@ function projectCard(project, index) {
         <article class="p-card" style="animation-delay:${index * 70}ms">
             <div class="p-bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(project.id)}.exe</span><b class="p-num">${pad(index + 1)}</b></div>
             <div class="p-media">
-                <img src="${esc(project.image)}" alt="Screenshot van ${esc(project.title)}" loading="lazy">
+                <img src="${esc(project.image)}" alt="${esc(t("card.screenshot", { title: project.title }))}" loading="lazy">
             </div>
             <div class="p-body">
                 ${project.tagline ? `<p class="p-tag">${esc(project.tagline)}</p>` : ""}
@@ -171,7 +173,7 @@ function projectCard(project, index) {
                 ${project.challenge ? `<p class="p-challenge">${esc(project.challenge)}</p>` : ""}
                 <ul class="chips">${project.tools.map(toolChip).join("")}</ul>
                 ${links ? `<div class="p-links">${links}</div>` : ""}
-                <span class="p-more">Bekijk details</span>
+                <span class="p-more">${t("card.details")}</span>
             </div>
         </article>`;
 }
@@ -201,15 +203,15 @@ async function initProjectsPage() {
         filterBox.innerHTML = ["all", ...tools].map(tool => {
             const on = same(active, tool);
             const n = tool === "all" ? projects.length : projectsWith(tool).length;
-            return `<button type="button" class="chip chip-btn ${on ? "on" : ""}" data-filter="${esc(tool)}" aria-pressed="${on}">${tool === "all" ? "Alles" : esc(tool)}<span>${n}</span></button>`;
+            return `<button type="button" class="chip chip-btn ${on ? "on" : ""}" data-filter="${esc(tool)}" aria-pressed="${on}">${tool === "all" ? t("projects.all") : esc(tool)}<span>${n}</span></button>`;
         }).join("");
 
         grid.innerHTML = shown.length
             ? shown.map(projectCard).join("")
             : `<div class="panel empty" style="grid-column:1/-1">
-                   <h3>Nog geen projecten met ${esc(active)}</h3>
-                   <p class="muted" style="margin:.8rem 0 1.4rem">Hier komt binnenkort werk bij.</p>
-                   <button class="btn" type="button" data-filter="all">Toon alles</button>
+                   <h3>${t("projects.emptyTitle", { tool: esc(active) })}</h3>
+                   <p class="muted" style="margin:.8rem 0 1.4rem">${t("projects.emptyText")}</p>
+                   <button class="btn" type="button" data-filter="all">${t("projects.showAll")}</button>
                </div>`;
 
         bindCards(grid, shown);
@@ -260,11 +262,11 @@ function ensureModal() {
     modal.setAttribute("aria-labelledby", "modal-title");
     modal.innerHTML = `
         <div class="modal-shell"><div class="modal-inner">
-            <div class="modal-bar"><span data-m-file></span><button class="modal-close" type="button" data-m-close aria-label="Sluiten">&times;</button></div>
+            <div class="modal-bar"><span data-m-file></span><button class="modal-close" type="button" data-m-close aria-label="${esc(t("modal.close"))}">&times;</button></div>
             <div class="modal-scroll" data-m-body></div>
             <div class="modal-nav">
-                <button type="button" data-m-prev>&larr; Vorige</button>
-                <button type="button" data-m-next>Volgende &rarr;</button>
+                <button type="button" data-m-prev>${t("modal.prev")}</button>
+                <button type="button" data-m-next>${t("modal.next")}</button>
             </div>
         </div></div>`;
     document.body.appendChild(modal);
@@ -324,26 +326,26 @@ function fillModal() {
     $("[data-m-body]", modal).innerHTML = `
         <div class="modal-top">
             <div>
-                <div class="modal-img"><img src="${esc(images[0])}" alt="Screenshot van ${esc(p.title)}" data-m-main></div>
-                ${images.length > 1 ? `<div class="thumbs">${images.map((src, i) => `<button type="button" class="${i === 0 ? "on" : ""}" data-m-thumb="${esc(src)}" aria-label="Afbeelding ${i + 1}"><img src="${esc(src)}" alt=""></button>`).join("")}</div>` : ""}
+                <div class="modal-img"><img src="${esc(images[0])}" alt="${esc(t("card.screenshot", { title: p.title }))}" data-m-main></div>
+                ${images.length > 1 ? `<div class="thumbs">${images.map((src, i) => `<button type="button" class="${i === 0 ? "on" : ""}" data-m-thumb="${esc(src)}" aria-label="${esc(t("modal.image", { n: i + 1 }))}"><img src="${esc(src)}" alt=""></button>`).join("")}</div>` : ""}
             </div>
             <div>
                 <h2 id="modal-title">${esc(p.title)}</h2>
                 ${p.tagline ? `<p class="modal-tagline">&gt; ${esc(p.tagline)}</p>` : ""}
-                <p class="label">Gebouwd met</p>
+                <p class="label">${t("modal.built")}</p>
                 <ul class="chips">${p.tools.map(toolChip).join("")}</ul>
                 ${linkBtns ? `<div class="modal-links">${linkBtns}</div>` : ""}
-                ${p.challenge ? `<p class="label" style="margin-top:1.4rem">Probleem dat ik oploste</p><div class="learned">${esc(p.challenge)}</div>` : ""}
+                ${p.challenge ? `<p class="label" style="margin-top:1.4rem">${t("modal.challenge")}</p><div class="learned">${esc(p.challenge)}</div>` : ""}
             </div>
         </div>
         <div class="modal-cols">
             <div class="modal-desc">
-                <p class="label">Over het project</p>
-                ${desc.length ? desc.map(t => `<p>${esc(t)}</p>`).join("") : `<p class="muted">Nog geen beschrijving.</p>`}
+                <p class="label">${t("modal.about")}</p>
+                ${desc.length ? desc.map(t => `<p>${esc(t)}</p>`).join("") : `<p class="muted">${t("modal.noDesc")}</p>`}
             </div>
             <div>
-                ${feats.length ? `<p class="label">Features</p><ul class="feat">${feats.map(f => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
-                ${p.learned ? `<p class="label">Wat ik leerde</p><div class="learned">${esc(p.learned)}</div>` : ""}
+                ${feats.length ? `<p class="label">${t("modal.features")}</p><ul class="feat">${feats.map(f => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
+                ${p.learned ? `<p class="label">${t("modal.learned")}</p><div class="learned">${esc(p.learned)}</div>` : ""}
             </div>
         </div>`;
 
@@ -374,7 +376,7 @@ async function initSkills() {
 
     target.innerHTML = SKILLS.map((skill, index) => {
         const n = countFor(skill.name);
-        const text = skill.text || (skill.auto ? `Gebruikt in: ${projectsWith(skill.name).map(p => p.title).join(", ")}.` : "");
+        const text = skill.text || (skill.auto ? t("skills.usedIn", { list: projectsWith(skill.name).map(p => p.title).join(", ") }) : "");
         const i = index + 1;
         return `
             <a class="s-card" href="projects.html?skill=${encodeURIComponent(skill.name)}" style="animation-delay:${i * 50}ms">
@@ -385,7 +387,7 @@ async function initSkills() {
                 <h3>${esc(skill.name)}</h3>
                 ${text ? `<p>${esc(text)}</p>` : ""}
                 <div class="s-bar"><i style="width:${n ? Math.max(12, n / max * 100) : 4}%"></i></div>
-                <div class="s-meta"><span>${n} project${n === 1 ? "" : "en"}</span><span>Bekijk &rarr;</span></div>
+                <div class="s-meta"><span>${(PLURAL_PROJECTS[LANG] || PLURAL_PROJECTS.en)(n)}</span><span>${t("skills.view")}</span></div>
             </a>`;
     }).join("");
 
@@ -403,7 +405,7 @@ async function initSkills() {
 function initTypewriter() {
     const el = $("[data-words]");
     if (!el) return;
-    const words = ["websites", "games", "web-apps", "3D-werelden"];
+    const words = t("hero.words");
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let w = 0, c = words[0].length, deleting = true, wait = 14;
     setInterval(() => {
@@ -434,7 +436,7 @@ function initSlides() {
     const dots = $("[data-slide-dots]");
     if (imgs.length < 2) { imgs[0]?.classList.add("on"); return; }
     let i = 0, timer;
-    dots.innerHTML = imgs.map((_, n) => `<button type="button" aria-label="Foto ${n + 1}"></button>`).join("");
+    dots.innerHTML = imgs.map((_, n) => `<button type="button" aria-label="${esc(t("about.photo", { n: n + 1 }))}"></button>`).join("");
     const dotBtns = $$("button", dots);
     const show = n => {
         i = (n + imgs.length) % imgs.length;
@@ -452,8 +454,8 @@ function initSlides() {
 function initCopyEmail() {
     $$("[data-copy-email]").forEach(button => button.addEventListener("click", async () => {
         const original = button.textContent;
-        try { await navigator.clipboard.writeText(SITE.email); button.textContent = "Gekopieerd ✓"; }
-        catch (e) { window.prompt("Kopieer het e-mailadres:", SITE.email); return; }
+        try { await navigator.clipboard.writeText(SITE.email); button.textContent = t("contact.copied"); }
+        catch (e) { window.prompt(t("contact.copyPrompt"), SITE.email); return; }
         setTimeout(() => { button.textContent = original; }, 2000);
     }));
 }
@@ -467,8 +469,8 @@ function initContactForm() {
     const useEndpoint = Boolean(SITE.formEndpoint);
 
     if (!useEndpoint) {
-        button.textContent = "Open mail ▸";
-        hint.textContent = "Opent je mailprogramma met je bericht al ingevuld.";
+        button.textContent = t("form.openMail");
+        hint.textContent = t("form.hint");
     }
     const show = (type, html) => { status.innerHTML = `<div class="${type}" role="alert">${html}</div>`; };
     const mailLink = `<a href="mailto:${SITE.email}">${SITE.email}</a>`;
@@ -485,16 +487,16 @@ function initContactForm() {
         const message = form.elements.message.value.trim();
 
         if (!useEndpoint) {
-            const subject = `Portfolio contact van ${name}`;
+            const subject = t("form.subject", { name });
             const body = `${message}\n\n--\n${name}\n${email}`;
             location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            show("info", `Je mailprogramma wordt geopend. Gebeurt er niets? Mail dan direct naar ${mailLink}.`);
+            show("info", t("form.opening", { mail: mailLink }));
             return;
         }
 
         const label = button.textContent;
         button.disabled = true;
-        button.textContent = "Versturen...";
+        button.textContent = t("form.sending");
         try {
             const response = await fetch(SITE.formEndpoint, {
                 method: "POST",
@@ -504,9 +506,9 @@ function initContactForm() {
             if (!response.ok) throw new Error("HTTP " + response.status);
             form.reset();
             form.classList.remove("validated");
-            show("ok", "Bericht verstuurd. Ik neem snel contact met je op.");
+            show("ok", t("form.ok"));
         } catch (e) {
-            show("bad", `Versturen is mislukt. Probeer het later opnieuw of mail direct naar ${mailLink}.`);
+            show("bad", t("form.bad", { mail: mailLink }));
         } finally {
             button.disabled = false;
             button.textContent = label;
@@ -524,9 +526,9 @@ function initDoom() {
     dlg.className = "modal doom";
     dlg.innerHTML = `
         <div class="modal-shell"><div class="modal-inner">
-            <div class="modal-bar"><span>// doom.exe</span><button class="modal-close" type="button" aria-label="Sluiten">&times;</button></div>
+            <div class="modal-bar"><span>// doom.exe</span><button class="modal-close" type="button" aria-label="${esc(t("modal.close"))}">&times;</button></div>
             <div class="doom-screen"><iframe title="DOOM" src="about:blank" allowfullscreen></iframe></div>
-            <div class="doom-tip">Klik in het spel om de controls te activeren — ESC sluit dit venster.</div>
+            <div class="doom-tip">${t("doom.tip")}</div>
         </div></div>`;
     document.body.appendChild(dlg);
     const frame = $("iframe", dlg);
@@ -550,6 +552,7 @@ function initDoom() {
 // =====================================================================
 //  START
 // =====================================================================
+applyI18n();
 renderChrome();
 initTypewriter();
 initTicker();
