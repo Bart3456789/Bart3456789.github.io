@@ -1,417 +1,114 @@
 {
-    "_uitleg": "Elk project is een blok tussen { }. Verplicht: id (uniek, kleine letters, geen spaties), title, image en tools. tools = de technieken/talen; dat is ook de categorie waarop je filtert. Een nieuwe taal (bv. \"Python\") krijgt vanzelf een filterknop en een skill-kaart. Optioneel: tagline, challenge (één zin over het probleem dat je oploste), description (lijst met alinea's), features, learned, featured (true = op de homepage), links {\"live\": \"...\", \"code\": \"...\"} (vul in, dan verschijnen er knoppen) en gallery (lijst met extra afbeeldingen). Afbeeldingen zet je in assets/img/projects/. VERTALEN: title, tagline, challenge, description, features en learned mogen een gewone tekst zijn, of per taal: {\"en\": ..., \"nl\": ..., \"pl\": ..., \"ru\": ...}. Ontbreekt een taal, dan wordt Engels getoond. DIFFICULTY: \"easy\", \"medium\", \"hard\" of \"extreme\". De projectenpagina sorteert van extreme naar easy en heeft een filter op moeilijkheid.",
+    "_uitleg": "Elk project is een blok tussen { }. Verplicht: id (uniek, kleine letters, geen spaties), title, image en tools. tools = de technieken/talen; dat is ook de categorie waarop je filtert. Een nieuwe taal (bv. \"Python\") krijgt vanzelf een filterknop en een skill-kaart. difficulty = \"easy\", \"medium\", \"hard\" of \"extreme\" (de projectenpagina sorteert van extreme naar easy). Optioneel: tagline, challenge (één zin over het probleem dat je oploste), description (lijst met alinea's), features, learned, featured (true = op de homepage), links {\"live\": \"...\", \"code\": \"...\"} (vul in, dan verschijnen er knoppen) en gallery (lijst met extra afbeeldingen). Afbeeldingen zet je in assets/img/projects/.",
     "projects": [
         {
             "id": "quiz",
-            "title": {
-                "en": "Mythology Quiz",
-                "nl": "Mythologie Quiz",
-                "pl": "Quiz mitologiczny",
-                "ru": "Викторина по мифологии"
-            },
-            "tagline": {
-                "en": "Interactive quiz with lifelines and a score",
-                "nl": "Interactieve quiz met jokers en score",
-                "pl": "Interaktywny quiz z kołami ratunkowymi i punktacją",
-                "ru": "Интерактивная викторина с подсказками и счётом"
-            },
+            "title": "Mythology Quiz",
+            "tagline": "Interactive quiz with lifelines and a score",
             "image": "assets/img/projects/project1.png",
-            "tools": [
-                "HTML",
-                "CSS",
-                "JavaScript"
-            ],
+            "tools": ["HTML", "CSS", "JavaScript"],
             "difficulty": "easy",
-            "challenge": {
-                "en": "The whole quiz (questions, score and lifelines) runs without reloading the page. All game state is kept in JavaScript.",
-                "nl": "De hele quiz (vragen, score en jokers) draait zonder dat de pagina herlaadt. Alle game-state wordt in JavaScript bijgehouden.",
-                "pl": "Cały quiz (pytania, punkty i koła ratunkowe) działa bez przeładowania strony. Cały stan gry jest przechowywany w JavaScripcie.",
-                "ru": "Вся викторина (вопросы, счёт и подсказки) работает без перезагрузки страницы. Всё состояние игры хранится в JavaScript."
-            },
-            "description": {
-                "en": [
-                    "A quiz page about Slavic mythology. The player gets a question with four answer options each time and immediately sees whether the answer was right or wrong.",
-                    "To make it more exciting, the quiz has a 50/50 lifeline that removes two wrong answers. The questions, the score and the lifelines are all managed with JavaScript, so the page itself never has to reload."
-                ],
-                "nl": [
-                    "Een quizpagina over Slavische mythologie. De speler krijgt steeds een vraag met vier antwoordopties en ziet direct of het antwoord goed of fout was.",
-                    "Om het spannender te maken heeft de quiz een 50/50-joker die twee foute antwoorden wegstreept. De vragen, de score en de jokers worden allemaal met JavaScript beheerd, zodat de pagina zelf nooit hoeft te herladen."
-                ],
-                "pl": [
-                    "Strona z quizem o mitologii słowiańskiej. Gracz za każdym razem dostaje pytanie z czterema odpowiedziami i od razu widzi, czy odpowiedź była dobra, czy zła.",
-                    "Żeby było ciekawiej, quiz ma koło ratunkowe 50/50, które usuwa dwie błędne odpowiedzi. Pytania, wynik i koła ratunkowe są obsługiwane w JavaScripcie, więc strona nigdy nie musi się przeładowywać."
-                ],
-                "ru": [
-                    "Страница с викториной о славянской мифологии. Игрок каждый раз получает вопрос с четырьмя вариантами ответа и сразу видит, верный ответ или нет.",
-                    "Чтобы было интереснее, в викторине есть подсказка 50/50, которая убирает два неверных ответа. Вопросы, счёт и подсказки управляются через JavaScript, поэтому страница никогда не перезагружается."
-                ]
-            },
-            "features": {
-                "en": [
-                    "Questions and answers loaded into the page dynamically",
-                    "50/50 lifeline with a limited number of uses",
-                    "Score keeping and instant feedback on every answer",
-                    "Glowing buttons and a gradient background in CSS"
-                ],
-                "nl": [
-                    "Vragen en antwoorden dynamisch in de pagina geladen",
-                    "50/50-joker met een beperkt aantal keer gebruiken",
-                    "Scoretelling en directe feedback per antwoord",
-                    "Gloeiende knoppen en een gradient-achtergrond in CSS"
-                ],
-                "pl": [
-                    "Pytania i odpowiedzi ładowane dynamicznie na stronę",
-                    "Koło ratunkowe 50/50 z ograniczoną liczbą użyć",
-                    "Liczenie punktów i natychmiastowa informacja zwrotna",
-                    "Świecące przyciski i gradientowe tło w CSS"
-                ],
-                "ru": [
-                    "Вопросы и ответы загружаются на страницу динамически",
-                    "Подсказка 50/50 с ограниченным числом использований",
-                    "Подсчёт очков и мгновенная обратная связь на каждый ответ",
-                    "Светящиеся кнопки и градиентный фон на CSS"
-                ]
-            },
-            "learned": {
-                "en": "How to use JavaScript events, the DOM and a simple game state to build a complete user flow: from question to answer to score.",
-                "nl": "Hoe je met JavaScript events, de DOM en een simpele game-state een complete user flow bouwt: van vraag naar antwoord naar score.",
-                "pl": "Jak za pomocą zdarzeń JavaScript, DOM i prostego stanu gry zbudować pełną ścieżkę użytkownika: od pytania, przez odpowiedź, do wyniku.",
-                "ru": "Как с помощью событий JavaScript, DOM и простого состояния игры построить полный пользовательский сценарий: от вопроса к ответу и к счёту."
-            },
+            "challenge": "The whole quiz (questions, score and lifelines) runs without reloading the page. All game state is kept in JavaScript.",
+            "description": [
+                "A quiz page about Slavic mythology. The player gets a question with four answer options each time and immediately sees whether the answer was right or wrong.",
+                "To make it more exciting, the quiz has a 50/50 lifeline that removes two wrong answers. The questions, the score and the lifelines are all managed with JavaScript, so the page itself never has to reload."
+            ],
+            "features": [
+                "Questions and answers loaded into the page dynamically",
+                "50/50 lifeline with a limited number of uses",
+                "Score keeping and instant feedback on every answer",
+                "Glowing buttons and a gradient background in CSS"
+            ],
+            "learned": "How to use JavaScript events, the DOM and a simple game state to build a complete user flow: from question to answer to score.",
             "featured": true,
-            "links": {
-                "live": "",
-                "code": ""
-            }
+            "links": { "live": "", "code": "" }
         },
         {
             "id": "slotmachine",
-            "title": {
-                "en": "GoldenGrin Slot Machine",
-                "nl": "GoldenGrin Slot Machine",
-                "pl": "Automat GoldenGrin",
-                "ru": "Игровой автомат GoldenGrin"
-            },
-            "tagline": {
-                "en": "Browser game with bets, balance and spins",
-                "nl": "Browsergame met inzet, saldo en spins",
-                "pl": "Gra w przeglądarce z zakładami, saldem i spinami",
-                "ru": "Браузерная игра со ставками, балансом и вращениями"
-            },
+            "title": "GoldenGrin Slot Machine",
+            "tagline": "Browser game with bets, balance and spins",
             "image": "assets/img/projects/project2.png",
-            "tools": [
-                "HTML",
-                "CSS",
-                "JavaScript"
-            ],
+            "tools": ["HTML", "CSS", "JavaScript"],
             "difficulty": "medium",
-            "challenge": {
-                "en": "Random reels, bets and balance have to add up after every spin. I split the win check into small, reusable functions.",
-                "nl": "Willekeurige rollen, inzet en saldo moeten na elke spin kloppen. Ik heb de winstcontrole opgedeeld in kleine, herbruikbare functies.",
-                "pl": "Losowe bębny, zakłady i saldo muszą się zgadzać po każdym spinie. Sprawdzanie wygranej podzieliłem na małe funkcje wielokrotnego użytku.",
-                "ru": "Случайные барабаны, ставки и баланс должны сходиться после каждого вращения. Проверку выигрыша я разбил на маленькие переиспользуемые функции."
-            },
-            "description": {
-                "en": [
-                    "GoldenGrin is a slot machine that runs entirely in the browser. You start with a balance, choose how much to bet and spin the three reels.",
-                    "After every spin the game checks whether the symbols form a winning combination and updates the balance. There is also a separate page with the rules."
-                ],
-                "nl": [
-                    "GoldenGrin is een slotmachine die volledig in de browser draait. Je begint met een saldo, kiest hoeveel je inzet en laat de drie rollen draaien.",
-                    "Na elke spin controleert het spel of de symbolen een winnende combinatie vormen en wordt het saldo bijgewerkt. Er is ook een aparte pagina met de spelregels."
-                ],
-                "pl": [
-                    "GoldenGrin to automat do gry, który działa w całości w przeglądarce. Zaczynasz z saldem, wybierasz stawkę i kręcisz trzema bębnami.",
-                    "Po każdym spinie gra sprawdza, czy symbole tworzą zwycięską kombinację, i aktualizuje saldo. Jest też osobna strona z zasadami gry."
-                ],
-                "ru": [
-                    "GoldenGrin — игровой автомат, который полностью работает в браузере. Вы начинаете с баланса, выбираете ставку и запускаете три барабана.",
-                    "После каждого вращения игра проверяет, образуют ли символы выигрышную комбинацию, и обновляет баланс. Есть и отдельная страница с правилами."
-                ]
-            },
-            "features": {
-                "en": [
-                    "Three reels with random symbols",
-                    "Betting system with balance and 'add money'",
-                    "Win check after every spin",
-                    "Separate page with the rules"
-                ],
-                "nl": [
-                    "Drie rollen met willekeurige symbolen",
-                    "Inzet-systeem met saldo en 'add money'",
-                    "Winstcontrole na elke spin",
-                    "Aparte pagina met de spelregels"
-                ],
-                "pl": [
-                    "Trzy bębny z losowymi symbolami",
-                    "System zakładów z saldem i opcją 'add money'",
-                    "Sprawdzanie wygranej po każdym spinie",
-                    "Osobna strona z zasadami"
-                ],
-                "ru": [
-                    "Три барабана со случайными символами",
-                    "Система ставок с балансом и кнопкой 'add money'",
-                    "Проверка выигрыша после каждого вращения",
-                    "Отдельная страница с правилами"
-                ]
-            },
-            "learned": {
-                "en": "Working with randomness, timing and game states, and splitting my code into small reusable functions.",
-                "nl": "Werken met willekeur, timing en game states, en mijn code opdelen in kleine herbruikbare functies.",
-                "pl": "Praca z losowością, czasem i stanami gry oraz dzielenie kodu na małe funkcje wielokrotnego użytku.",
-                "ru": "Работа со случайностью, таймингом и состояниями игры, а также разделение кода на маленькие переиспользуемые функции."
-            },
+            "challenge": "Random reels, bets and balance have to add up after every spin. I split the win check into small, reusable functions.",
+            "description": [
+                "GoldenGrin is a slot machine that runs entirely in the browser. You start with a balance, choose how much to bet and spin the three reels.",
+                "After every spin the game checks whether the symbols form a winning combination and updates the balance. There is also a separate page with the rules."
+            ],
+            "features": [
+                "Three reels with random symbols",
+                "Betting system with balance and 'add money'",
+                "Win check after every spin",
+                "Separate page with the rules"
+            ],
+            "learned": "Working with randomness, timing and game states, and splitting my code into small reusable functions.",
             "featured": true,
-            "links": {
-                "live": "",
-                "code": ""
-            }
+            "links": { "live": "", "code": "" }
         },
         {
             "id": "mon-in",
-            "title": {
-                "en": "Mon-IN",
-                "nl": "Mon-IN",
-                "pl": "Mon-IN",
-                "ru": "Mon-IN"
-            },
-            "tagline": {
-                "en": "Social platform with accounts and posts",
-                "nl": "Social platform met accounts en posts",
-                "pl": "Platforma społecznościowa z kontami i postami",
-                "ru": "Социальная платформа с аккаунтами и постами"
-            },
+            "title": "Mon-IN",
+            "tagline": "Social platform with accounts and posts",
             "image": "assets/img/projects/project3.png",
-            "tools": [
-                "PHP",
-                "Database",
-                "HTML",
-                "Bootstrap"
-            ],
+            "tools": ["PHP", "Database", "HTML", "Bootstrap"],
             "difficulty": "hard",
-            "challenge": {
-                "en": "From static pages to a real platform: users register, log in with sessions and posts are saved to and loaded from a database.",
-                "nl": "Van statische pagina's naar een echt platform: gebruikers registreren, inloggen met sessies en posts opslaan en ophalen uit een database.",
-                "pl": "Od statycznych stron do prawdziwej platformy: użytkownicy rejestrują się, logują przez sesje, a posty są zapisywane i pobierane z bazy danych.",
-                "ru": "От статичных страниц к настоящей платформе: пользователи регистрируются, входят через сессии, а посты сохраняются в базе данных и загружаются из неё."
-            },
-            "description": {
-                "en": [
-                    "Mon-IN is a small social platform in the style of a professional network. Users can register, log in and publish posts that appear in a timeline.",
-                    "Every post shows the name, job title, date and number of likes. All data is stored in a database and processed server-side with PHP."
-                ],
-                "nl": [
-                    "Mon-IN is een klein social platform in de stijl van een zakelijk netwerk. Gebruikers kunnen zich registreren, inloggen en berichten plaatsen die in een tijdlijn verschijnen.",
-                    "Elke post toont de naam, functie, datum en het aantal likes. Alle gegevens worden opgeslagen in een database en server-side met PHP verwerkt."
-                ],
-                "pl": [
-                    "Mon-IN to mała platforma społecznościowa w stylu sieci zawodowej. Użytkownicy mogą się zarejestrować, zalogować i publikować posty, które pojawiają się na osi czasu.",
-                    "Każdy post pokazuje imię, stanowisko, datę i liczbę polubień. Wszystkie dane są zapisywane w bazie danych i przetwarzane po stronie serwera w PHP."
-                ],
-                "ru": [
-                    "Mon-IN — небольшая социальная платформа в стиле профессиональной сети. Пользователи могут зарегистрироваться, войти и публиковать посты, которые появляются в ленте.",
-                    "Каждый пост показывает имя, должность, дату и количество лайков. Все данные хранятся в базе данных и обрабатываются на сервере с помощью PHP."
-                ]
-            },
-            "features": {
-                "en": [
-                    "Register and log in with sessions",
-                    "Timeline with posts, profile pictures and dates",
-                    "Like system per post",
-                    "Responsive layout with Bootstrap"
-                ],
-                "nl": [
-                    "Registreren en inloggen met sessies",
-                    "Tijdlijn met posts, profielfoto's en datums",
-                    "Like-systeem per post",
-                    "Responsive layout met Bootstrap"
-                ],
-                "pl": [
-                    "Rejestracja i logowanie z sesjami",
-                    "Oś czasu z postami, zdjęciami profilowymi i datami",
-                    "System polubień dla każdego posta",
-                    "Responsywny układ z Bootstrapem"
-                ],
-                "ru": [
-                    "Регистрация и вход с сессиями",
-                    "Лента с постами, фото профиля и датами",
-                    "Система лайков для каждого поста",
-                    "Адаптивная вёрстка на Bootstrap"
-                ]
-            },
-            "learned": {
-                "en": "The step from static pages to a dynamic website: handling forms, managing users and saving and loading data from a database.",
-                "nl": "De stap van statische pagina's naar een dynamische website: formulieren verwerken, gebruikers beheren en data opslaan en ophalen uit een database.",
-                "pl": "Krok od statycznych stron do dynamicznej witryny: obsługa formularzy, zarządzanie użytkownikami oraz zapisywanie i pobieranie danych z bazy.",
-                "ru": "Переход от статичных страниц к динамическому сайту: обработка форм, управление пользователями, сохранение и загрузка данных из базы."
-            },
+            "challenge": "From static pages to a real platform: users register, log in with sessions and posts are saved to and loaded from a database.",
+            "description": [
+                "Mon-IN is a small social platform in the style of a professional network. Users can register, log in and publish posts that appear in a timeline.",
+                "Every post shows the name, job title, date and number of likes. All data is stored in a database and processed server-side with PHP."
+            ],
+            "features": [
+                "Register and log in with sessions",
+                "Timeline with posts, profile pictures and dates",
+                "Like system per post",
+                "Responsive layout with Bootstrap"
+            ],
+            "learned": "The step from static pages to a dynamic website: handling forms, managing users and saving and loading data from a database.",
             "featured": true,
-            "links": {
-                "live": "",
-                "code": ""
-            }
+            "links": { "live": "", "code": "" }
         },
         {
             "id": "collectables",
-            "title": {
-                "en": "Collectables",
-                "nl": "Collectables",
-                "pl": "Collectables",
-                "ru": "Collectables"
-            },
-            "tagline": {
-                "en": "Manage collections after logging in",
-                "nl": "Verzamelingen beheren na het inloggen",
-                "pl": "Zarządzanie kolekcjami po zalogowaniu",
-                "ru": "Управление коллекциями после входа"
-            },
+            "title": "Collectables",
+            "tagline": "Manage collections after logging in",
             "image": "assets/img/projects/project4.png",
-            "tools": [
-                "PHP",
-                "Database",
-                "HTML",
-                "Bootstrap"
-            ],
+            "tools": ["PHP", "Database", "HTML", "Bootstrap"],
             "difficulty": "medium",
-            "challenge": {
-                "en": "Every user may only see their own collections, and the page also has to work neatly when there is no data yet.",
-                "nl": "Elke gebruiker mag alleen zijn eigen verzamelingen zien, en de pagina moet ook netjes werken als er nog geen data is.",
-                "pl": "Każdy użytkownik może widzieć tylko swoje kolekcje, a strona musi też dobrze działać, gdy nie ma jeszcze żadnych danych.",
-                "ru": "Каждый пользователь видит только свои коллекции, и страница должна аккуратно работать, даже когда данных ещё нет."
-            },
-            "description": {
-                "en": [
-                    "A web application where logged-in users can create and view their own collections. Think of cards, figures or other collectibles.",
-                    "The items are loaded from the database and shown as clear cards. Every user only sees their own collections."
-                ],
-                "nl": [
-                    "Een webapplicatie waarin ingelogde gebruikers hun eigen verzamelingen kunnen aanmaken en bekijken. Denk aan kaarten, figuren of andere collectibles.",
-                    "De items worden uit de database opgehaald en als overzichtelijke kaarten getoond. Elke gebruiker ziet alleen zijn eigen verzamelingen."
-                ],
-                "pl": [
-                    "Aplikacja webowa, w której zalogowani użytkownicy mogą tworzyć i przeglądać własne kolekcje, np. karty, figurki lub inne przedmioty kolekcjonerskie.",
-                    "Elementy są pobierane z bazy danych i wyświetlane jako przejrzyste karty. Każdy użytkownik widzi tylko swoje kolekcje."
-                ],
-                "ru": [
-                    "Веб-приложение, в котором вошедшие пользователи могут создавать и просматривать свои коллекции: карточки, фигурки и другие предметы коллекционирования.",
-                    "Элементы загружаются из базы данных и отображаются в виде аккуратных карточек. Каждый пользователь видит только свои коллекции."
-                ]
-            },
-            "features": {
-                "en": [
-                    "Login with a personal greeting",
-                    "Create new collections",
-                    "Items from the database shown as cards",
-                    "Empty-state message when there is nothing yet"
-                ],
-                "nl": [
-                    "Login met persoonlijke begroeting",
-                    "Nieuwe verzamelingen aanmaken",
-                    "Items uit de database getoond als cards",
-                    "Lege-staat melding als er nog niets is"
-                ],
-                "pl": [
-                    "Logowanie z osobistym powitaniem",
-                    "Tworzenie nowych kolekcji",
-                    "Elementy z bazy danych pokazane jako karty",
-                    "Komunikat, gdy kolekcja jest jeszcze pusta"
-                ],
-                "ru": [
-                    "Вход с персональным приветствием",
-                    "Создание новых коллекций",
-                    "Элементы из базы данных в виде карточек",
-                    "Сообщение, когда коллекций ещё нет"
-                ]
-            },
-            "learned": {
-                "en": "Loading, structuring and presenting data, and thinking about what a user sees when there is no data yet.",
-                "nl": "Data ophalen, structureren en presenteren, en nadenken over wat een gebruiker ziet als er nog geen data is.",
-                "pl": "Pobieranie, porządkowanie i prezentowanie danych oraz myślenie o tym, co widzi użytkownik, gdy danych jeszcze nie ma.",
-                "ru": "Загрузка, структурирование и показ данных, а также продумывание того, что видит пользователь, когда данных ещё нет."
-            },
+            "challenge": "Every user may only see their own collections, and the page also has to work neatly when there is no data yet.",
+            "description": [
+                "A web application where logged-in users can create and view their own collections. Think of cards, figures or other collectibles.",
+                "The items are loaded from the database and shown as clear cards. Every user only sees their own collections."
+            ],
+            "features": [
+                "Login with a personal greeting",
+                "Create new collections",
+                "Items from the database shown as cards",
+                "Empty-state message when there is nothing yet"
+            ],
+            "learned": "Loading, structuring and presenting data, and thinking about what a user sees when there is no data yet.",
             "featured": false,
-            "links": {
-                "live": "",
-                "code": ""
-            }
+            "links": { "live": "", "code": "" }
         },
         {
             "id": "unity-platformer",
-            "title": {
-                "en": "Unity Platformer",
-                "nl": "Unity Platformer",
-                "pl": "Platformówka w Unity",
-                "ru": "Платформер на Unity"
-            },
-            "tagline": {
-                "en": "2D prototype with movement and platforms",
-                "nl": "2D-prototype met beweging en platforms",
-                "pl": "Prototyp 2D z ruchem i platformami",
-                "ru": "2D-прототип с движением и платформами"
-            },
+            "title": "Unity Platformer",
+            "tagline": "2D prototype with movement and platforms",
             "image": "assets/img/projects/project5.png",
-            "tools": [
-                "Unity",
-                "C#"
-            ],
+            "tools": ["Unity", "C#"],
             "difficulty": "easy",
-            "challenge": {
-                "en": "Getting a playable feel with physics, colliders and input, all driven by C# scripts.",
-                "nl": "Een speelbaar gevoel krijgen met physics, colliders en input, volledig gestuurd via C#-scripts.",
-                "pl": "Uzyskanie grywalnego wrażenia dzięki fizyce, colliderom i sterowaniu, w całości obsługiwanym przez skrypty C#.",
-                "ru": "Добиться ощущения живой игры с помощью физики, коллайдеров и управления, полностью на скриптах C#."
-            },
-            "description": {
-                "en": [
-                    "My first game prototype in Unity: a simple 2D platformer where the player can walk and jump between platforms.",
-                    "The focus was not on graphics but on the basics: physics, input and the behaviour of objects through C# scripts."
-                ],
-                "nl": [
-                    "Mijn eerste game-prototype in Unity: een simpele 2D-platformer waarin de speler kan lopen en springen tussen platforms.",
-                    "De focus lag niet op graphics maar op de basis: physics, input en het gedrag van objecten via C#-scripts."
-                ],
-                "pl": [
-                    "Mój pierwszy prototyp gry w Unity: prosta platformówka 2D, w której gracz może chodzić i skakać między platformami.",
-                    "Nie skupiałem się na grafice, tylko na podstawach: fizyce, sterowaniu i zachowaniu obiektów przez skrypty C#."
-                ],
-                "ru": [
-                    "Мой первый игровой прототип в Unity: простой 2D-платформер, где игрок может ходить и прыгать между платформами.",
-                    "Упор был не на графику, а на основы: физику, управление и поведение объектов через скрипты C#."
-                ]
-            },
-            "features": {
-                "en": [
-                    "Player movement and jumping with physics",
-                    "Platforms with colliders",
-                    "C# scripts for input and behaviour"
-                ],
-                "nl": [
-                    "Speler-beweging en springen met physics",
-                    "Platforms met colliders",
-                    "C#-scripts voor input en gedrag"
-                ],
-                "pl": [
-                    "Ruch i skakanie gracza z fizyką",
-                    "Platformy z colliderami",
-                    "Skrypty C# do sterowania i zachowania"
-                ],
-                "ru": [
-                    "Движение и прыжки игрока с физикой",
-                    "Платформы с коллайдерами",
-                    "Скрипты C# для управления и поведения"
-                ]
-            },
-            "learned": {
-                "en": "How Unity works with GameObjects, components and C# scripts, and how to test an idea quickly with a prototype.",
-                "nl": "Hoe Unity werkt met GameObjects, components en C#-scripts, en hoe je snel een idee test met een prototype.",
-                "pl": "Jak Unity działa z GameObjectami, komponentami i skryptami C# oraz jak szybko przetestować pomysł na prototypie.",
-                "ru": "Как Unity работает с GameObject, компонентами и скриптами C#, и как быстро проверить идею на прототипе."
-            },
+            "challenge": "Getting a playable feel with physics, colliders and input, all driven by C# scripts.",
+            "description": [
+                "My first game prototype in Unity: a simple 2D platformer where the player can walk and jump between platforms.",
+                "The focus was not on graphics but on the basics: physics, input and the behaviour of objects through C# scripts."
+            ],
+            "features": [
+                "Player movement and jumping with physics",
+                "Platforms with colliders",
+                "C# scripts for input and behaviour"
+            ],
+            "learned": "How Unity works with GameObjects, components and C# scripts, and how to test an idea quickly with a prototype.",
             "featured": false,
-            "links": {
-                "live": "",
-                "code": ""
-            }
+            "links": { "live": "", "code": "" }
         }
     ]
 }

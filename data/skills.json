@@ -1,127 +1,67 @@
 {
-    "_uitleg": "Extra info voor de skills-pagina. 'name' moet hetzelfde zijn als in 'tools' van projects.json. Logo: 'devicon' = naam van het icoon op https://devicon.dev, of 'icon' = eigen pad/link. 'invert': true maakt een zwart logo wit. De volgorde hier is ook de volgorde van de filterknoppen. Staat een taal niet in deze lijst? Dan verschijnt hij toch, met een automatisch logo. VERTALEN: 'text' mag een gewone tekst zijn of per taal: {\"en\": ..., \"nl\": ..., \"pl\": ..., \"ru\": ...}.",
+    "_uitleg": "Extra info voor de skills-pagina. 'name' moet hetzelfde zijn als in 'tools' van projects.json. Logo: 'devicon' = naam van het icoon op https://devicon.dev, of 'icon' = eigen pad/link. 'invert': true maakt een zwart logo wit. De volgorde hier is ook de volgorde van de filterknoppen. Staat een taal niet in deze lijst? Dan verschijnt hij toch, met een automatisch logo.",
     "skills": [
         {
             "name": "HTML",
             "devicon": "html5",
-            "text": {
-                "en": "Structure and semantics of web pages.",
-                "nl": "Structuur en semantiek van webpagina's.",
-                "pl": "Struktura i semantyka stron internetowych.",
-                "ru": "Структура и семантика веб-страниц."
-            }
+            "text": "Structure and semantics of web pages."
         },
         {
             "name": "CSS",
             "devicon": "css3",
-            "text": {
-                "en": "Styling, animations and responsive layouts.",
-                "nl": "Styling, animaties en responsive layouts.",
-                "pl": "Stylowanie, animacje i responsywne układy.",
-                "ru": "Стилизация, анимации и адаптивная вёрстка."
-            }
+            "text": "Styling, animations and responsive layouts."
         },
         {
             "name": "JavaScript",
             "devicon": "javascript",
-            "text": {
-                "en": "Interaction, logic and dynamic content.",
-                "nl": "Interactie, logica en dynamische content.",
-                "pl": "Interakcje, logika i dynamiczna treść.",
-                "ru": "Интерактивность, логика и динамический контент."
-            }
+            "text": "Interaction, logic and dynamic content."
         },
         {
             "name": "Bootstrap",
             "devicon": "bootstrap",
-            "text": {
-                "en": "Building clean, responsive interfaces quickly.",
-                "nl": "Snel nette, responsive interfaces bouwen.",
-                "pl": "Szybkie budowanie schludnych, responsywnych interfejsów.",
-                "ru": "Быстрое создание аккуратных адаптивных интерфейсов."
-            }
+            "text": "Building clean, responsive interfaces quickly."
         },
         {
             "name": "PHP",
             "devicon": "php",
-            "text": {
-                "en": "Server-side logic, forms and sessions.",
-                "nl": "Server-side logica, formulieren en sessies.",
-                "pl": "Logika po stronie serwera, formularze i sesje.",
-                "ru": "Серверная логика, формы и сессии."
-            }
+            "text": "Server-side logic, forms and sessions."
         },
         {
             "name": "Symfony",
             "devicon": "symfony",
             "invert": true,
-            "text": {
-                "en": "PHP framework: Doctrine, Twig and CRUD apps.",
-                "nl": "PHP-framework: Doctrine, Twig en CRUD-apps.",
-                "pl": "Framework PHP: Doctrine, Twig i aplikacje CRUD.",
-                "ru": "PHP-фреймворк: Doctrine, Twig и CRUD-приложения."
-            }
+            "text": "PHP framework: Doctrine, Twig and CRUD apps."
         },
         {
             "name": "Database",
             "devicon": "mysql",
-            "text": {
-                "en": "Storing, retrieving and linking data.",
-                "nl": "Gegevens opslaan, ophalen en koppelen.",
-                "pl": "Zapisywanie, pobieranie i łączenie danych.",
-                "ru": "Хранение, выборка и связывание данных."
-            }
+            "text": "Storing, retrieving and linking data."
         },
         {
             "name": "Node.js",
             "devicon": "nodejs",
-            "text": {
-                "en": "JavaScript on the server: APIs and tools.",
-                "nl": "JavaScript op de server: API's en tools.",
-                "pl": "JavaScript na serwerze: API i narzędzia.",
-                "ru": "JavaScript на сервере: API и инструменты."
-            }
+            "text": "JavaScript on the server: APIs and tools."
         },
         {
             "name": "Unity",
             "devicon": "unity",
             "invert": true,
-            "text": {
-                "en": "Building game prototypes and scenes.",
-                "nl": "Game prototypes en scenes bouwen.",
-                "pl": "Tworzenie prototypów gier i scen.",
-                "ru": "Создание игровых прототипов и сцен."
-            }
+            "text": "Building game prototypes and scenes."
         },
         {
             "name": "C#",
             "devicon": "csharp",
-            "text": {
-                "en": "Scripts and gameplay logic in Unity.",
-                "nl": "Scripts en gameplay-logica in Unity.",
-                "pl": "Skrypty i logika rozgrywki w Unity.",
-                "ru": "Скрипты и игровая логика в Unity."
-            }
+            "text": "Scripts and gameplay logic in Unity."
         },
         {
             "name": "Blender",
             "devicon": "blender",
-            "text": {
-                "en": "Making 3D models and visual assets.",
-                "nl": "3D-modellen en visuele assets maken.",
-                "pl": "Tworzenie modeli 3D i zasobów graficznych.",
-                "ru": "Создание 3D-моделей и визуальных ассетов."
-            }
+            "text": "Making 3D models and visual assets."
         },
         {
             "name": "AI",
             "icon": "assets/img/skills/ai.svg",
-            "text": {
-                "en": "Using AI tools to build and learn faster.",
-                "nl": "AI-tools inzetten om sneller te bouwen en te leren.",
-                "pl": "Korzystanie z narzędzi AI, by szybciej tworzyć i się uczyć.",
-                "ru": "Использую ИИ-инструменты, чтобы быстрее создавать и учиться."
-            }
+            "text": "Using AI tools to build and learn faster."
         }
     ]
 }
