@@ -536,65 +536,8 @@ function initDoom() {
 }
 
 // =====================================================================
-//  CUSTOM CURSOR (alleen met een muis, niet op telefoons/tablets)
-// =====================================================================
-function initCursor() {
-    if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-
-    const dot = document.createElement("div");
-    const ring = document.createElement("div");
-    dot.className = "cur-dot";
-    ring.className = "cur-ring";
-    ring.innerHTML = '<b class="cur-spin"><i></i><i></i><i></i><i></i></b><span></span>';
-    document.body.append(dot, ring);
-    document.documentElement.classList.add("has-cursor");
-
-    const label = $("span", ring);
-    const smooth = !matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const HOVER = "a, button, [role=button], label, select, summary, .p-card, .s-card";
-    const NATIVE = "input, textarea, iframe, [contenteditable]";   // daar blijft de gewone cursor
-    // Snelheid van het volgen: hoger = strakker, lager = zachter/zweveriger.
-    const DOT_SPEED = 28, RING_SPEED = 9;
-    let x = -100, y = -100, dx = x, dy = y, rx = x, ry = y, last = 0, running = false;
-    const place = (el, px, py) => { el.style.transform = `translate3d(${px}px, ${py}px, 0)`; };
-
-    // Tijd-gebaseerde easing: even soepel op 60Hz en 144Hz schermen. Stopt vanzelf als de cursor stilstaat.
-    function frame(now) {
-        const dt = Math.min(0.05, (now - last) / 1000 || 0.016);
-        last = now;
-        const kDot = 1 - Math.exp(-DOT_SPEED * dt);
-        const kRing = 1 - Math.exp(-RING_SPEED * dt);
-        dx += (x - dx) * kDot;  dy += (y - dy) * kDot;
-        rx += (x - rx) * kRing; ry += (y - ry) * kRing;
-        place(dot, dx, dy);
-        place(ring, rx, ry);
-        if (Math.abs(x - rx) + Math.abs(y - ry) > 0.1) requestAnimationFrame(frame);
-        else running = false;
-    }
-
-    document.addEventListener("pointermove", e => {
-        x = e.clientX; y = e.clientY;
-        document.documentElement.classList.remove("cur-hidden");
-        if (!smooth) { place(dot, x, y); place(ring, x, y); return; }
-        if (dx < -50) { dx = rx = x; dy = ry = y; }          // eerste beweging: niet vanuit de hoek aan komen vliegen
-        if (!running) { running = true; last = performance.now(); requestAnimationFrame(frame); }
-    }, { passive: true });
-    document.addEventListener("pointerover", e => {
-        const t = e.target.closest ? e.target : document.body;
-        document.documentElement.classList.toggle("cur-native", Boolean(t.closest(NATIVE)));
-        const hit = t.closest(HOVER);
-        ring.classList.toggle("hover", Boolean(hit));
-        label.textContent = hit && hit.matches(".p-card") ? "OPEN" : hit && hit.matches(".s-card") ? "VIEW" : "";
-    });
-    document.addEventListener("pointerdown", () => ring.classList.add("down"));
-    document.addEventListener("pointerup", () => ring.classList.remove("down"));
-    document.documentElement.addEventListener("mouseleave", () => document.documentElement.classList.add("cur-hidden"));
-}
-
-// =====================================================================
 //  START
 // =====================================================================
-initCursor();
 renderChrome();
 initTypewriter();
 initTicker();
