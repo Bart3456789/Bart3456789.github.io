@@ -263,26 +263,6 @@ main { flex: 1; padding-top: var(--nav-h); }
 .p-challenge b { display: block; font: 700 .7rem var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--yellow); margin-bottom: .2rem; }
 .p-links { display: flex; flex-wrap: wrap; gap: .5rem; position: relative; z-index: 2; }
 
-/* ---------- homepage showcase ---------- */
-.showcase { display: flex; flex-direction: column; gap: 3.5rem; }
-.show-row { display: grid; grid-template-columns: 1.25fr 1fr; gap: 2.5rem; align-items: center; animation: rise .5s both; }
-.show-row:nth-child(even) .show-media { order: 2; }
-.show-media {
-    position: relative; display: block; padding: 1px; border: 0; cursor: pointer; background: var(--line);
-    clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%); transition: background .2s, transform .2s;
-}
-.show-media img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; background: #000; filter: saturate(.9); transition: filter .3s; }
-.show-media:hover, .show-media:focus-visible { background: var(--yellow); transform: translateY(-4px); outline: none; }
-.show-media:hover img { filter: saturate(1.1); }
-.show-body h3 { font-size: clamp(1.4rem, 3vw, 2rem); text-transform: uppercase; margin: 0 0 .3rem; }
-.show-desc { color: var(--muted); font-size: 1.08rem; margin: .8rem 0 1.4rem; }
-.show-body .learned { margin-bottom: 1.4rem; }
-.show-body .chips { margin-bottom: 1.6rem; }
-.show-links { display: flex; flex-wrap: wrap; gap: .7rem; }
-@media (max-width: 960px) {
-    .show-row { grid-template-columns: 1fr; gap: 1.4rem; }
-    .show-row:nth-child(even) .show-media { order: 0; }
-}
 .p-more { margin-top: auto; padding-top: .9rem; border-top: 1px dashed rgba(255, 255, 255, .12); font: 700 .78rem var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--yellow); display: flex; justify-content: space-between; }
 .p-more::after { content: "→"; transition: transform .2s; }
 .p-card:hover .p-more::after { transform: translateX(5px); }

@@ -176,30 +176,6 @@ function projectCard(project, index) {
         </article>`;
 }
 
-// Grote weergave voor de homepage: screenshot + uitleg + knoppen naast elkaar.
-function showcaseRow(project, index) {
-    const desc = asList(project.description)[0];
-    return `
-        <article class="show-row" style="animation-delay:${index * 90}ms">
-            <button type="button" class="show-media" data-open="${esc(project.id)}" aria-label="Bekijk details van ${esc(project.title)}">
-                <img src="${esc(project.image)}" alt="Screenshot van ${esc(project.title)}" loading="lazy">
-                <span class="p-num">${pad(index + 1)}</span>
-            </button>
-            <div class="show-body">
-                <h3>${esc(project.title)}</h3>
-                ${project.tagline ? `<p class="modal-tagline">&gt; ${esc(project.tagline)}</p>` : ""}
-                ${desc ? `<p class="show-desc">${esc(desc)}</p>` : ""}
-                ${project.challenge ? `<p class="label">Probleem dat ik oploste</p><div class="learned">${esc(project.challenge)}</div>` : ""}
-                <p class="label">Gebouwd met</p>
-                <ul class="chips">${project.tools.map(toolChip).join("")}</ul>
-                <div class="show-links">
-                    <button type="button" class="btn btn-ghost" data-open="${esc(project.id)}">Bekijk details &rarr;</button>
-                    ${linkButtons(project)}
-                </div>
-            </div>
-        </article>`;
-}
-
 function bindCards(root, list) {
     $$("[data-open]", root).forEach(card => card.addEventListener("click", () => openProject(card.dataset.open, list)));
 }
@@ -261,7 +237,7 @@ async function initFeatured() {
 
     const featured = projects.filter(p => p.featured);
     const list = (featured.length ? featured : projects).slice(0, 3);
-    grid.innerHTML = list.map(showcaseRow).join("");
+    grid.innerHTML = list.map(projectCard).join("");
     bindCards(grid, list);
 
     const total = $("[data-stat-projects]");
