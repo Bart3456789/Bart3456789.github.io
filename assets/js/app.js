@@ -161,9 +161,9 @@ function projectCard(project, index) {
     const links = linkButtons(project, true);
     return `
         <article class="p-card" style="animation-delay:${index * 70}ms">
+            <div class="p-bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(project.id)}.exe</span><b class="p-num">${pad(index + 1)}</b></div>
             <div class="p-media">
                 <img src="${esc(project.image)}" alt="Screenshot van ${esc(project.title)}" loading="lazy">
-                <span class="p-num">${pad(index + 1)}</span>
             </div>
             <div class="p-body">
                 ${project.tagline ? `<p class="p-tag">${esc(project.tagline)}</p>` : ""}
@@ -239,6 +239,8 @@ async function initFeatured() {
     const list = (featured.length ? featured : projects).slice(0, 3);
     grid.innerHTML = list.map(projectCard).join("");
     bindCards(grid, list);
+    const all = $("[data-all-count]");
+    if (all) all.textContent = projects.length;
 
     const total = $("[data-stat-projects]");
     if (total) total.textContent = projects.length;
