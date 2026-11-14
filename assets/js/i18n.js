@@ -57,6 +57,8 @@ const STRINGS = {
         "projects.all": "All",
         "projects.emptyTitle": "No projects with {tool} yet",
         "projects.emptyText": "More work is coming soon.",
+        "diff.label": "Difficulty", "diff.tech": "Technology", "diff.easy": "Easy", "diff.medium": "Medium", "diff.hard": "Hard", "diff.extreme": "Extreme",
+        "projects.emptyFilter": "No projects match these filters",
         "projects.showAll": "Show all",
 
         "card.screenshot": "Screenshot of {title}",
@@ -147,6 +149,8 @@ const STRINGS = {
         "projects.all": "Alles",
         "projects.emptyTitle": "Nog geen projecten met {tool}",
         "projects.emptyText": "Hier komt binnenkort werk bij.",
+        "diff.label": "Moeilijkheid", "diff.tech": "Techniek", "diff.easy": "Makkelijk", "diff.medium": "Gemiddeld", "diff.hard": "Moeilijk", "diff.extreme": "Extreem",
+        "projects.emptyFilter": "Geen projecten met deze filters",
         "projects.showAll": "Toon alles",
 
         "card.screenshot": "Screenshot van {title}",
@@ -237,6 +241,8 @@ const STRINGS = {
         "projects.all": "Wszystkie",
         "projects.emptyTitle": "Brak projektów z {tool}",
         "projects.emptyText": "Wkrótce pojawi się tu więcej prac.",
+        "diff.label": "Poziom trudności", "diff.tech": "Technologia", "diff.easy": "Łatwy", "diff.medium": "Średni", "diff.hard": "Trudny", "diff.extreme": "Ekstremalny",
+        "projects.emptyFilter": "Brak projektów dla tych filtrów",
         "projects.showAll": "Pokaż wszystkie",
 
         "card.screenshot": "Zrzut ekranu: {title}",
@@ -327,6 +333,8 @@ const STRINGS = {
         "projects.all": "Все",
         "projects.emptyTitle": "Пока нет проектов с {tool}",
         "projects.emptyText": "Скоро здесь появятся новые работы.",
+        "diff.label": "Сложность", "diff.tech": "Технология", "diff.easy": "Лёгкий", "diff.medium": "Средний", "diff.hard": "Сложный", "diff.extreme": "Экстрим",
+        "projects.emptyFilter": "Нет проектов с такими фильтрами",
         "projects.showAll": "Показать все",
 
         "card.screenshot": "Скриншот: {title}",

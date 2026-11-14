@@ -141,6 +141,17 @@ function loadData() {
 
 const projectsWith = tool => projectsCache.filter(p => p.tools.some(t => same(t, tool)));
 
+// Moeilijkheid: van zwaar naar makkelijk (zo staan ze ook op de projectenpagina).
+const LEVELS = ["extreme", "hard", "medium", "easy"];
+const levelOf = p => LEVELS.includes(String(p.difficulty).toLowerCase()) ? String(p.difficulty).toLowerCase() : "";
+const levelRank = p => { const i = LEVELS.indexOf(levelOf(p)); return i === -1 ? LEVELS.length : i; };
+function levelBadge(p) {
+    const lvl = levelOf(p);
+    if (!lvl) return "";
+    const bars = LEVELS.length - LEVELS.indexOf(lvl);   // easy = 1 streepje, extreme = 4
+    return `<span class="p-diff" data-level="${lvl}" title="${esc(t("diff.label"))}">${LEVELS.map((_, i) => `<i class="${i < bars ? "on" : ""}"></i>`).join("")}${t("diff." + lvl)}</span>`;
+}
+
 function loadError(target) {
     const local = location.protocol === "file:";
     target.innerHTML = `<div class="notice" style="grid-column:1/-1">
@@ -168,6 +179,7 @@ function projectCard(project, index) {
                 <img src="${esc(project.image)}" alt="${esc(t("card.screenshot", { title: project.title }))}" loading="lazy">
             </div>
             <div class="p-body">
+                ${levelBadge(project)}
                 ${project.tagline ? `<p class="p-tag">${esc(project.tagline)}</p>` : ""}
                 <h3><button type="button" class="p-open" data-open="${esc(project.id)}">${esc(project.title)}</button></h3>
                 ${project.challenge ? `<p class="p-challenge">${esc(project.challenge)}</p>` : ""}
@@ -191,37 +203,58 @@ async function initProjectsPage() {
     let projects;
     try { projects = await loadData(); } catch (e) { loadError(grid); return; }
 
+    // Volgorde: extreme -> hard -> medium -> easy (binnen een niveau blijft de volgorde uit projects.json).
+    projects = projects.map((p, i) => ({ p, i })).sort((x, y) => levelRank(x.p) - levelRank(y.p) || x.i - y.i).map(x => x.p);
+
     const params = new URLSearchParams(location.search);
     let active = params.get("skill") || "all";
+    let level = LEVELS.includes(params.get("level")) ? params.get("level") : "all";
 
-    // Eén filter: de technieken uit de projecten (volgorde = volgorde in skills.json).
+    // Technieken uit de projecten (volgorde = volgorde in skills.json).
     const tools = SKILLS.map(s => s.name).filter(name => projectsWith(name).length);
+    const byTool = (list, tool) => tool === "all" ? list : list.filter(p => p.tools.some(x => same(x, tool)));
+    const byLevel = (list, lvl) => lvl === "all" ? list : list.filter(p => levelOf(p) === lvl);
+
+    function setParam(key, value) {
+        const url = new URL(location.href);
+        if (value === "all") url.searchParams.delete(key); else url.searchParams.set(key, value);
+        history.replaceState(null, "", url);
+    }
 
     function draw() {
-        const shown = active === "all" ? projects : projectsWith(active);
+        const shown = byLevel(byTool(projects, active), level);
 
-        filterBox.innerHTML = ["all", ...tools].map(tool => {
+        const techRow = ["all", ...tools].map(tool => {
             const on = same(active, tool);
-            const n = tool === "all" ? projects.length : projectsWith(tool).length;
+            const n = byTool(byLevel(projects, level), tool).length;
             return `<button type="button" class="chip chip-btn ${on ? "on" : ""}" data-filter="${esc(tool)}" aria-pressed="${on}">${tool === "all" ? t("projects.all") : esc(tool)}<span>${n}</span></button>`;
         }).join("");
+        const levelRow = ["all", ...LEVELS].map(lvl => {
+            const on = level === lvl;
+            const n = byLevel(byTool(projects, active), lvl).length;
+            return `<button type="button" class="chip chip-btn chip-lvl ${on ? "on" : ""}" data-level-filter="${lvl}" ${lvl !== "all" ? `data-level="${lvl}"` : ""} aria-pressed="${on}" ${n || on ? "" : "disabled"}>${lvl === "all" ? t("projects.all") : t("diff." + lvl)}<span>${n}</span></button>`;
+        }).join("");
+        filterBox.innerHTML = `
+            <div class="filter-row"><span class="filter-label">${t("diff.label")}</span><div class="filter-btns">${levelRow}</div></div>
+            <div class="filter-row"><span class="filter-label">${t("diff.tech")}</span><div class="filter-btns">${techRow}</div></div>`;
 
         grid.innerHTML = shown.length
             ? shown.map(projectCard).join("")
             : `<div class="panel empty" style="grid-column:1/-1">
-                   <h3>${t("projects.emptyTitle", { tool: esc(active) })}</h3>
+                   <h3>${t("projects.emptyFilter")}</h3>
                    <p class="muted" style="margin:.8rem 0 1.4rem">${t("projects.emptyText")}</p>
-                   <button class="btn" type="button" data-filter="all">${t("projects.showAll")}</button>
+                   <button class="btn" type="button" data-reset>${t("projects.showAll")}</button>
                </div>`;
 
         bindCards(grid, shown);
-        $$("[data-filter]").forEach(b => b.addEventListener("click", () => {
-            active = b.dataset.filter;
-            const url = new URL(location.href);
-            if (active === "all") url.searchParams.delete("skill"); else url.searchParams.set("skill", active);
-            history.replaceState(null, "", url);
-            draw();
+        $$("[data-filter]", filterBox).forEach(b => b.addEventListener("click", () => {
+            active = b.dataset.filter; setParam("skill", active); draw();
         }));
+        $$("[data-level-filter]", filterBox).forEach(b => b.addEventListener("click", () => {
+            level = b.dataset.levelFilter; setParam("level", level); draw();
+        }));
+        const reset = $("[data-reset]", grid);
+        if (reset) reset.addEventListener("click", () => { active = level = "all"; setParam("skill", "all"); setParam("level", "all"); draw(); });
     }
     draw();
 
@@ -330,6 +363,7 @@ function fillModal() {
                 ${images.length > 1 ? `<div class="thumbs">${images.map((src, i) => `<button type="button" class="${i === 0 ? "on" : ""}" data-m-thumb="${esc(src)}" aria-label="${esc(t("modal.image", { n: i + 1 }))}"><img src="${esc(src)}" alt=""></button>`).join("")}</div>` : ""}
             </div>
             <div>
+                ${levelBadge(p)}
                 <h2 id="modal-title">${esc(p.title)}</h2>
                 ${p.tagline ? `<p class="modal-tagline">&gt; ${esc(p.tagline)}</p>` : ""}
                 <p class="label">${t("modal.built")}</p>
