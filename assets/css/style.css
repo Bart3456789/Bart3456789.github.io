@@ -425,3 +425,43 @@ body.modal-open { overflow: hidden; }
     .hud-readout { left: 8px; bottom: 12px; min-width: 0; font-size: .62rem; padding: .5rem .7rem; }
     .hud-code { right: 8px; }
 }
+
+/* ---------- custom cursor (alleen actief met een muis, zie initCursor in app.js) ---------- */
+.has-cursor, .has-cursor * { cursor: none !important; }
+.has-cursor.cur-native input, .has-cursor.cur-native textarea { cursor: text !important; }
+.has-cursor.cur-native iframe { cursor: auto !important; }
+.cur-dot, .cur-ring { position: fixed; top: 0; left: 0; z-index: 10000; pointer-events: none; will-change: transform; transition: opacity .25s; backface-visibility: hidden; }
+.cur-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--yellow); box-shadow: 0 0 8px var(--yellow); }
+.cur-ring { width: 0; height: 0; }
+.cur-ring i {
+    position: absolute; width: 9px; height: 9px; border: 2px solid var(--cyan);
+    transition: transform .2s cubic-bezier(.2, .8, .2, 1), border-color .2s;
+    filter: drop-shadow(0 0 4px rgba(0, 240, 255, .6));
+}
+/* vier hoekjes als een richtkruis */
+.cur-ring i:nth-child(1) { border-right: 0; border-bottom: 0; transform: translate(-16px, -16px); }
+.cur-ring i:nth-child(2) { border-left: 0; border-bottom: 0; transform: translate(7px, -16px); }
+.cur-ring i:nth-child(3) { border-right: 0; border-top: 0; transform: translate(-16px, 7px); }
+.cur-ring i:nth-child(4) { border-left: 0; border-top: 0; transform: translate(7px, 7px); }
+.cur-ring.hover i { border-color: var(--yellow); filter: drop-shadow(0 0 4px rgba(252, 238, 10, .6)); }
+.cur-ring.hover i:nth-child(1) { transform: translate(-24px, -24px) rotate(0); }
+.cur-ring.hover i:nth-child(2) { transform: translate(15px, -24px); }
+.cur-ring.hover i:nth-child(3) { transform: translate(-24px, 15px); }
+.cur-ring.hover i:nth-child(4) { transform: translate(15px, 15px); }
+.cur-ring.down i { border-color: var(--red); filter: drop-shadow(0 0 6px var(--red)); }
+.cur-ring.down i:nth-child(1) { transform: translate(-12px, -12px); }
+.cur-ring.down i:nth-child(2) { transform: translate(3px, -12px); }
+.cur-ring.down i:nth-child(3) { transform: translate(-12px, 3px); }
+.cur-ring.down i:nth-child(4) { transform: translate(3px, 3px); }
+.cur-ring span {
+    position: absolute; left: 22px; top: 18px; white-space: nowrap;
+    font: 700 .62rem var(--f-mono); letter-spacing: .15em; color: #000; background: var(--yellow);
+    padding: 0 .35rem; opacity: 0; transition: opacity .15s;
+}
+.cur-ring span:not(:empty) { opacity: 1; }
+.cur-hidden .cur-dot, .cur-hidden .cur-ring, .cur-native .cur-dot, .cur-native .cur-ring { opacity: 0; }
+.btn, .chip-btn, .p-card, .s-card, .cp-links a, .modal-nav button { -webkit-user-select: none; user-select: none; }
+/* buitenste cursor draait langzaam rond (pas 8s aan voor sneller/langzamer) */
+.cur-spin { position: absolute; left: 0; top: 0; width: 0; height: 0; animation: cur-spin 8s linear infinite; }
+.cur-ring.hover .cur-spin { animation-duration: 3s; }
+@keyframes cur-spin { to { transform: rotate(360deg); } }
