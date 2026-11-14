@@ -147,20 +147,57 @@ function loadError(target) {
     </div>`;
 }
 
+// Knoppen voor live demo / broncode (alleen als die links in projects.json staan).
+function linkButtons(project, small = false) {
+    const links = project.links || {};
+    const size = small ? " btn-sm" : "";
+    return [
+        links.live ? `<a class="btn${size}" href="${esc(links.live)}" target="_blank" rel="noopener">&#9654; Live demo</a>` : "",
+        links.code ? `<a class="btn btn-ghost btn-cyan${size}" href="${esc(links.code)}" target="_blank" rel="noopener">&lt;/&gt; GitHub</a>` : ""
+    ].join("");
+}
+
 function projectCard(project, index) {
+    const links = linkButtons(project, true);
     return `
-        <button type="button" class="p-card" data-open="${esc(project.id)}" style="animation-delay:${index * 70}ms" aria-label="Bekijk details van ${esc(project.title)}">
+        <article class="p-card" style="animation-delay:${index * 70}ms">
             <div class="p-media">
-                <img src="${esc(project.image)}" alt="" loading="lazy">
+                <img src="${esc(project.image)}" alt="Screenshot van ${esc(project.title)}" loading="lazy">
                 <span class="p-num">${pad(index + 1)}</span>
             </div>
             <div class="p-body">
-                <h3>${esc(project.title)}</h3>
+                <h3><button type="button" class="p-open" data-open="${esc(project.id)}">${esc(project.title)}</button></h3>
                 ${project.tagline ? `<p>${esc(project.tagline)}</p>` : ""}
+                ${project.challenge ? `<p class="p-challenge"><b>Uitdaging</b>${esc(project.challenge)}</p>` : ""}
                 <ul class="chips">${project.tools.map(toolChip).join("")}</ul>
+                ${links ? `<div class="p-links">${links}</div>` : ""}
                 <span class="p-more">Bekijk details</span>
             </div>
-        </button>`;
+        </article>`;
+}
+
+// Grote weergave voor de homepage: screenshot + uitleg + knoppen naast elkaar.
+function showcaseRow(project, index) {
+    const desc = asList(project.description)[0];
+    return `
+        <article class="show-row" style="animation-delay:${index * 90}ms">
+            <button type="button" class="show-media" data-open="${esc(project.id)}" aria-label="Bekijk details van ${esc(project.title)}">
+                <img src="${esc(project.image)}" alt="Screenshot van ${esc(project.title)}" loading="lazy">
+                <span class="p-num">${pad(index + 1)}</span>
+            </button>
+            <div class="show-body">
+                <h3>${esc(project.title)}</h3>
+                ${project.tagline ? `<p class="modal-tagline">&gt; ${esc(project.tagline)}</p>` : ""}
+                ${desc ? `<p class="show-desc">${esc(desc)}</p>` : ""}
+                ${project.challenge ? `<p class="label">Probleem dat ik oploste</p><div class="learned">${esc(project.challenge)}</div>` : ""}
+                <p class="label">Gebouwd met</p>
+                <ul class="chips">${project.tools.map(toolChip).join("")}</ul>
+                <div class="show-links">
+                    <button type="button" class="btn btn-ghost" data-open="${esc(project.id)}">Bekijk details &rarr;</button>
+                    ${linkButtons(project)}
+                </div>
+            </div>
+        </article>`;
 }
 
 function bindCards(root, list) {
@@ -224,7 +261,7 @@ async function initFeatured() {
 
     const featured = projects.filter(p => p.featured);
     const list = (featured.length ? featured : projects).slice(0, 3);
-    grid.innerHTML = list.map(projectCard).join("");
+    grid.innerHTML = list.map(showcaseRow).join("");
     bindCards(grid, list);
 
     const total = $("[data-stat-projects]");
@@ -301,11 +338,7 @@ function fillModal() {
     if (!p) return;
 
     const images = [p.image, ...asList(p.gallery)].filter(Boolean);
-    const links = p.links || {};
-    const linkBtns = [
-        links.live ? `<a class="btn" href="${esc(links.live)}" target="_blank" rel="noopener">&#9654; Live demo</a>` : "",
-        links.code ? `<a class="btn btn-ghost btn-cyan" href="${esc(links.code)}" target="_blank" rel="noopener">&lt;/&gt; Broncode</a>` : ""
-    ].join("");
+    const linkBtns = linkButtons(p);
     const desc = asList(p.description);
     const feats = asList(p.features);
 
@@ -322,6 +355,7 @@ function fillModal() {
                 <p class="label">Gebouwd met</p>
                 <ul class="chips">${p.tools.map(toolChip).join("")}</ul>
                 ${linkBtns ? `<div class="modal-links">${linkBtns}</div>` : ""}
+                ${p.challenge ? `<p class="label" style="margin-top:1.4rem">Probleem dat ik oploste</p><div class="learned">${esc(p.challenge)}</div>` : ""}
             </div>
         </div>
         <div class="modal-cols">
