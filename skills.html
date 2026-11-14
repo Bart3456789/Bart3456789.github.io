@@ -3,35 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expertise | Bart-HUB</title>
-    <link rel="icon" type="image/png" href="assets/img/logo/logoTab.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Skills | BART//HUB</title>
+    <meta name="description" content="De technieken en tools waar Bartosz Jaworski mee werkt.">
+    <meta name="theme-color" content="#07070b">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23fcee0a' d='M0 0h24l8 8v24H8L0 24z'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='900' font-size='15' text-anchor='middle' fill='%2307070b'%3EB%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
-<body data-page="skills" class="d-flex flex-column text-white">
-    <header data-vd-nav></header>
+<body data-page="skills">
+    <header data-nav></header>
 
-    <main class="flex-grow-1">
-        <section class="container py-5 my-lg-5">
-            <div class="row g-4 align-items-end mb-5">
-                <div class="col-12 col-lg-8">
-                    <p class="text-void fw-bold text-uppercase small mb-2">02 // expertise</p>
-                    <h1 class="display-2 fw-bold lh-1 mb-3">Skills die mijn projecten dragen.</h1>
-                    <p class="lead text-white-50 mb-0">Klik op een skill om direct de projecten te zien die erbij horen.</p>
+    <main>
+        <section class="section">
+            <div class="wrap">
+                <div class="page-head">
+                    <div>
+                        <p class="eyebrow"><b>02</b> Skills</p>
+                        <h1 class="page-title">Mijn <em>toolkit</em></h1>
+                        <p class="lead">De technieken waar ik mee bouw. Klik op een skill om direct de projecten te zien waarin ik hem gebruikt heb.</p>
+                    </div>
+                    <a class="btn btn-ghost" href="projects.html">Alle projecten &rarr;</a>
                 </div>
-                <div class="col-12 col-lg-4 text-lg-end">
-                    <a href="projects.html" class="btn btn-outline-light fw-bold">All work</a>
-                </div>
+                <div class="skills" data-skills></div>
             </div>
-            <div class="row g-4" data-skills></div>
         </section>
     </main>
 
-    <footer data-vd-foot></footer>
+    <footer data-foot></footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
-    <script src="assets/js/void.js"></script>
 </body>
 </html>

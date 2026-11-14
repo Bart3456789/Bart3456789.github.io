@@ -1,0 +1,67 @@
+{
+    "_uitleg": "Extra info voor de skills-pagina. 'name' moet hetzelfde zijn als in 'tools' van projects.json. Logo: 'devicon' = naam van het icoon op https://devicon.dev, of 'icon' = eigen pad/link. 'invert': true maakt een zwart logo wit. De volgorde hier is ook de volgorde van de filterknoppen. Staat een taal niet in deze lijst? Dan verschijnt hij toch, met een automatisch logo.",
+    "skills": [
+        {
+            "name": "HTML",
+            "devicon": "html5",
+            "text": "Structuur en semantiek van webpagina's."
+        },
+        {
+            "name": "CSS",
+            "devicon": "css3",
+            "text": "Styling, animaties en responsive layouts."
+        },
+        {
+            "name": "JavaScript",
+            "devicon": "javascript",
+            "text": "Interactie, logica en dynamische content."
+        },
+        {
+            "name": "Bootstrap",
+            "devicon": "bootstrap",
+            "text": "Snel nette, responsive interfaces bouwen."
+        },
+        {
+            "name": "PHP",
+            "devicon": "php",
+            "text": "Server-side logica, formulieren en sessies."
+        },
+        {
+            "name": "Symfony",
+            "devicon": "symfony",
+            "invert": true,
+            "text": "PHP-framework: Doctrine, Twig en CRUD-apps."
+        },
+        {
+            "name": "Database",
+            "devicon": "mysql",
+            "text": "Gegevens opslaan, ophalen en koppelen."
+        },
+        {
+            "name": "Node.js",
+            "devicon": "nodejs",
+            "text": "JavaScript op de server: API's en tools."
+        },
+        {
+            "name": "Unity",
+            "devicon": "unity",
+            "invert": true,
+            "text": "Game prototypes en scenes bouwen."
+        },
+        {
+            "name": "C#",
+            "devicon": "csharp",
+            "text": "Scripts en gameplay-logica in Unity."
+        },
+        {
+            "name": "Blender",
+            "devicon": "blender",
+            "text": "3D-modellen en visuele assets maken."
+        },
+        {
+            "name": "AI",
+            "icon": "assets/img/skills/ai.svg",
+            "text": "AI-tools inzetten om sneller te bouwen en te leren."
+        }
+    ]
+}

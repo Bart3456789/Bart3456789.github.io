@@ -1,339 +1,471 @@
-// ============================================================
+// =====================================================================
 //  SITE SETTINGS
-// ============================================================
+// =====================================================================
 const SITE = {
-    brand: "BartHub",   // naam in de topbalk (kies je een nieuwe naam: pas het hier aan)
+    brand: "BART",
+    brandAccent: "HUB",
     email: "bartekjaworski416@gmail.com",
+    github: "https://github.com/Bart3456789",
+    projectsFile: "data/projects.json",
+    skillsFile: "data/skills.json",
     // Contactformulier: plak hier je Formspree-link (https://formspree.io/f/xxxxxxxx).
     // Leeg laten = het formulier opent gewoon je mailprogramma.
     formEndpoint: ""
 };
 
-const AI_ICON = "data:image/svg+xml," + encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">' +
-    '<path fill="#a78bfa" d="M26 6l5.5 16.5L48 28l-16.5 5.5L26 50l-5.5-16.5L4 28l16.5-5.5z"/>' +
-    '<path fill="#c4b5fd" d="M48 34l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>');
-
-const data = {
-    projects: [
-        {
-            title: "Quiz pagina",
-            image: "assets/img/project%60s/project1.png",
-            tools: ["HTML", "CSS", "JavaScript"],
-            text: "Een interactieve quizpagina met vragen, antwoorden en score. Ik leerde hoe je logica, feedback en DOM-updates samenbrengt in een duidelijke user flow.",
-            learned: "JavaScript events, scoretelling en nette pagina-opbouw."
-        },
-        {
-            title: "Slotmachine game",
-            image: "assets/img/project%60s/project2.png",
-            tools: ["HTML", "CSS", "JavaScript"],
-            text: "Een browsergame met draaiende symbolen en winstcontrole. De focus lag op timing, functies en een speelse interface.",
-            learned: "Game states, timing en herbruikbare functies."
-        },
-        {
-            title: "Login website",
-            image: "assets/img/project%60s/project3.png",
-            tools: ["PHP", "Database", "HTML", "Bootstrap"],
-            text: "Een login-website met formulieren, serverlogica en databasekoppeling. Hierdoor werd de stap van statisch naar dynamisch duidelijk.",
-            learned: "Formulieren verwerken, data opslaan en Bootstrap layouts gebruiken."
-        },
-        {
-            title: "Collectie pagina",
-            image: "assets/img/project%60s/project4.png",
-            tools: ["PHP", "Database", "HTML", "Bootstrap"],
-            text: "Een collectiepagina waar items uit een database worden opgehaald en als overzichtelijke kaarten worden getoond.",
-            learned: "Data ophalen, structureren en presenteren in cards."
-        },
-        {
-            title: "Unity prototype",
-            image: "assets/img/project%60s/project5.png",
-            tools: ["Unity", "C#"],
-            text: "Een simpel gameprototype in Unity met objecten, beweging en basis interactie. Dit project gaf een eerste stevige game-dev basis.",
-            learned: "C# scripts, objectgedrag en prototype-denken."
-        }
-    ],
-    // ----------------------------------------------------------
-    //  GAMES / TROPHIES  (hier pas je alles zelf aan)
-    //  - title:    naam zoals die op de kaart staat
-    //  - wiki:     titel van het Wikipedia-artikel, daar komt de cover vandaan
-    //  - image:    (optioneel) eigen link naar een afbeelding, wint van wiki
-    //  - trophies: aantal trophies dat je in DEZE game hebt
-    // ----------------------------------------------------------
-    games: [
-        { title: "Bloodborne",              wiki: "Bloodborne",                     trophies: { platinum: 1, gold: 0, silver: 0, bronze: 0 } },
-        { title: "Elden Ring",              wiki: "Elden Ring",                     trophies: { platinum: 1, gold: 0, silver: 0, bronze: 0 } },
-        { title: "ARK: Survival Evolved",   wiki: "Ark: Survival Evolved",          trophies: { platinum: 1, gold: 0, silver: 0, bronze: 0 } },
-        { title: "Minecraft",               wiki: "Minecraft",                      trophies: { platinum: 1, gold: 0, silver: 0, bronze: 0 } },
-        { title: "Minecraft Dungeons",      wiki: "Minecraft Dungeons",             trophies: { platinum: 1, gold: 0, silver: 0, bronze: 0 } },
-        { title: "Resident Evil 7",         wiki: "Resident Evil 7: Biohazard",     trophies: { platinum: 1, gold: 0, silver: 0, bronze: 0 } },
-        { title: "Far Cry 5",               wiki: "Far Cry 5",                      trophies: { platinum: 1, gold: 0, silver: 0, bronze: 0 } },
-        { title: "Little Nightmares II",    wiki: "Little Nightmares II",           trophies: { platinum: 1, gold: 0, silver: 0, bronze: 0 } },
-        { title: "Subnautica: Below Zero",  wiki: "Subnautica: Below Zero",         trophies: { platinum: 1, gold: 0, silver: 0, bronze: 0 } },
-        { title: "The Forest",              wiki: "The Forest (video game)",        trophies: { platinum: 1, gold: 0, silver: 0, bronze: 0 } },
-        { title: "Thief Simulator",         wiki: "Thief Simulator",                trophies: { platinum: 1, gold: 0, silver: 0, bronze: 0 } },
-        { title: "Doki Doki Literature Club", wiki: "Doki Doki Literature Club!",   trophies: { platinum: 1, gold: 0, silver: 0, bronze: 0 } }
-    ],
-    skills: [
-        { name: "HTML", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", text: "Structuur voor webpagina's." },
-        { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", text: "Styling, responsive design en layouts." },
-        { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", text: "Interactie, logica en dynamische content." },
-        { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", text: "JavaScript op de server: API's en backend-tools." },
-        { name: "PHP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg", text: "Server-side pagina's en formulieren." },
-        { name: "Symfony", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/symfony/symfony-original.svg", invert: true, text: "PHP-framework: Doctrine, Twig en CRUD-apps." },
-        { name: "Database", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", text: "Gegevens opslaan, ophalen en tonen." },
-        { name: "Unity", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg", invert: true, text: "Game prototypes en scenes bouwen." },
-        { name: "Blender", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg", text: "3D objecten en visuele assets maken." },
-        { name: "AI", icon: AI_ICON, text: "AI-tools gebruiken om sneller te bouwen en te leren." }
-    ]
-};
-
-function getProjectFilter() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get("skill") || "all";
-}
-
-function renderProjectFilters() {
-    const target = document.querySelector("[data-project-filters]");
-    if (!target) return;
-
-    const skills = ["all", ...new Set([...data.skills.map(skill => skill.name), ...data.projects.flatMap(project => project.tools)])];
-    const current = getProjectFilter().toLowerCase();
-
-    target.innerHTML = skills.map(skill => {
-        const isAll = skill === "all";
-        const active = current === skill.toLowerCase() || (isAll && current === "all");
-        const href = isAll ? "projects.html" : `projects.html?skill=${encodeURIComponent(skill)}`;
-        return `<a href="${href}" class="btn btn-sm btn-outline-light fw-bold btn-filter ${active ? "active" : ""}">${isAll ? "All" : skill}</a>`;
-    }).join("");
-}
-
-function renderProjects() {
-    const target = document.querySelector("[data-projects]");
-    if (!target) return;
-
-    const filter = getProjectFilter().toLowerCase();
-    const projects = filter === "all"
-        ? data.projects
-        : data.projects.filter(project => project.tools.some(tool => tool.toLowerCase() === filter));
-
-    if (projects.length === 0) {
-        target.innerHTML = `
-            <div class="col-12">
-                <div class="border border-secondary rounded-4 p-5 text-center bg-dark bg-opacity-75 glass">
-                    <p class="h5 fw-bold mb-2">Nog geen projecten bij ${escapeHtml(getProjectFilter())}.</p>
-                    <p class="text-white-50 mb-4">Hier komt binnenkort werk bij.</p>
-                    <a href="projects.html" class="btn btn-void fw-bold">Bekijk alle projecten</a>
-                </div>
-            </div>`;
-        return;
-    }
-
-    target.innerHTML = projects.map(project => `
-        <div class="col-12 col-md-6 col-xl-4">
-            <article class="card h-100 text-white bg-dark bg-opacity-75 border border-secondary rounded-4 shadow-lg overflow-hidden glass hover-lift">
-                <img src="${project.image}" class="card-img-top card-img-fixed bg-dark" alt="${project.title}">
-                <div class="card-body d-flex flex-column p-4">
-                    <div class="d-flex flex-wrap gap-2 mb-3">
-                        ${project.tools.map(tool => `<span class="badge rounded-pill bg-void-soft">${tool}</span>`).join("")}
-                    </div>
-                    <h2 class="h5 card-title fw-bold">${project.title}</h2>
-                    <p class="card-text text-white-50">${project.text}</p>
-                    <div class="mt-auto pt-3 border-top border-secondary">
-                        <p class="small mb-0"><strong class="text-void">Geleerd:</strong> ${project.learned}</p>
-                    </div>
-                </div>
-            </article>
-        </div>
-    `).join("");
-}
-
-// ---------- Game trophies ----------
-const TROPHY_TYPES = [
-    { key: "platinum", label: "Platinum" },
-    { key: "gold",     label: "Gold" },
-    { key: "silver",   label: "Silver" },
-    { key: "bronze",   label: "Bronze" }
+const PAGES = [
+    ["index.html", "Home"],
+    ["skills.html", "Skills"],
+    ["projects.html", "Projecten"],
+    ["about.html", "Over mij"],
+    ["contact.html", "Contact"]
 ];
 
-const TROPHY_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">' +
-    '<path d="M6 3h12v4a6 6 0 0 1-12 0V3z"/>' +
-    '<path d="M6 5H3v2a3 3 0 0 0 3 3M18 5h3v2a3 3 0 0 1-3 3" fill="none" stroke="currentColor" stroke-width="2"/>' +
-    '<rect x="11" y="13" width="2" height="5"/><rect x="7" y="18" width="10" height="3" rx="1"/></svg>';
+// Logo's komen van devicon.dev. Skills en projecten staan in de map data/.
+const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/";
+// Namen die niet gewoon in kleine letters op devicon staan.
+const DEVICON_ALIASES = { "c#": "csharp", "c++": "cplusplus", "html": "html5", "css": "css3", "node.js": "nodejs", "node": "nodejs", "vue": "vuejs", "next.js": "nextjs", "three.js": "threejs", "sql": "azuresqldatabase", "database": "mysql", "golang": "go" };
 
-function escapeHtml(value) {
-    return String(value).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+// Wordt gevuld door loadData(): alle skills (uit skills.json + automatisch aangevulde uit projecten).
+let SKILLS = [];
+
+// =====================================================================
+//  HELPERS
+// =====================================================================
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+const page = document.body.dataset.page || "";
+
+function esc(value) {
+    return String(value ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+const pad = n => String(n).padStart(2, "0");
+const same = (a, b) => String(a).trim().toLowerCase() === String(b).trim().toLowerCase();
+const skillFor = name => SKILLS.find(s => same(s.name, name));
+const asList = value => Array.isArray(value) ? value.filter(Boolean) : (value ? [value] : []);
+const unique = list => list.filter((v, i) => list.findIndex(w => same(v, w)) === i);
+
+// Logo bepalen: eigen 'icon' > 'devicon' naam > gok op basis van de naam.
+function iconFor(skill) {
+    if (skill.icon) return skill.icon;
+    const key = String(skill.name).toLowerCase();
+    const slug = skill.devicon || DEVICON_ALIASES[key] || key.replace(/[^a-z0-9]/g, "");
+    return slug ? `${DEVICON}${slug}/${slug}-original.svg` : "";
 }
 
-function trophyCount(game, key) {
-    const n = Number(game.trophies && game.trophies[key]);
-    return Number.isFinite(n) && n > 0 ? Math.floor(n) : 0;
+function toolChip(tool) {
+    const skill = skillFor(tool);
+    const icon = skill && skill.iconUrl ? `<img src="${esc(skill.iconUrl)}" alt="" loading="lazy" onerror="this.remove()" ${skill.invert ? 'style="filter:invert(1)"' : ""}>` : "";
+    return `<li class="chip">${icon}${esc(tool)}</li>`;
 }
 
-function trophyBadges(game) {
-    return TROPHY_TYPES.map(type => {
-        const count = trophyCount(game, type.key);
-        return `<li class="trophy trophy-${type.key} ${count === 0 ? "is-empty" : ""}" title="${type.label}: ${count}">
-                    ${TROPHY_ICON}<span class="trophy-count">${count}</span>
-                </li>`;
-    }).join("");
-}
-
-function renderTrophyTotals() {
-    const target = document.querySelector("[data-trophy-totals]");
-    if (!target) return;
-
-    const cells = TROPHY_TYPES.map(type => {
-        const total = data.games.reduce((sum, game) => sum + trophyCount(game, type.key), 0);
-        return `
-            <div class="col-6 col-md-3">
-                <div class="totals-box trophy-${type.key} border border-secondary rounded-4 p-3 text-center h-100">
-                    ${TROPHY_ICON}
-                    <div class="totals-number fw-bold">${total}</div>
-                    <div class="small text-white-50 text-uppercase">${type.label}</div>
-                </div>
+// =====================================================================
+//  NAVIGATIE + FOOTER
+// =====================================================================
+function renderChrome() {
+    const nav = $("[data-nav]");
+    if (nav) {
+        const current = page === "index" ? "index.html" : page + ".html";
+        nav.className = "cp-nav";
+        nav.innerHTML = `
+            <div class="wrap">
+                <a class="cp-brand glitch" data-text="${SITE.brand}//${SITE.brandAccent}" href="index.html">${SITE.brand}<span>//</span>${SITE.brandAccent}<small>v2.0</small></a>
+                <button class="cp-burger" aria-label="Menu" aria-expanded="false">MENU</button>
+                <nav class="cp-links" aria-label="Hoofdmenu">
+                    ${PAGES.map(([href, label], i) => `<a href="${href}" class="${href === current ? "on" : ""}" ${href === current ? 'aria-current="page"' : ""}><i>${pad(i + 1)}</i>${label}</a>`).join("")}
+                </nav>
             </div>`;
+        const burger = $(".cp-burger", nav);
+        burger.addEventListener("click", () => {
+            const open = nav.classList.toggle("open");
+            burger.setAttribute("aria-expanded", open);
+            burger.textContent = open ? "SLUIT" : "MENU";
+        });
+    }
+
+    const foot = $("[data-foot]");
+    if (foot) {
+        foot.className = "cp-foot";
+        foot.innerHTML = `
+            <div class="wrap">
+                <span><i class="dot"></i>SYS.STATUS // ONLINE</span>
+                <span>&copy; ${new Date().getFullYear()} Bartosz Jaworski</span>
+                <span><a href="mailto:${SITE.email}">MAIL</a> &nbsp;/&nbsp; <a href="${SITE.github}" target="_blank" rel="noopener">GITHUB</a></span>
+            </div>`;
+    }
+}
+
+// =====================================================================
+//  PROJECTEN LADEN (uit data/projects.json)
+// =====================================================================
+let projectsCache = null;
+let dataPromise = null;
+
+async function fetchJson(url) {
+    const response = await fetch(url, { cache: "no-cache" });
+    if (!response.ok) throw new Error(url + " → HTTP " + response.status);
+    return response.json();
+}
+
+// Laadt projects.json en skills.json één keer en koppelt ze aan elkaar.
+function loadData() {
+    if (!dataPromise) dataPromise = (async () => {
+        const [projectJson, skillJson] = await Promise.all([
+            fetchJson(SITE.projectsFile),
+            fetchJson(SITE.skillsFile).catch(() => ({}))   // zonder skills.json werkt de site ook
+        ]);
+
+        const list = Array.isArray(projectJson) ? projectJson : projectJson.projects;
+        projectsCache = (list || [])
+            .filter(p => p && p.title)
+            .map((p, i) => ({
+                ...p,
+                id: p.id || "project-" + (i + 1),
+                tools: unique(asList(p.tools))
+            }));
+
+        const skills = (Array.isArray(skillJson) ? skillJson : skillJson.skills || []).filter(s => s && s.name);
+        // Techniek in een project maar niet in skills.json? Dan voegen we hem automatisch toe.
+        projectsCache.flatMap(p => p.tools).forEach(tool => {
+            if (!skills.some(s => same(s.name, tool))) skills.push({ name: tool, auto: true });
+        });
+        SKILLS = skills.map(s => ({ ...s, iconUrl: iconFor(s) }));
+        return projectsCache;
+    })();
+    return dataPromise;
+}
+
+const projectsWith = tool => projectsCache.filter(p => p.tools.some(t => same(t, tool)));
+
+function loadError(target) {
+    const local = location.protocol === "file:";
+    target.innerHTML = `<div class="notice" style="grid-column:1/-1">
+        &#9888; ERROR // Kon <code>${esc(SITE.projectsFile)}</code> niet laden.
+        ${local
+            ? "<br>Je opent de site als los bestand (file://). Browsers blokkeren dan het laden van JSON. Start een lokale server, bijvoorbeeld met de VS Code-extensie <code>Live Server</code>, of bekijk de site op GitHub Pages."
+            : "<br>Controleer of het bestand bestaat en geldige JSON bevat (let op komma's en aanhalingstekens)."}
+    </div>`;
+}
+
+function projectCard(project, index) {
+    return `
+        <button type="button" class="p-card" data-open="${esc(project.id)}" style="animation-delay:${index * 70}ms" aria-label="Bekijk details van ${esc(project.title)}">
+            <div class="p-media">
+                <img src="${esc(project.image)}" alt="" loading="lazy">
+                <span class="p-num">${pad(index + 1)}</span>
+            </div>
+            <div class="p-body">
+                <h3>${esc(project.title)}</h3>
+                ${project.tagline ? `<p>${esc(project.tagline)}</p>` : ""}
+                <ul class="chips">${project.tools.map(toolChip).join("")}</ul>
+                <span class="p-more">Bekijk details</span>
+            </div>
+        </button>`;
+}
+
+function bindCards(root, list) {
+    $$("[data-open]", root).forEach(card => card.addEventListener("click", () => openProject(card.dataset.open, list)));
+}
+
+// ---------- projecten-pagina ----------
+async function initProjectsPage() {
+    const grid = $("[data-projects]");
+    if (!grid) return;
+    const filterBox = $("[data-filters]");
+
+    let projects;
+    try { projects = await loadData(); } catch (e) { loadError(grid); return; }
+
+    const params = new URLSearchParams(location.search);
+    let active = params.get("skill") || "all";
+
+    // Eén filter: de technieken uit de projecten (volgorde = volgorde in skills.json).
+    const tools = SKILLS.map(s => s.name).filter(name => projectsWith(name).length);
+
+    function draw() {
+        const shown = active === "all" ? projects : projectsWith(active);
+
+        filterBox.innerHTML = ["all", ...tools].map(tool => {
+            const on = same(active, tool);
+            const n = tool === "all" ? projects.length : projectsWith(tool).length;
+            return `<button type="button" class="chip chip-btn ${on ? "on" : ""}" data-filter="${esc(tool)}" aria-pressed="${on}">${tool === "all" ? "Alles" : esc(tool)}<span>${n}</span></button>`;
+        }).join("");
+
+        grid.innerHTML = shown.length
+            ? shown.map(projectCard).join("")
+            : `<div class="panel empty" style="grid-column:1/-1">
+                   <h3>Nog geen projecten met ${esc(active)}</h3>
+                   <p class="muted" style="margin:.8rem 0 1.4rem">Hier komt binnenkort werk bij.</p>
+                   <button class="btn" type="button" data-filter="all">Toon alles</button>
+               </div>`;
+
+        bindCards(grid, shown);
+        $$("[data-filter]").forEach(b => b.addEventListener("click", () => {
+            active = b.dataset.filter;
+            const url = new URL(location.href);
+            if (active === "all") url.searchParams.delete("skill"); else url.searchParams.set("skill", active);
+            history.replaceState(null, "", url);
+            draw();
+        }));
+    }
+    draw();
+
+    // direct link naar een project: projects.html?project=quiz
+    const deep = params.get("project");
+    if (deep && projects.some(p => p.id === deep)) openProject(deep, projects);
+}
+
+// ---------- homepage: uitgelichte projecten ----------
+async function initFeatured() {
+    const grid = $("[data-featured]");
+    if (!grid) return;
+    let projects;
+    try { projects = await loadData(); } catch (e) { loadError(grid); return; }
+
+    const featured = projects.filter(p => p.featured);
+    const list = (featured.length ? featured : projects).slice(0, 3);
+    grid.innerHTML = list.map(projectCard).join("");
+    bindCards(grid, list);
+
+    const total = $("[data-stat-projects]");
+    if (total) total.textContent = projects.length;
+    const techs = $("[data-stat-tech]");
+    if (techs) techs.textContent = unique(projects.flatMap(p => p.tools)).length;
+}
+
+// =====================================================================
+//  PROJECT DETAIL-VENSTER
+// =====================================================================
+let modal, modalList = [], modalIndex = 0;
+
+function ensureModal() {
+    if (modal) return modal;
+    modal = document.createElement("dialog");
+    modal.className = "modal";
+    modal.setAttribute("aria-labelledby", "modal-title");
+    modal.innerHTML = `
+        <div class="modal-shell"><div class="modal-inner">
+            <div class="modal-bar"><span data-m-file></span><button class="modal-close" type="button" data-m-close aria-label="Sluiten">&times;</button></div>
+            <div class="modal-scroll" data-m-body></div>
+            <div class="modal-nav">
+                <button type="button" data-m-prev>&larr; Vorige</button>
+                <button type="button" data-m-next>Volgende &rarr;</button>
+            </div>
+        </div></div>`;
+    document.body.appendChild(modal);
+
+    $("[data-m-close]", modal).addEventListener("click", closeProject);
+    $("[data-m-prev]", modal).addEventListener("click", () => stepProject(-1));
+    $("[data-m-next]", modal).addEventListener("click", () => stepProject(1));
+    modal.addEventListener("click", e => { if (e.target === modal) closeProject(); });   // klik op de achtergrond
+    modal.addEventListener("close", onModalClosed);   // vangnet, sommige browsers sturen dit event niet
+    modal.addEventListener("keydown", e => {
+        if (e.key === "Escape") { e.preventDefault(); closeProject(); }
+        if (e.key === "ArrowRight") stepProject(1);
+        if (e.key === "ArrowLeft") stepProject(-1);
+    });
+    return modal;
+}
+
+function openProject(id, list) {
+    ensureModal();
+    modalList = list && list.length ? list : (projectsCache || []);
+    modalIndex = Math.max(0, modalList.findIndex(p => p.id === id));
+    fillModal();
+    if (!modal.open) modal.showModal();
+    document.body.classList.add("modal-open");
+}
+
+function stepProject(dir) {
+    if (modalList.length < 2) return;
+    modalIndex = (modalIndex + dir + modalList.length) % modalList.length;
+    fillModal();
+}
+
+function closeProject() {
+    if (modal && modal.open) modal.close();
+    onModalClosed();
+}
+
+function onModalClosed() {
+    document.body.classList.remove("modal-open");
+    if (page === "projects") {
+        const url = new URL(location.href);
+        url.searchParams.delete("project");
+        history.replaceState(null, "", url);
+    }
+}
+
+function fillModal() {
+    const p = modalList[modalIndex];
+    if (!p) return;
+
+    const images = [p.image, ...asList(p.gallery)].filter(Boolean);
+    const links = p.links || {};
+    const linkBtns = [
+        links.live ? `<a class="btn" href="${esc(links.live)}" target="_blank" rel="noopener">&#9654; Live demo</a>` : "",
+        links.code ? `<a class="btn btn-ghost btn-cyan" href="${esc(links.code)}" target="_blank" rel="noopener">&lt;/&gt; Broncode</a>` : ""
+    ].join("");
+    const desc = asList(p.description);
+    const feats = asList(p.features);
+
+    $("[data-m-file]", modal).textContent = `// project_file: ${p.id}.dat  [${pad(modalIndex + 1)}/${pad(modalList.length)}]`;
+    $("[data-m-body]", modal).innerHTML = `
+        <div class="modal-top">
+            <div>
+                <div class="modal-img"><img src="${esc(images[0])}" alt="Screenshot van ${esc(p.title)}" data-m-main></div>
+                ${images.length > 1 ? `<div class="thumbs">${images.map((src, i) => `<button type="button" class="${i === 0 ? "on" : ""}" data-m-thumb="${esc(src)}" aria-label="Afbeelding ${i + 1}"><img src="${esc(src)}" alt=""></button>`).join("")}</div>` : ""}
+            </div>
+            <div>
+                <h2 id="modal-title">${esc(p.title)}</h2>
+                ${p.tagline ? `<p class="modal-tagline">&gt; ${esc(p.tagline)}</p>` : ""}
+                <p class="label">Gebouwd met</p>
+                <ul class="chips">${p.tools.map(toolChip).join("")}</ul>
+                ${linkBtns ? `<div class="modal-links">${linkBtns}</div>` : ""}
+            </div>
+        </div>
+        <div class="modal-cols">
+            <div class="modal-desc">
+                <p class="label">Over het project</p>
+                ${desc.length ? desc.map(t => `<p>${esc(t)}</p>`).join("") : `<p class="muted">Nog geen beschrijving.</p>`}
+            </div>
+            <div>
+                ${feats.length ? `<p class="label">Features</p><ul class="feat">${feats.map(f => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
+                ${p.learned ? `<p class="label">Wat ik leerde</p><div class="learned">${esc(p.learned)}</div>` : ""}
+            </div>
+        </div>`;
+
+    $$("[data-m-thumb]", modal).forEach(btn => btn.addEventListener("click", () => {
+        $("[data-m-main]", modal).src = btn.dataset.mThumb;
+        $$("[data-m-thumb]", modal).forEach(b => b.classList.toggle("on", b === btn));
+    }));
+    $("[data-m-body]", modal).scrollTop = 0;
+    $(".modal-nav", modal).style.display = modalList.length > 1 ? "" : "none";
+
+    if (page === "projects") {
+        const url = new URL(location.href);
+        url.searchParams.set("project", p.id);
+        history.replaceState(null, "", url);
+    }
+}
+
+// =====================================================================
+//  SKILLS
+// =====================================================================
+async function initSkills() {
+    const target = $("[data-skills]");
+    if (!target) return;
+
+    try { await loadData(); } catch (e) { loadError(target); return; }
+    const countFor = name => projectsWith(name).length;
+    const max = Math.max(1, ...SKILLS.map(s => countFor(s.name)));
+
+    target.innerHTML = SKILLS.map((skill, index) => {
+        const n = countFor(skill.name);
+        const text = skill.text || (skill.auto ? `Gebruikt in: ${projectsWith(skill.name).map(p => p.title).join(", ")}.` : "");
+        const i = index + 1;
+        return `
+            <a class="s-card" href="projects.html?skill=${encodeURIComponent(skill.name)}" style="animation-delay:${i * 50}ms">
+                <div class="s-top">
+                    <img class="s-icon ${skill.invert ? "invert" : ""}" src="${esc(skill.iconUrl)}" alt="${esc(skill.name)} logo" loading="lazy">
+                    <span class="s-count">${pad(i)}</span>
+                </div>
+                <h3>${esc(skill.name)}</h3>
+                ${text ? `<p>${esc(text)}</p>` : ""}
+                <div class="s-bar"><i style="width:${n ? Math.max(12, n / max * 100) : 4}%"></i></div>
+                <div class="s-meta"><span>${n} project${n === 1 ? "" : "en"}</span><span>Bekijk &rarr;</span></div>
+            </a>`;
     }).join("");
 
-    target.innerHTML = cells;
+    $$(".s-icon", target).forEach(img => img.addEventListener("error", () => {
+        const box = document.createElement("div");
+        box.className = "s-icon s-fallback";
+        box.textContent = img.alt.replace(" logo", "").slice(0, 2);
+        img.replaceWith(box);
+    }, { once: true }));
 }
 
-function renderGames() {
-    const target = document.querySelector("[data-games]");
-    if (!target) return;
-
-    target.innerHTML = data.games.map((game, index) => `
-        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-            <article class="card h-100 text-white bg-dark bg-opacity-75 border border-secondary rounded-4 shadow-lg overflow-hidden glass hover-lift">
-                <div class="poster-frame" data-poster="${index}">
-                    <div class="poster-fallback"><span>${escapeHtml(game.title)}</span></div>
-                </div>
-                <div class="card-body p-4">
-                    <h2 class="h6 card-title fw-bold mb-3">${escapeHtml(game.title)}</h2>
-                    <ul class="trophy-row list-unstyled d-flex flex-wrap gap-2 mb-0">${trophyBadges(game)}</ul>
-                </div>
-            </article>
-        </div>
-    `).join("");
-
-    data.games.forEach((game, index) => loadGameCover(game, document.querySelector(`[data-poster="${index}"]`)));
+// =====================================================================
+//  HOMEPAGE: typewriter + ticker
+// =====================================================================
+function initTypewriter() {
+    const el = $("[data-words]");
+    if (!el) return;
+    const words = ["websites", "games", "web-apps", "3D-werelden"];
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let w = 0, c = words[0].length, deleting = true, wait = 14;
+    setInterval(() => {
+        if (wait-- > 0) return;
+        c += deleting ? -1 : 1;
+        el.textContent = words[w].slice(0, c);
+        if (deleting && c === 0) { deleting = false; w = (w + 1) % words.length; }
+        else if (!deleting && c === words[w].length) { deleting = true; wait = 16; }
+    }, 85);
 }
 
-// Cover ophalen: eigen link (image) > Wikipedia-cover (wiki) > nette placeholder met de titel.
-async function findCoverUrl(game) {
-    if (game.image) return game.image;
-    if (!game.wiki) return null;
-
-    const cacheKey = "cover:" + game.wiki;
-    try {
-        const cached = sessionStorage.getItem(cacheKey);
-        if (cached) return cached;
-    } catch (e) { /* sessionStorage kan geblokkeerd zijn */ }
-
-    const title = encodeURIComponent(game.wiki.replace(/ /g, "_"));
-    const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${title}`);
-    if (!response.ok) return null;
-
-    const info = await response.json();
-    const url = info.thumbnail && info.thumbnail.source
-        ? info.thumbnail.source.replace(/\/\d+px-/, "/640px-")
-        : (info.originalimage && info.originalimage.source);
-
-    if (url) {
-        try { sessionStorage.setItem(cacheKey, url); } catch (e) { /* negeren */ }
-    }
-    return url || null;
+async function initTicker() {
+    const el = $("[data-ticker]");
+    if (!el) return;
+    try { await loadData(); } catch (e) { /* ticker toont dan alleen de vaste woorden */ }
+    const items = SKILLS.map(s => s.name).concat(["Responsive", "Clean code", "Game dev"]);
+    const row = items.map(t => `${esc(t)}<span>&#9670;</span>`).join("");
+    el.innerHTML = `<div>${row}${row}</div>`;
 }
 
-async function loadGameCover(game, frame) {
-    if (!frame) return;
-    try {
-        const url = await findCoverUrl(game);
-        if (!url) return;
-
-        const img = new Image();
-        img.className = "card-img-top poster-img bg-dark";
-        img.alt = `Cover van ${game.title}`;
-        img.loading = "lazy";
-        img.referrerPolicy = "no-referrer";
-        img.onload = () => frame.replaceChildren(img);
-        img.src = url;   // mislukt het laden, dan blijft de placeholder staan
-    } catch (e) {
-        /* geen internet of Wikipedia down: placeholder blijft staan */
-    }
+// =====================================================================
+//  OVER MIJ: foto-slideshow
+// =====================================================================
+function initSlides() {
+    const box = $("[data-slides]");
+    if (!box) return;
+    const imgs = $$("img", box);
+    const dots = $("[data-slide-dots]");
+    if (imgs.length < 2) { imgs[0]?.classList.add("on"); return; }
+    let i = 0, timer;
+    dots.innerHTML = imgs.map((_, n) => `<button type="button" aria-label="Foto ${n + 1}"></button>`).join("");
+    const dotBtns = $$("button", dots);
+    const show = n => {
+        i = (n + imgs.length) % imgs.length;
+        imgs.forEach((img, k) => img.classList.toggle("on", k === i));
+        dotBtns.forEach((d, k) => d.classList.toggle("on", k === i));
+    };
+    const start = () => { clearInterval(timer); timer = setInterval(() => show(i + 1), 4500); };
+    dotBtns.forEach((d, n) => d.addEventListener("click", () => { show(n); start(); }));
+    show(0); start();
 }
 
-function renderSkills() {
-    const target = document.querySelector("[data-skills]");
-    if (!target) return;
-
-    target.innerHTML = data.skills.map(skill => `
-        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-            <a href="projects.html?skill=${encodeURIComponent(skill.name)}" class="card h-100 text-white text-decoration-none bg-dark bg-opacity-75 border border-secondary rounded-4 shadow-lg glass hover-lift">
-                <div class="card-body text-center p-4">
-                    <img src="${skill.icon}" class="skill-icon mb-3 ${skill.invert ? "skill-icon-invert" : ""}" alt="${skill.name} logo">
-                    <h2 class="h5 fw-bold mb-2">${skill.name}</h2>
-                    <p class="small text-white-50 mb-0">${skill.text}</p>
-                </div>
-            </a>
-        </div>
-    `).join("");
-
-    // Laadt een icoon niet (bv. geen internet)? Dan een nette letter-tegel.
-    target.querySelectorAll(".skill-icon").forEach(img => {
-        img.addEventListener("error", () => {
-            const badge = document.createElement("div");
-            badge.className = "skill-icon skill-icon-fallback mb-3 mx-auto";
-            badge.textContent = img.alt.replace(" logo", "").slice(0, 2);
-            img.replaceWith(badge);
-        }, { once: true });
-    });
-}
-
-// ---------- Contact ----------
-function setCopyEmail() {
-    const button = document.querySelector("[data-copy-email]");
-    if (!button) return;
-
-    button.addEventListener("click", async () => {
+// =====================================================================
+//  CONTACT
+// =====================================================================
+function initCopyEmail() {
+    $$("[data-copy-email]").forEach(button => button.addEventListener("click", async () => {
         const original = button.textContent;
-        try {
-            await navigator.clipboard.writeText(SITE.email);
-            button.textContent = "Gekopieerd!";
-        } catch (e) {
-            window.prompt("Kopieer het e-mailadres:", SITE.email);
-            return;
-        }
+        try { await navigator.clipboard.writeText(SITE.email); button.textContent = "Gekopieerd ✓"; }
+        catch (e) { window.prompt("Kopieer het e-mailadres:", SITE.email); return; }
         setTimeout(() => { button.textContent = original; }, 2000);
-    });
+    }));
 }
 
-function setContactForm() {
-    const form = document.querySelector("[data-contact-form]");
+function initContactForm() {
+    const form = $("[data-contact-form]");
     if (!form) return;
-
-    const button = form.querySelector("[data-submit-btn]");
-    const hint = form.querySelector("[data-form-hint]");
-    const status = form.querySelector("[data-form-status]");
+    const button = $("[data-submit-btn]", form);
+    const hint = $("[data-form-hint]", form);
+    const status = $("[data-form-status]", form);
     const useEndpoint = Boolean(SITE.formEndpoint);
 
     if (!useEndpoint) {
-        button.textContent = "Open mail";
+        button.textContent = "Open mail ▸";
         hint.textContent = "Opent je mailprogramma met je bericht al ingevuld.";
     }
-
-    const showStatus = (type, html) => {
-        status.innerHTML = `<div class="alert alert-${type} mb-0" role="alert">${html}</div>`;
-    };
+    const show = (type, html) => { status.innerHTML = `<div class="${type}" role="alert">${html}</div>`; };
+    const mailLink = `<a href="mailto:${SITE.email}">${SITE.email}</a>`;
 
     form.addEventListener("submit", async event => {
         event.preventDefault();
         status.innerHTML = "";
-        form.classList.add("was-validated");
-
-        if (!form.checkValidity()) {
-            form.querySelector(":invalid").focus();
-            return;
-        }
+        form.classList.add("validated");
+        if (!form.checkValidity()) { $(":invalid", form).focus(); return; }
         if (form.elements._gotcha.value) return;   // spam-bots vullen dit verborgen veld in
 
         const name = form.elements.name.value.trim();
@@ -343,16 +475,14 @@ function setContactForm() {
         if (!useEndpoint) {
             const subject = `Portfolio contact van ${name}`;
             const body = `${message}\n\n--\n${name}\n${email}`;
-            window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            showStatus("info", "Je mailprogramma wordt geopend. Gebeurt er niets? Mail dan direct naar " +
-                `<a class="alert-link" href="mailto:${SITE.email}">${SITE.email}</a>.`);
+            location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            show("info", `Je mailprogramma wordt geopend. Gebeurt er niets? Mail dan direct naar ${mailLink}.`);
             return;
         }
 
-        const originalLabel = button.textContent;
+        const label = button.textContent;
         button.disabled = true;
         button.textContent = "Versturen...";
-
         try {
             const response = await fetch(SITE.formEndpoint, {
                 method: "POST",
@@ -360,24 +490,61 @@ function setContactForm() {
                 body: JSON.stringify({ name, email, message, _replyto: email })
             });
             if (!response.ok) throw new Error("HTTP " + response.status);
-
             form.reset();
-            form.classList.remove("was-validated");
-            showStatus("success", "Bedankt! Je bericht is verstuurd, ik neem snel contact met je op.");
+            form.classList.remove("validated");
+            show("ok", "Bericht verstuurd. Ik neem snel contact met je op.");
         } catch (e) {
-            showStatus("danger", "Versturen is mislukt. Probeer het later opnieuw of mail direct naar " +
-                `<a class="alert-link" href="mailto:${SITE.email}">${SITE.email}</a>.`);
+            show("bad", `Versturen is mislukt. Probeer het later opnieuw of mail direct naar ${mailLink}.`);
         } finally {
             button.disabled = false;
-            button.textContent = originalLabel;
+            button.textContent = label;
         }
     });
 }
 
-renderProjectFilters();
-renderProjects();
-renderTrophyTotals();
-renderGames();
-renderSkills();
-setContactForm();
-setCopyEmail();
+// =====================================================================
+//  DOOM (easter egg op de homepage)
+// =====================================================================
+function initDoom() {
+    const triggers = $$("[data-doom]");
+    if (!triggers.length) return;
+    const dlg = document.createElement("dialog");
+    dlg.className = "modal doom";
+    dlg.innerHTML = `
+        <div class="modal-shell"><div class="modal-inner">
+            <div class="modal-bar"><span>// doom.exe</span><button class="modal-close" type="button" aria-label="Sluiten">&times;</button></div>
+            <div class="doom-screen"><iframe title="DOOM" src="about:blank" allowfullscreen></iframe></div>
+            <div class="doom-tip">Klik in het spel om de controls te activeren — ESC sluit dit venster.</div>
+        </div></div>`;
+    document.body.appendChild(dlg);
+    const frame = $("iframe", dlg);
+    const close = () => {
+        if (dlg.open) dlg.close();
+        frame.src = "about:blank";
+        document.body.classList.remove("modal-open");
+    };
+    $(".modal-close", dlg).addEventListener("click", close);
+    dlg.addEventListener("click", e => { if (e.target === dlg) close(); });
+    dlg.addEventListener("keydown", e => { if (e.key === "Escape") { e.preventDefault(); close(); } });
+    dlg.addEventListener("close", close);
+    triggers.forEach(t => t.addEventListener("click", e => {
+        e.preventDefault();
+        frame.src = "https://silentspacemarine.com/";
+        dlg.showModal();
+        document.body.classList.add("modal-open");
+    }));
+}
+
+// =====================================================================
+//  START
+// =====================================================================
+renderChrome();
+initTypewriter();
+initTicker();
+initFeatured();
+initProjectsPage();
+initSkills();
+initSlides();
+initCopyEmail();
+initContactForm();
+initDoom();

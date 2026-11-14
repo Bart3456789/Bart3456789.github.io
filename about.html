@@ -3,53 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experience | Bart-HUB</title>
-    <link rel="icon" type="image/png" href="assets/img/logo/logoTab.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Over mij | BART//HUB</title>
+    <meta name="description" content="Over Bartosz Jaworski: achtergrond, talen, hobby's en focus.">
+    <meta name="theme-color" content="#07070b">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23fcee0a' d='M0 0h24l8 8v24H8L0 24z'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='900' font-size='15' text-anchor='middle' fill='%2307070b'%3EB%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
-<body data-page="about" class="d-flex flex-column text-white">
-    <header data-vd-nav></header>
+<body data-page="about">
+    <header data-nav></header>
 
-    <main class="flex-grow-1">
-        <section class="container py-5 my-lg-5">
-            <div class="row g-5 align-items-center">
-                <div class="col-12 col-lg-5">
-                    <div id="aboutCarousel" class="carousel slide bg-dark bg-opacity-75 border border-secondary rounded-4 shadow-lg overflow-hidden glass" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active"><img src="assets/img/me/1.png" class="d-block w-100 about-photo" alt="Foto van Bart 1"></div>
-                            <div class="carousel-item"><img src="assets/img/me/2.png" class="d-block w-100 about-photo" alt="Foto van Bart 2"></div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#aboutCarousel" data-bs-slide="prev" aria-label="Vorige foto"><span class="carousel-control-prev-icon" aria-hidden="true"></span></button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#aboutCarousel" data-bs-slide="next" aria-label="Volgende foto"><span class="carousel-control-next-icon" aria-hidden="true"></span></button>
+    <main>
+        <section class="section">
+            <div class="wrap about">
+                <div>
+                    <div class="slides" data-slides>
+                        <img src="assets/img/me/1.png" alt="Foto van Bartosz" class="on">
+                        <img src="assets/img/me/2.png" alt="Nog een foto van Bartosz">
                     </div>
+                    <div class="slide-dots" data-slide-dots></div>
                 </div>
-                <div class="col-12 col-lg-7">
-                    <div class="bg-dark bg-opacity-75 border border-secondary rounded-4 shadow-lg glass p-4 p-md-5">
-                        <p class="text-void fw-bold text-uppercase small mb-2">04 // experience</p>
-                        <h1 class="display-2 fw-bold lh-1 mb-3">Over mij.</h1>
-                        <p class="lead text-white-50">Ik ben Bartosz, een developer in opleiding die graag websites, games en interactieve projecten maakt.</p>
-                        <div class="row g-3 my-4">
-                            <div class="col-12 col-sm-6"><div class="border border-secondary rounded-3 p-3 h-100"><strong>Naam</strong><br><span class="text-white-50">Bartosz Jaworski</span></div></div>
-                            <div class="col-12 col-sm-6"><div class="border border-secondary rounded-3 p-3 h-100"><strong>Talen</strong><br><span class="text-white-50">Nederlands, Engels & Pools</span></div></div>
-                            <div class="col-12 col-sm-6"><div class="border border-secondary rounded-3 p-3 h-100"><strong>Hobby's</strong><br><span class="text-white-50">Gaming, Gym</span></div></div>
-                            <div class="col-12 col-sm-6"><div class="border border-secondary rounded-3 p-3 h-100"><strong>Focus</strong><br><span class="text-white-50">Web, Unity, 3D</span></div></div>
-                        </div>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a href="documenten/CV_Bart.docx" download="CV_Bart.docx" class="btn btn-void fw-bold">Download CV</a>
-                            <a href="gameTrophy.html" class="btn btn-outline-light fw-bold">Game trophies</a>
-                        </div>
+                <div>
+                    <p class="eyebrow"><b>04</b> Over mij</p>
+                    <h1 class="page-title">Hoi, ik ben <em>Bartosz</em></h1>
+                    <p class="lead">Developer in opleiding die graag websites, games en interactieve projecten bouwt. Ik leer het meest door gewoon te maken: een idee uitproberen, vastlopen, oplossen en verbeteren.</p>
+
+                    <div class="data-grid">
+                        <div><span>Naam</span><b>Bartosz Jaworski</b></div>
+                        <div><span>Talen</span><b>Nederlands, Engels &amp; Pools</b></div>
+                        <div><span>Hobby's</span><b>Gaming, Gym</b></div>
+                        <div><span>Focus</span><b>Web, Unity, 3D</b></div>
+                    </div>
+
+                    <p class="label">Mijn pad</p>
+                    <ul class="timeline">
+                        <li><b>Front-end basis</b><span>HTML, CSS en JavaScript: quizzen, games en interactieve pagina's.</span></li>
+                        <li><b>Full-stack</b><span>PHP, databases en Bootstrap: logins, accounts en dynamische data.</span></li>
+                        <li><b>Game dev &amp; 3D</b><span>Prototypes in Unity met C# en modellen in Blender.</span></li>
+                    </ul>
+
+                    <div class="hero-cta">
+                        <a href="documenten/CV_Bart.docx" download="CV_Bart.docx" class="btn">&darr; Download CV</a>
+                        <a href="contact.html" class="btn btn-ghost btn-cyan">Neem contact op</a>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer data-vd-foot></footer>
+    <footer data-foot></footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
-    <script src="assets/js/void.js"></script>
 </body>
 </html>

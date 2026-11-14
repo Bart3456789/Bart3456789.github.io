@@ -1,0 +1,99 @@
+{
+    "_uitleg": "Elk project is een blok tussen { }. Verplicht: id (uniek, kleine letters, geen spaties), title, image en tools. tools = de technieken/talen; dat is ook de categorie waarop je filtert. Een nieuwe taal (bv. \"Python\") krijgt vanzelf een filterknop en een skill-kaart. Optioneel: tagline, description (lijst met alinea's), features, learned, featured (true = op de homepage), links {\"live\": \"...\", \"code\": \"...\"} en gallery (lijst met extra afbeeldingen). Afbeeldingen zet je in assets/img/projects/.",
+    "projects": [
+        {
+            "id": "quiz",
+            "title": "Mythologie Quiz",
+            "tagline": "Interactieve quiz met jokers en score",
+            "image": "assets/img/projects/project1.png",
+            "tools": ["HTML", "CSS", "JavaScript"],
+            "description": [
+                "Een quizpagina over Slavische mythologie. De speler krijgt steeds een vraag met vier antwoordopties en ziet direct of het antwoord goed of fout was.",
+                "Om het spannender te maken heeft de quiz een 50/50-joker die twee foute antwoorden wegstreept. De vragen, de score en de jokers worden allemaal met JavaScript beheerd, zodat de pagina zelf nooit hoeft te herladen."
+            ],
+            "features": [
+                "Vragen en antwoorden dynamisch in de pagina geladen",
+                "50/50-joker met een beperkt aantal keer gebruiken",
+                "Scoretelling en directe feedback per antwoord",
+                "Gloeiende knoppen en een gradient-achtergrond in CSS"
+            ],
+            "learned": "Hoe je met JavaScript events, de DOM en een simpele game-state een complete user flow bouwt: van vraag naar antwoord naar score.",
+            "featured": true
+        },
+        {
+            "id": "slotmachine",
+            "title": "GoldenGrin Slot Machine",
+            "tagline": "Browsergame met inzet, saldo en spins",
+            "image": "assets/img/projects/project2.png",
+            "tools": ["HTML", "CSS", "JavaScript"],
+            "description": [
+                "GoldenGrin is een slotmachine die volledig in de browser draait. Je begint met een saldo, kiest hoeveel je inzet en laat de drie rollen draaien.",
+                "Na elke spin controleert het spel of de symbolen een winnende combinatie vormen en wordt het saldo bijgewerkt. Er is ook een aparte pagina met de spelregels."
+            ],
+            "features": [
+                "Drie rollen met willekeurige symbolen",
+                "Inzet-systeem met saldo en 'add money'",
+                "Winstcontrole na elke spin",
+                "Aparte pagina met de spelregels"
+            ],
+            "learned": "Werken met willekeur, timing en game states, en mijn code opdelen in kleine herbruikbare functies.",
+            "featured": true
+        },
+        {
+            "id": "mon-in",
+            "title": "Mon-IN",
+            "tagline": "Social platform met accounts en posts",
+            "image": "assets/img/projects/project3.png",
+            "tools": ["PHP", "Database", "HTML", "Bootstrap"],
+            "description": [
+                "Mon-IN is een klein social platform in de stijl van een zakelijk netwerk. Gebruikers kunnen zich registreren, inloggen en berichten plaatsen die in een tijdlijn verschijnen.",
+                "Elke post toont de naam, functie, datum en het aantal likes. Alle gegevens worden opgeslagen in een database en server-side met PHP verwerkt."
+            ],
+            "features": [
+                "Registreren en inloggen met sessies",
+                "Tijdlijn met posts, profielfoto's en datums",
+                "Like-systeem per post",
+                "Responsive layout met Bootstrap"
+            ],
+            "learned": "De stap van statische pagina's naar een dynamische website: formulieren verwerken, gebruikers beheren en data opslaan en ophalen uit een database.",
+            "featured": true
+        },
+        {
+            "id": "collectables",
+            "title": "Collectables",
+            "tagline": "Verzamelingen beheren na het inloggen",
+            "image": "assets/img/projects/project4.png",
+            "tools": ["PHP", "Database", "HTML", "Bootstrap"],
+            "description": [
+                "Een webapplicatie waarin ingelogde gebruikers hun eigen verzamelingen kunnen aanmaken en bekijken. Denk aan kaarten, figuren of andere collectibles.",
+                "De items worden uit de database opgehaald en als overzichtelijke kaarten getoond. Elke gebruiker ziet alleen zijn eigen verzamelingen."
+            ],
+            "features": [
+                "Login met persoonlijke begroeting",
+                "Nieuwe verzamelingen aanmaken",
+                "Items uit de database getoond als cards",
+                "Lege-staat melding als er nog niets is"
+            ],
+            "learned": "Data ophalen, structureren en presenteren, en nadenken over wat een gebruiker ziet als er nog geen data is.",
+            "featured": false
+        },
+        {
+            "id": "unity-platformer",
+            "title": "Unity Platformer",
+            "tagline": "2D-prototype met beweging en platforms",
+            "image": "assets/img/projects/project5.png",
+            "tools": ["Unity", "C#"],
+            "description": [
+                "Mijn eerste game-prototype in Unity: een simpele 2D-platformer waarin de speler kan lopen en springen tussen platforms.",
+                "De focus lag niet op graphics maar op de basis: physics, input en het gedrag van objecten via C#-scripts."
+            ],
+            "features": [
+                "Speler-beweging en springen met physics",
+                "Platforms met colliders",
+                "C#-scripts voor input en gedrag"
+            ],
+            "learned": "Hoe Unity werkt met GameObjects, components en C#-scripts, en hoe je snel een idee test met een prototype.",
+            "featured": false
+        }
+    ]
+}
