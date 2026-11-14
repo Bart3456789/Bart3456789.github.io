@@ -43,7 +43,7 @@
             ],
             "learned": "Working with randomness, timing and game states, and splitting my code into small reusable functions.",
             "featured": true,
-            "links": { "live": "", "code": "" }
+            "links": { "live": "", "code": "https://github.com/ROCMondriaanTIN/sd25-p03-proj-mon-in-makapaka/tree/bart" }
         },
         {
             "id": "mon-in",
@@ -87,7 +87,7 @@
             ],
             "learned": "Loading, structuring and presenting data, and thinking about what a user sees when there is no data yet.",
             "featured": false,
-            "links": { "live": "", "code": "" }
+            "links": { "live": "", "code": "https://github.com/ROCMondriaanTIN/sd25-project-p04-collectables-teqela" }
         },
         {
             "id": "unity-platformer",
@@ -108,7 +108,7 @@
             ],
             "learned": "How Unity works with GameObjects, components and C# scripts, and how to test an idea quickly with a prototype.",
             "featured": false,
-            "links": { "live": "", "code": "" }
+            "links": { "live": "", "code": "https://github.com/ROCMondriaanTIN/sd25-kdlgp-p04-game-teletubbies" }
         }
     ]
 }
