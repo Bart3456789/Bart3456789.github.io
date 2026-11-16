@@ -109,6 +109,28 @@
             "learned": "How Unity works with GameObjects, components and C# scripts, and how to test an idea quickly with a prototype.",
             "featured": false,
             "links": { "live": "", "code": "https://github.com/ROCMondriaanTIN/sd25-kdlgp-p04-game-teletubbies" }
+        },
+        {
+            "id": "budget-buddy",
+            "title": "Budget Buddy",
+            "tagline": "Manage your money after logging in",
+            "image": "assets/img/projects/project6.png",
+            "tools": ["HTML", "CSS", "PHP", "Symfony", "Database"],
+            "difficulty": "hard",
+            "challenge": "It was my first time using Symfony, so connecting the project to a database was the hardest part.",
+            "description": [
+                "Budget Buddy is a personal budgeting web app and my first project built with Symfony. Users create a free account, log in and keep track of their income and expenses.",
+                "The dashboard shows this month's balance, a bar chart of the last months and the most recent transactions, so you can see right away where your money goes and work towards your savings goals."
+            ],
+            "features": [
+                "Register and log in with your own account",
+                "Add income and expenses as transactions",
+                "Monthly balance overview with a bar chart",
+                "Insights page that shows where your money goes"
+            ],
+            "learned": "How a Symfony project is structured, and how to link it to a database so data is saved per user.",
+            "featured": false,
+            "links": { "live": "", "code": "https://github.com/ROCMondriaanTIN/cohort25-project-periode-5-2025-2a-teame" }
         }
     ]
 }
