@@ -50,7 +50,7 @@
             "title": "Mon-IN",
             "tagline": "Social platform with accounts and posts",
             "image": "assets/img/projects/project3.png",
-            "tools": ["PHP", "Database", "HTML", "Bootstrap"],
+            "tools": ["PHP", "MySQL", "HTML", "Bootstrap"],
             "difficulty": "hard",
             "challenge": "From static pages to a real platform: users register, log in with sessions and posts are saved to and loaded from a database.",
             "description": [
@@ -72,7 +72,7 @@
             "title": "Collectables",
             "tagline": "Manage collections after logging in",
             "image": "assets/img/projects/project4.png",
-            "tools": ["PHP", "Database", "HTML", "Bootstrap"],
+            "tools": ["PHP", "MySQL", "HTML", "Bootstrap"],
             "difficulty": "medium",
             "challenge": "Every user may only see their own collections, and the page also has to work neatly when there is no data yet.",
             "description": [
@@ -115,7 +115,7 @@
             "title": "Budget Buddy",
             "tagline": "Manage your money after logging in",
             "image": "assets/img/projects/project6.png",
-            "tools": ["HTML", "CSS", "PHP", "Symfony", "Database"],
+            "tools": ["HTML", "CSS", "PHP", "Symfony", "MySQL"],
             "difficulty": "hard",
             "challenge": "It was my first time using Symfony, so connecting the project to a database was the hardest part.",
             "description": [

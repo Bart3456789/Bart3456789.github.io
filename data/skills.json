@@ -33,7 +33,7 @@
             "text": "PHP framework: Doctrine, Twig and CRUD apps."
         },
         {
-            "name": "Database",
+            "name": "MySQL",
             "devicon": "mysql",
             "text": "Storing, retrieving and linking data."
         },
