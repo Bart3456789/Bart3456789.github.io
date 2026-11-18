@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects | Bartosz Jaworski</title>
-    <meta name="description" content="Projects by Bartosz Jaworski: websites, web apps and games.">
-    <meta name="theme-color" content="#0a0b10">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c8cff'/%3E%3Cstop offset='1' stop-color='%23b08cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-weight='800' font-size='13' text-anchor='middle' fill='%23fff'%3EBJ%3C/text%3E%3C/svg%3E">
+    <title>Work — Bartosz Jaworski</title>
+    <meta name="description" content="Projects by Bartosz Jaworski: websites, web applications and games.">
+    <meta name="theme-color" content="#07080b">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23fcee0a' d='M0 0h24l8 8v24H0z'/%3E%3Ctext x='15' y='21.5' font-family='Arial' font-weight='800' font-size='13' text-anchor='middle' fill='%2307080b'%3EBJ%3C/text%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
-    <link href="assets/css/style.css?v=202611181400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="assets/css/style.css?v=202611190500" rel="stylesheet">
 </head>
 <body data-page="projects">
     <header data-nav></header>
@@ -18,21 +18,23 @@
     <main>
         <section class="section">
             <div class="wrap">
-                <div class="page-head reveal">
+                <div class="page-head">
                     <div>
-                        <p class="eyebrow">Projects</p>
-                        <h1 class="page-title">Selected <em>work</em></h1>
-                        <p class="lead">Open a project to see what it is about, what it was built with and what I learned from it.</p>
+                        <span class="kicker reveal">Work <b>&mdash; <span data-all-count>&ndash;</span> projects</b></span>
+                        <h1 class="page-title split"><span class="line"><span>Selected</span></span><span class="line"><span><em>work</em></span></span></h1>
                     </div>
+                    <p class="lead reveal" style="--d:300ms">Each project tells a small story: what it is, how it was built and what I learned along the way.</p>
                 </div>
-                <div class="filter-bar reveal" data-filters role="toolbar" aria-label="Filter projects"></div>
-                <div class="grid" data-projects></div>
+                <div class="toolbar reveal"><div class="filters" data-filters role="toolbar" aria-label="Filter projects"></div></div>
+                <div class="cards" data-projects></div>
             </div>
         </section>
     </main>
 
     <footer data-foot></footer>
 
-    <script src="assets/js/app.js?v=202611181400"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="assets/js/scene.js?v=202611190500"></script>
+    <script src="assets/js/app.js?v=202611190500"></script>
 </body>
 </html>

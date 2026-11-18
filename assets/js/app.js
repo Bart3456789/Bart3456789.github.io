@@ -4,7 +4,9 @@
 const SITE = {
     name: "Bartosz Jaworski",
     initials: "BJ",
-    tagline: "Web developer in training, building websites, web apps and games.",
+    role: "Web developer",
+    tagline: "Web developer in training, crafting refined websites, web applications and games.",
+    timeZone: "Europe/Amsterdam",   // voor de klok in de footer
     instagram: "https://www.instagram.com/bart_buzzz/",
     email: "bartekjaworski416@gmail.com",
     github: "https://github.com/Bart3456789",
@@ -12,11 +14,7 @@ const SITE = {
     skillsFile: "data/skills.json",
     // Contactformulier: plak hier je Formspree-link (https://formspree.io/f/xxxxxxxx).
     // Leeg laten = het formulier opent gewoon je mailprogramma.
-    formEndpoint: "",
-    // Achtergrondmuziek: zet je mp3 op deze plek (of pas het pad aan). Leeg laten = geen muziek.
-    music: "assets/audio/music.mp3",
-    musicVolume: 0.35,      // 0 = stil, 1 = hard
-    musicLoopDelay: 3000    // wachttijd (ms) voordat het nummer opnieuw begint
+    formEndpoint: ""
 };
 
 const PAGES = [
@@ -86,56 +84,90 @@ function renderChrome() {
     const nav = $("[data-nav]");
     if (nav) {
         const current = page === "index" ? "index.html" : page + ".html";
-        nav.className = "nav" + (scrollY > 10 ? " scrolled" : "");
+        nav.className = "nav";
         nav.innerHTML = `
             <div class="wrap">
-                <a class="brand" href="index.html"><span class="brand-mark">${SITE.initials}</span>${SITE.name}</a>
-                <button class="burger" type="button" aria-label="Open menu" aria-expanded="false"><span></span></button>
+                <a class="brand" href="index.html"><b>${SITE.name}</b><small>${SITE.role}</small></a>
+                <div class="nav-time" aria-hidden="true">Local time<b data-clock>--:--</b></div>
                 <nav class="nav-links" aria-label="Main menu">
-                    ${PAGES.filter(([href]) => href !== "contact.html").map(([href, label]) => `<a href="${href}" class="${href === current ? "on" : ""}" ${href === current ? 'aria-current="page"' : ""}>${label}</a>`).join("")}
-                    <a href="contact.html" class="btn btn-sm ${current === "contact.html" ? "btn-ghost" : "btn-accent"} nav-cta" ${current === "contact.html" ? 'aria-current="page"' : ""}>Contact</a>
+                    ${PAGES.slice(1).map(([href, label], i) => `<a href="${href}" class="${href === current ? "on" : ""}" ${href === current ? 'aria-current="page"' : ""}>${label}<sup>${pad(i + 1)}</sup></a>`).join("")}
                 </nav>
+                <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu">Menu</button>
             </div>`;
-        const burger = $(".burger", nav);
-        burger.addEventListener("click", () => {
-            const open = nav.classList.toggle("open");
-            burger.setAttribute("aria-expanded", open);
-            burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+
+        // Volledig schermmenu voor telefoons (staat los van de header vanwege de blend-modus).
+        let menu = $("#site-menu");
+        if (!menu) { menu = document.createElement("div"); menu.id = "site-menu"; menu.className = "menu"; document.body.appendChild(menu); }
+        menu.classList.remove("open");
+        document.body.classList.remove("menu-open");
+        menu.innerHTML = `
+            <nav aria-label="Menu">${PAGES.map(([href, label], i) => `<a href="${href}" class="${href === current ? "on" : ""}"><small>${pad(i + 1)}</small><span>${label}</span></a>`).join("")}</nav>
+            <div class="menu-foot"><span>${SITE.email}</span><span><i class="status-dot"></i>Internships &amp; freelance</span></div>`;
+        const btn = $(".menu-btn", nav);
+        btn.addEventListener("click", () => {
+            const open = menu.classList.toggle("open");
+            document.body.classList.toggle("menu-open", open);
+            btn.setAttribute("aria-expanded", open);
+            btn.textContent = open ? "Close" : "Menu";
         });
     }
 
     const foot = $("[data-foot]");
     if (foot) {
         foot.className = "foot";
+        const cta = page === "contact" ? "" : `
+                <div class="big-cta">
+                    <div>
+                        <span class="kicker">Have a project in mind?</span>
+                        <a class="big-cta-link" href="contact.html"><h2>Let's talk <span class="arrow-big" aria-hidden="true">&rarr;</span></h2></a>
+                    </div>
+                    <div class="big-cta-row">
+                        <a class="mail" href="mailto:${SITE.email}">${SITE.email.replace("@", "<wbr>@")}</a>
+                        <a class="btn btn-sm btn-solid" href="contact.html">Contact</a>
+                    </div>
+                </div>`;
         foot.innerHTML = `
             <div class="wrap">
-                <div class="foot-top">
-                    <div>
-                        <a class="brand" href="index.html"><span class="brand-mark">${SITE.initials}</span>${SITE.name}</a>
-                        <p>${SITE.tagline}</p>
-                    </div>
-                    <div class="foot-cols">
-                        <div><h4>Pages</h4><ul>${PAGES.map(([href, label]) => `<li><a href="${href}">${label}</a></li>`).join("")}</ul></div>
-                        <div><h4>Elsewhere</h4><ul>
-                            <li><a href="mailto:${SITE.email}">E-mail</a></li>
-                            <li><a href="${SITE.github}" target="_blank" rel="noopener">GitHub</a></li>
-                            <li><a href="${SITE.instagram}" target="_blank" rel="noopener">Instagram</a></li>
-                        </ul></div>
-                        <div><h4>Need a break?</h4><ul><li><button type="button" data-doom>Play DOOM &rarr;</button></li></ul></div>
+                ${cta}
+                <div class="foot-row">
+                    <nav class="foot-links" aria-label="Footer">${PAGES.map(([href, label]) => `<a href="${href}">${label}</a>`).join("")}</nav>
+                    <div class="foot-links">
+                        <a href="${SITE.github}" target="_blank" rel="noopener">GitHub</a>
+                        <a href="${SITE.instagram}" target="_blank" rel="noopener">Instagram</a>
+                        <button type="button" data-doom>Play DOOM</button>
                     </div>
                 </div>
                 <div class="foot-bottom">
                     <span>&copy; ${new Date().getFullYear()} ${SITE.name}</span>
-                    <span><i class="status-dot"></i>Open to internships</span>
+                    <span><i class="status-dot"></i>Open to internships &amp; freelance</span>
+                    <span>NL <b data-clock>--:--</b></span>
+                    <button type="button" class="to-top" data-to-top>Top &uarr;</button>
                 </div>
             </div>`;
+        $("[data-to-top]", foot).addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
     }
 }
 
-// Navigatie krijgt een achtergrond zodra je scrollt.
+// Maakt van regels tekst een kop die per regel omhoog schuift.
+function splitMarkup(lines) {
+    return lines.map(l => `<span class="line"><span>${l}</span></span>`).join("");
+}
+
+// Navigatie krijgt een achtergrond zodra je scrollt + gouden voortgangslijn bovenaan.
 function initNavScroll() {
-    const update = () => { const nav = $("[data-nav]"); if (nav) nav.classList.toggle("scrolled", scrollY > 10); };
-    addEventListener("scroll", update, { passive: true });
+    const bar = document.createElement("div");
+    bar.className = "progress";
+    document.body.appendChild(bar);
+    let ticking = false;
+    const update = () => {
+        ticking = false;
+        const nav = $("[data-nav]");
+        if (nav) nav.classList.toggle("scrolled", scrollY > 10);
+        const max = document.documentElement.scrollHeight - innerHeight;
+        bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+    };
+    addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener("resize", update);
     update();
 }
 
@@ -188,7 +220,9 @@ const levelOf = p => LEVELS.includes(String(p.difficulty).toLowerCase()) ? Strin
 const levelRank = p => { const i = LEVELS.indexOf(levelOf(p)); return i === -1 ? LEVELS.length : i; };
 function levelBadge(p) {
     const lvl = levelOf(p);
-    return lvl ? `<span class="diff" data-level="${lvl}" title="Difficulty">${LEVEL_NAMES[lvl]}</span>` : "";
+    if (!lvl) return "";
+    const dots = LEVELS.length - LEVELS.indexOf(lvl);   // easy = 1 stipje, extreme = 4
+    return `<span class="diff" data-level="${lvl}" title="Difficulty"><i aria-hidden="true">${LEVELS.map((_, i) => `<b class="${i < dots ? "on" : ""}"></b>`).join("")}</i>${LEVEL_NAMES[lvl]}</span>`;
 }
 
 function loadError(target) {
@@ -202,39 +236,33 @@ function loadError(target) {
 }
 
 // Knoppen voor live demo / broncode (alleen als die links in projects.json staan).
-function linkButtons(project) {
+// Links naar live demo / broncode (alleen als die in projects.json staan).
+function projectLinks(project) {
     const links = project.links || {};
     return [
-        links.live ? `<a class="btn btn-accent" href="${esc(links.live)}" target="_blank" rel="noopener">${icon("external")}Live demo</a>` : "",
-        links.code ? `<a class="btn btn-ghost" href="${esc(links.code)}" target="_blank" rel="noopener">${icon("github")}View code</a>` : ""
-    ].join("");
-}
-
-function linkIcons(project) {
-    const links = project.links || {};
-    return [
-        links.live ? `<a class="icon-link" href="${esc(links.live)}" target="_blank" rel="noopener" aria-label="Live demo of ${esc(project.title)}" title="Live demo">${icon("external")}</a>` : "",
-        links.code ? `<a class="icon-link" href="${esc(links.code)}" target="_blank" rel="noopener" aria-label="Code of ${esc(project.title)} on GitHub" title="View code">${icon("github")}</a>` : ""
+        links.live ? `<a href="${esc(links.live)}" target="_blank" rel="noopener" aria-label="Live demo of ${esc(project.title)}">${icon("external")}Live</a>` : "",
+        links.code ? `<a href="${esc(links.code)}" target="_blank" rel="noopener" aria-label="Code of ${esc(project.title)} on GitHub">${icon("github")}Code</a>` : ""
     ].join("");
 }
 
 function projectCard(project, index) {
-    const links = linkIcons(project);
+    const links = projectLinks(project);
     return `
-        <article class="card reveal" style="--d:${(index % 3) * 90}ms">
-            <div class="p-media">
+        <article class="card reveal" style="--d:${(index % 3) * 100}ms">
+            <div class="p-media reveal-img" style="--d:${(index % 3) * 100 + 100}ms">
                 <img src="${esc(project.image)}" alt="Screenshot of ${esc(project.title)}" loading="lazy">
+                <span class="p-index">${pad(index + 1)}</span>
             </div>
             <div class="p-body">
-                <div class="p-top">
-                    <ul class="chips">${project.tools.slice(0, 4).map(toolChip).join("")}</ul>
+                <div class="p-meta">
+                    <span class="p-tools">${project.tools.slice(0, 4).map(esc).join(" &middot; ")}</span>
+                    ${levelBadge(project)}
                 </div>
                 <h3><button type="button" class="p-open" data-open="${esc(project.id)}">${esc(project.title)}</button></h3>
                 ${project.tagline ? `<p class="p-tag">${esc(project.tagline)}</p>` : ""}
-                ${project.challenge ? `<p class="p-challenge">${esc(project.challenge)}</p>` : ""}
                 <div class="p-foot">
-                    ${levelBadge(project) || `<span class="p-more">View details <span class="arrow">&rarr;</span></span>`}
-                    ${links ? `<div class="p-links">${links}</div>` : (levelBadge(project) ? `<span class="p-more">Details <span class="arrow">&rarr;</span></span>` : "")}
+                    <span class="p-more">Case study <span class="arrow">&rarr;</span></span>
+                    ${links ? `<div class="p-links">${links}</div>` : ""}
                 </div>
             </div>
         </article>`;
@@ -259,6 +287,7 @@ async function initProjectsPage() {
     const params = new URLSearchParams(location.search);
     let active = params.get("skill") || "all";
     let level = LEVELS.includes(params.get("level")) ? params.get("level") : "all";
+    let filtersOpen = false;   // filtermenu (dropdown) open of dicht
 
     // Technieken uit de projecten (volgorde = volgorde in skills.json).
     const tools = SKILLS.map(s => s.name).filter(name => projectsWith(name).length);
@@ -277,23 +306,45 @@ async function initProjectsPage() {
         const techRow = ["all", ...tools].map(tool => {
             const on = same(active, tool);
             const n = byTool(byLevel(projects, level), tool).length;
-            return `<button type="button" class="f-btn ${on ? "on" : ""}" data-filter="${esc(tool)}" aria-pressed="${on}">${tool === "all" ? "All" : esc(tool)}<span>${n}</span></button>`;
+            return `<button type="button" class="f-btn ${on ? "on" : ""}" data-filter="${esc(tool)}" aria-pressed="${on}">${tool === "all" ? "All" : esc(tool)}<sup>${pad(n)}</sup></button>`;
         }).join("");
         const levelRow = ["all", ...LEVELS].map(lvl => {
             const on = level === lvl;
             const n = byLevel(byTool(projects, active), lvl).length;
-            return `<button type="button" class="f-btn ${on ? "on" : ""}" data-level-filter="${lvl}" ${lvl !== "all" ? `data-level="${lvl}"` : ""} aria-pressed="${on}" ${n || on ? "" : "disabled"}>${lvl === "all" ? "All" : LEVEL_NAMES[lvl]}<span>${n}</span></button>`;
+            return `<button type="button" class="f-btn ${on ? "on" : ""}" data-level-filter="${lvl}" ${lvl !== "all" ? `data-level="${lvl}"` : ""} aria-pressed="${on}" ${n || on ? "" : "disabled"}>${lvl === "all" ? "All" : LEVEL_NAMES[lvl]}<sup>${pad(n)}</sup></button>`;
         }).join("");
+        const activeCount = (active !== "all") + (level !== "all");
+        const summary = [active !== "all" ? esc(active) : "", level !== "all" ? LEVEL_NAMES[level] : ""].filter(Boolean).join(" + ") || "All projects";
         filterBox.innerHTML = `
-            <div class="filter-row"><span class="filter-label">Technology</span><div class="filter-btns">${techRow}</div></div>
-            <div class="filter-row"><span class="filter-label">Difficulty</span><div class="filter-btns">${levelRow}</div></div>`;
+            <div class="filter-bar">
+                <button type="button" class="filter-toggle" data-filter-toggle aria-expanded="${filtersOpen}" aria-controls="filter-panel">
+                    <span class="ft-label">Filter${activeCount ? `<sup>${activeCount}</sup>` : ""}</span>
+                    <span class="ft-summary">${summary}</span>
+                    <span class="ft-chev" aria-hidden="true"></span>
+                </button>
+                <span class="filter-count">${pad(shown.length)} / ${pad(projects.length)}</span>
+                ${activeCount ? `<button type="button" class="filter-clear" data-reset>Clear</button>` : ""}
+            </div>
+            <div class="filter-panel ${filtersOpen ? "open" : ""}" id="filter-panel">
+                <div class="filter-panel-inner">
+                    <div class="filter-row"><span class="filter-label">Technology</span><div class="filter-btns">${techRow}</div></div>
+                    <div class="filter-row"><span class="filter-label">Difficulty</span><div class="filter-btns">${levelRow}</div></div>
+                </div>
+            </div>`;
+        $("[data-filter-toggle]", filterBox).addEventListener("click", () => {
+            filtersOpen = !filtersOpen;
+            $("[data-filter-toggle]", filterBox).setAttribute("aria-expanded", filtersOpen);
+            $(".filter-panel", filterBox).classList.toggle("open", filtersOpen);
+        });
 
+        grid.className = "cards";
+        $$("[data-all-count]").forEach(el => { el.textContent = projects.length; });
         grid.innerHTML = shown.length
             ? shown.map(projectCard).join("")
             : `<div class="empty">
-                   <h3>No projects match these filters</h3>
-                   <p class="muted" style="margin:0 0 1.4rem">Try another combination, more work is coming soon.</p>
-                   <button class="btn btn-ghost" type="button" data-reset>Show all projects</button>
+                   <h3>Nothing <em>here</em> yet</h3>
+                   <p class="muted" style="margin:0 0 1.8rem">No projects match this combination. More work is on its way.</p>
+                   <button class="btn" type="button" data-reset>Show all projects</button>
                </div>`;
         initReveal(grid);
 
@@ -304,8 +355,7 @@ async function initProjectsPage() {
         $$("[data-level-filter]", filterBox).forEach(b => b.addEventListener("click", () => {
             level = b.dataset.levelFilter; setParam("level", level); draw();
         }));
-        const reset = $("[data-reset]", grid);
-        if (reset) reset.addEventListener("click", () => { active = level = "all"; setParam("skill", "all"); setParam("level", "all"); draw(); });
+        $$("[data-reset]", grid.parentElement).forEach(r => r.addEventListener("click", () => { active = level = "all"; setParam("skill", "all"); setParam("level", "all"); draw(); }));
     }
     draw();
 
@@ -321,8 +371,11 @@ async function initFeatured() {
     let projects;
     try { projects = await loadData(); } catch (e) { loadError(grid); return; }
 
-    const featured = projects.filter(p => p.featured);
-    const list = (featured.length ? featured : projects).slice(0, 3);
+    // Homepage: de 4 moeilijkste projecten (extreme -> hard -> medium -> easy).
+    const list = projects.map((p, i) => ({ p, i }))
+        .sort((x, y) => levelRank(x.p) - levelRank(y.p) || x.i - y.i)
+        .map(x => x.p).slice(0, 4);
+    grid.className = "cards";
     grid.innerHTML = list.map(projectCard).join("");
     bindCards(grid, list);
     initReveal(grid);
@@ -347,11 +400,11 @@ function ensureModal() {
     modal.setAttribute("aria-labelledby", "modal-title");
     modal.innerHTML = `
         <div class="modal-inner">
-            <div class="modal-bar"><span data-m-file></span><button class="modal-close" type="button" data-m-close aria-label="Close">&times;</button></div>
+            <div class="modal-bar"><span data-m-file></span><button class="modal-close" type="button" data-m-close>Close<i aria-hidden="true"></i></button></div>
             <div class="modal-scroll" data-m-body></div>
             <div class="modal-nav">
-                <button type="button" data-m-prev>${icon("left")}Previous</button>
-                <button type="button" data-m-next>Next${icon("right")}</button>
+                <button type="button" data-m-prev><small>&larr; Previous</small><span data-m-prev-name></span></button>
+                <button type="button" data-m-next><small>Next &rarr;</small><span data-m-next-name></span></button>
             </div>
         </div>`;
     document.body.appendChild(modal);
@@ -384,9 +437,17 @@ function stepProject(dir) {
     fillModal();
 }
 
-function closeProject() {
-    if (modal && modal.open) modal.close();
-    onModalClosed();
+// Sluiten met een korte animatie (het venster schuift terug naar rechts).
+function closeProject(instant) {
+    if (!modal || !modal.open) { onModalClosed(); return; }
+    if (instant === true || modal.classList.contains("closing") || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        modal.classList.remove("closing");
+        modal.close();
+        onModalClosed();
+        return;
+    }
+    modal.classList.add("closing");
+    setTimeout(() => { modal.classList.remove("closing"); if (modal.open) modal.close(); onModalClosed(); }, 420);
 }
 
 function onModalClosed() {
@@ -403,37 +464,43 @@ function fillModal() {
     if (!p) return;
 
     const images = [p.image, ...asList(p.gallery)].filter(Boolean);
-    const linkBtns = linkButtons(p);
+    const links = p.links || {};
+    const linkList = [
+        links.live ? `<a href="${esc(links.live)}" target="_blank" rel="noopener">${icon("external")}Live demo</a>` : "",
+        links.code ? `<a href="${esc(links.code)}" target="_blank" rel="noopener">${icon("github")}Source code</a>` : ""
+    ].join("");
     const desc = asList(p.description);
     const feats = asList(p.features);
+    const n = modalList.length;
+    const prev = modalList[(modalIndex - 1 + n) % n], next = modalList[(modalIndex + 1) % n];
 
-    $("[data-m-file]", modal).textContent = `Project ${modalIndex + 1} of ${modalList.length}`;
+    $("[data-m-file]", modal).textContent = `Case study — ${pad(modalIndex + 1)} / ${pad(n)}`;
+    $("[data-m-prev-name]", modal).textContent = prev.title;
+    $("[data-m-next-name]", modal).textContent = next.title;
     $("[data-m-body]", modal).innerHTML = `
-        <div class="modal-top">
-            <div>
-                <div class="modal-img"><img src="${esc(images[0])}" alt="Screenshot of ${esc(p.title)}" data-m-main></div>
-                ${images.length > 1 ? `<div class="thumbs">${images.map((src, i) => `<button type="button" class="${i === 0 ? "on" : ""}" data-m-thumb="${esc(src)}" aria-label="Image ${i + 1}"><img src="${esc(src)}" alt=""></button>`).join("")}</div>` : ""}
-            </div>
-            <div>
-                ${levelBadge(p)}
-                <h2 id="modal-title">${esc(p.title)}</h2>
-                ${p.tagline ? `<p class="modal-tagline">${esc(p.tagline)}</p>` : ""}
-                <p class="label">Built with</p>
-                <ul class="chips">${p.tools.map(toolChip).join("")}</ul>
-                ${linkBtns ? `<div class="modal-links">${linkBtns}</div>` : ""}
-            </div>
+        <div class="modal-head">
+            ${levelBadge(p)}
+            <h2 id="modal-title">${esc(p.title)}</h2>
+            ${p.tagline ? `<p class="modal-tagline">${esc(p.tagline)}</p>` : ""}
+        </div>
+        <div class="modal-img"><img src="${esc(images[0])}" alt="Screenshot of ${esc(p.title)}" data-m-main></div>
+        ${images.length > 1 ? `<div class="thumbs">${images.map((src, i) => `<button type="button" class="${i === 0 ? "on" : ""}" data-m-thumb="${esc(src)}" aria-label="Image ${i + 1}"><img src="${esc(src)}" alt=""></button>`).join("")}</div>` : ""}
+        <div class="specs">
+            <div><p class="label">Difficulty</p><p>${levelOf(p) ? LEVEL_NAMES[levelOf(p)] : "&ndash;"}</p></div>
+            <div><p class="label">Built with</p><ul class="chips">${p.tools.map(toolChip).join("")}</ul></div>
+            <div><p class="label">Links</p><p>${linkList || '<span class="muted">Private project</span>'}</p></div>
         </div>
         <div class="modal-cols">
             <div class="modal-desc">
-                <p class="label">About the project</p>
+                <p class="label">The project</p>
                 ${desc.length ? desc.map(t => `<p>${esc(t)}</p>`).join("") : `<p class="muted">No description yet.</p>`}
-                ${feats.length ? `<p class="label" style="margin-top:1.5rem">Features</p><ul class="feat">${feats.map(f => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
             </div>
             <div>
-                ${p.challenge ? `<p class="label">Challenge</p><div class="note">${esc(p.challenge)}</div>` : ""}
+                ${p.challenge ? `<p class="label">The challenge</p><div class="note">${esc(p.challenge)}</div>` : ""}
                 ${p.learned ? `<p class="label">What I learned</p><div class="note">${esc(p.learned)}</div>` : ""}
             </div>
-        </div>`;
+        </div>
+        ${feats.length ? `<p class="label" style="margin-top:1rem">Key features</p><ul class="feat">${feats.map(f => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}`;
 
     $$("[data-m-thumb]", modal).forEach(btn => btn.addEventListener("click", () => {
         $("[data-m-main]", modal).src = btn.dataset.mThumb;
@@ -465,25 +532,18 @@ async function initSkills() {
         const text = skill.text || (skill.auto ? `Used in: ${projectsWith(skill.name).map(p => p.title).join(", ")}.` : "");
         const i = index + 1;
         return `
-            <a class="card s-card reveal" href="projects.html?skill=${encodeURIComponent(skill.name)}" style="--d:${(index % 4) * 70}ms">
+            <a class="s-card reveal" href="projects.html?skill=${encodeURIComponent(skill.name)}" style="--d:${Math.min(index, 6) * 60}ms">
                 <div class="s-top">
-                    <img class="s-icon ${skill.invert ? "invert" : ""}" src="${esc(skill.iconUrl)}" alt="${esc(skill.name)} logo" loading="lazy">
+                    <img class="s-logo ${skill.invert ? "invert" : ""}" src="${esc(skill.iconUrl)}" alt="" loading="lazy" onerror="this.remove()">
                     <span class="s-count">${pad(i)}</span>
                 </div>
                 <h3>${esc(skill.name)}</h3>
-                ${text ? `<p>${esc(text)}</p>` : ""}
+                <p>${esc(text)}</p>
                 <div class="s-bar"><i style="--w:${n ? Math.max(12, n / max * 100) : 4}%"></i></div>
-                <div class="s-meta"><span>${n ? `Used in ${n} project${n === 1 ? "" : "s"}` : "Not in a project yet"}</span><span>View <span class="arrow">&rarr;</span></span></div>
+                <div class="s-meta"><span>${n ? `${pad(n)} project${n === 1 ? "" : "s"}` : "Soon"}</span><span>View &rarr;</span></div>
             </a>`;
     }).join("");
     initReveal(target);
-
-    $$(".s-icon", target).forEach(img => img.addEventListener("error", () => {
-        const box = document.createElement("div");
-        box.className = "s-icon s-fallback";
-        box.textContent = img.alt.replace(" logo", "").slice(0, 2);
-        img.replaceWith(box);
-    }, { once: true }));
 }
 
 // =====================================================================
@@ -525,7 +585,9 @@ async function initLogos() {
 // Elementen met .reveal komen in beeld zodra je ernaar scrollt.
 let revealObserver;
 function initReveal(root = document) {
-    const items = $$(".reveal:not(.is-visible)", root);
+    // koppen: elke regel krijgt een eigen vertraging
+    $$(".split", root).forEach(el => $$(".line", el).forEach((line, i) => line.style.setProperty("--i", i)));
+    const items = $$(".reveal:not(.is-visible), .split:not(.is-visible), .reveal-img:not(.is-visible)", root);
     if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) {
         items.forEach(el => el.classList.add("is-visible"));
         return;
@@ -533,9 +595,12 @@ function initReveal(root = document) {
     revealObserver = revealObserver || new IntersectionObserver(entries => entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add("is-visible");
+        $$(":scope > .reveal-img", entry.target).forEach(img => img.classList.add("is-visible"));
         revealObserver.unobserve(entry.target);
     }), { rootMargin: "0px 0px -8% 0px", threshold: .08 });
-    items.forEach(el => revealObserver.observe(el));
+    // Een afbeelding die met clip-path verborgen is telt voor de browser als "niet zichtbaar",
+    // daarom kijken we bij .reveal-img naar de (niet verborgen) ouder; die onthult hem dan.
+    items.forEach(el => revealObserver.observe(el.classList.contains("reveal-img") && el.parentElement ? el.parentElement : el));
 }
 
 // Getallen met data-count tellen op van 0 naar de waarde zodra ze in beeld komen.
@@ -564,7 +629,7 @@ function initCounters() {
 function initSpotlight() {
     if (!matchMedia("(hover: hover)").matches) return;
     document.addEventListener("pointermove", e => {
-        const card = e.target.closest && e.target.closest(".card");
+        const card = e.target.closest && e.target.closest(".s-card");
         if (!card) return;
         const r = card.getBoundingClientRect();
         card.style.setProperty("--mx", `${e.clientX - r.left}px`);
@@ -606,10 +671,121 @@ function initSlides() {
 function initCopyEmail() {
     $$("[data-copy-email]").forEach(button => button.addEventListener("click", async () => {
         const original = button.textContent;
-        try { await navigator.clipboard.writeText(SITE.email); button.textContent = "Copied ✓"; }
+        try { await navigator.clipboard.writeText(SITE.email); button.textContent = "Copied"; toast("E-mail address copied"); }
         catch (e) { window.prompt("Copy the e-mail address:", SITE.email); return; }
         setTimeout(() => { button.textContent = original; }, 2000);
     }));
+}
+
+// =====================================================================
+//  LUXE DETAILS
+// =====================================================================
+const calm = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+const finePointer = () => matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+// Korte melding onderaan het scherm.
+let toastTimer;
+function toast(text) {
+    let el = $(".toast");
+    if (!el) { el = document.createElement("div"); el.className = "toast"; el.setAttribute("role", "status"); document.body.appendChild(el); }
+    el.textContent = text;
+    el.classList.add("on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove("on"), 2200);
+}
+
+// Intro-gordijn met je naam: alleen bij het eerste bezoek in deze sessie.
+function initLoader() {
+    let seen = false;
+    try { seen = sessionStorage.getItem("intro.seen") === "1"; sessionStorage.setItem("intro.seen", "1"); } catch (e) { /* privé-modus */ }
+    if (seen || calm()) return;
+    // Laadscherm met een teller die rustig naar 100 loopt.
+    const el = document.createElement("div");
+    el.className = "loader";
+    el.setAttribute("aria-hidden", "true");
+    el.innerHTML = `<div class="loader-top"><span>${SITE.name}</span><span>Loading portfolio</span></div>
+        <div class="loader-count">0</div><div class="loader-bar"></div>`;
+    document.body.appendChild(el);
+    document.body.classList.add("modal-open");          // niet scrollen tijdens de intro
+    const count = $(".loader-count", el), start = performance.now(), dur = 1600;
+    const step = now => {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        count.textContent = Math.round(eased * 100);
+        el.style.setProperty("--p", eased);
+        if (t < 1) return requestAnimationFrame(step);
+        setTimeout(() => {
+            el.classList.add("done");
+            document.body.classList.remove("modal-open");
+            setTimeout(() => el.remove(), 1300);
+        }, 250);
+    };
+    requestAnimationFrame(step);
+}
+
+
+// Knoppen met .magnetic trekken een beetje naar de muis toe.
+function initMagnetic() {
+    if (!finePointer() || calm()) return;
+    document.addEventListener("pointermove", e => {
+        const el = e.target instanceof Element && e.target.closest(".magnetic");
+        $$(".magnetic.pulled").forEach(m => { if (m !== el) { m.classList.remove("pulled"); m.style.transform = ""; } });
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const mx = (e.clientX - r.left - r.width / 2) * .28;
+        const my = (e.clientY - r.top - r.height / 2) * .38;
+        el.classList.add("pulled");
+        el.style.transform = `translate(${mx}px, ${my}px)`;
+    }, { passive: true });
+}
+
+// Live klok (Nederlandse tijd) in de footer.
+let clockTimer;
+function initClock() {
+    const tick = () => {
+        const time = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: SITE.timeZone });
+        $$("[data-clock]").forEach(el => { el.innerHTML = el.closest(".nav") ? `${time} CET` : `${time}<small>CET</small>`; });
+    };
+    tick();
+    clearInterval(clockTimer);
+    clockTimer = setInterval(tick, 15000);
+}
+
+// Statement op de homepage: de woorden lichten één voor één op terwijl je scrollt.
+let wordsHandler;
+function initWordsReveal() {
+    const el = $("[data-words-reveal]");
+    if (wordsHandler) removeEventListener("scroll", wordsHandler);
+    if (!el) return;
+    if (!el.dataset.split) {
+        // tekst (ook binnen <em>) opdelen in losse woorden
+        const wrap = node => {
+            [...node.childNodes].forEach(child => {
+                if (child.nodeType === 3) {
+                    const frag = document.createDocumentFragment();
+                    child.textContent.split(/(\s+)/).forEach(part => {
+                        if (!part) return;
+                        if (/^\s+$/.test(part)) frag.appendChild(document.createTextNode(part));
+                        else { const s = document.createElement("span"); s.className = "w"; s.textContent = part; frag.appendChild(s); }
+                    });
+                    child.replaceWith(frag);
+                } else if (child.nodeType === 1) wrap(child);
+            });
+        };
+        wrap(el);
+        el.dataset.split = "1";
+    }
+    const words = $$(".w", el);
+    if (calm()) { words.forEach(w => w.classList.add("lit")); return; }
+    wordsHandler = () => {
+        const r = el.getBoundingClientRect();
+        // 0 als de tekst onderaan binnenkomt, 1 als hij rond het midden staat
+        const p = Math.min(1, Math.max(0, (innerHeight * .85 - r.top) / (r.height + innerHeight * .35)));
+        const n = Math.round(p * words.length);
+        words.forEach((w, i) => w.classList.toggle("lit", i < n));
+    };
+    addEventListener("scroll", wordsHandler, { passive: true });
+    wordsHandler();
 }
 
 function initContactForm() {
@@ -688,7 +864,6 @@ function initDoom() {
     const frame = $("iframe", dlg);
     const close = () => {
         if (dlg.open) dlg.close();
-        if (frame.src !== "about:blank") Music.resumeAfterGame();
         frame.src = "about:blank";
         document.body.classList.remove("modal-open");
     };
@@ -697,7 +872,6 @@ function initDoom() {
     dlg.addEventListener("keydown", e => { if (e.key === "Escape") { e.preventDefault(); close(); } });
     dlg.addEventListener("close", close);
     dlg.open_ = () => {
-        Music.pauseForGame();
         frame.src = "https://silentspacemarine.com/";
         dlg.showModal();
         document.body.classList.add("modal-open");
@@ -708,105 +882,6 @@ function bindDoom(triggers) {
     triggers.forEach(t => t.addEventListener("click", e => { e.preventDefault(); doomDialog.open_(); }));
 }
 
-// =====================================================================
-//  ACHTERGRONDMUZIEK
-//  - start bij de eerste klik/toets (browsers blokkeren geluid daarvoor)
-//  - speelt door bij het wisselen van pagina (zie ROUTER hieronder)
-//  - na het einde: SITE.musicLoopDelay ms stilte, dan opnieuw
-//  - aan/uit-knop rechtsonder; de keuze wordt onthouden
-// =====================================================================
-const Music = (() => {
-    const store = {
-        get: (k, s = localStorage) => { try { return s.getItem(k); } catch (e) { return null; } },
-        set: (k, v, s = localStorage) => { try { s.setItem(k, v); } catch (e) { /* privé-modus */ } }
-    };
-    let audio, button, loopTimer, fadeTimer, pausedForGame = false;
-    const wantsMusic = () => store.get("music.off") !== "1";
-
-    function setButton() {
-        if (!button) return;
-        const on = audio && (!audio.paused || loopTimer);
-        button.classList.toggle("on", Boolean(on));
-        button.setAttribute("aria-pressed", on ? "true" : "false");
-        button.querySelector("span").textContent = on ? "Music on" : "Music off";
-        button.title = on ? "Turn music off" : "Turn music on";
-    }
-
-    function fadeIn() {
-        clearInterval(fadeTimer);
-        audio.volume = 0;
-        fadeTimer = setInterval(() => {
-            audio.volume = Math.min(SITE.musicVolume, audio.volume + SITE.musicVolume / 20);
-            if (audio.volume >= SITE.musicVolume) clearInterval(fadeTimer);
-        }, 60);
-    }
-
-    function play() {
-        if (!audio || !wantsMusic() || pausedForGame) return;
-        const p = audio.play();
-        if (p && p.then) p.then(() => { fadeIn(); setButton(); }).catch(() => setButton());
-    }
-
-    function stop() {
-        clearTimeout(loopTimer); loopTimer = null;
-        if (audio) audio.pause();
-        setButton();
-    }
-
-    function init() {
-        if (!SITE.music || audio) return;
-        audio = new Audio(SITE.music);
-        audio.preload = "auto";
-        audio.volume = SITE.musicVolume;
-
-        // Na een harde refresh verder waar je was (niet opnieuw beginnen).
-        const saved = parseFloat(store.get("music.t", sessionStorage));
-        if (saved > 0) audio.addEventListener("loadedmetadata", () => {
-            if (saved < audio.duration - 1) audio.currentTime = saved;
-        }, { once: true });
-        audio.addEventListener("timeupdate", () => store.set("music.t", String(audio.currentTime), sessionStorage));
-
-        // Einde: even stil, dan opnieuw vanaf het begin.
-        audio.addEventListener("ended", () => {
-            store.set("music.t", "0", sessionStorage);
-            loopTimer = setTimeout(() => {
-                loopTimer = null;
-                audio.currentTime = 0;
-                play();
-            }, SITE.musicLoopDelay);
-        });
-        audio.addEventListener("play", setButton);
-        audio.addEventListener("pause", setButton);
-        // Bestand niet gevonden? Dan geen knop tonen.
-        audio.addEventListener("error", () => { if (button) button.hidden = true; });
-
-        button = document.createElement("button");
-        button.type = "button";
-        button.className = "music-btn";
-        button.innerHTML = `<i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>Music off</span>`;
-        button.addEventListener("click", e => {
-            e.stopPropagation();
-            if (audio.paused && !loopTimer) { store.set("music.off", "0"); play(); }
-            else { store.set("music.off", "1"); stop(); }
-        });
-        document.body.appendChild(button);
-        setButton();
-
-        // Probeer meteen te spelen; lukt dat niet, dan bij de eerste klik of toets.
-        play();
-        const firstTouch = () => {
-            ["pointerdown", "keydown"].forEach(t => document.removeEventListener(t, firstTouch, true));
-            if (audio.paused && !loopTimer) play();
-        };
-        ["pointerdown", "keydown"].forEach(t => document.addEventListener(t, firstTouch, true));
-    }
-
-    return {
-        init,
-        pauseForGame() { if (audio && !audio.paused) { pausedForGame = true; audio.pause(); } },
-        resumeAfterGame() { if (pausedForGame) { pausedForGame = false; play(); } }
-    };
-})();
 
 // =====================================================================
 //  ROUTER: wisselt van pagina zonder de hele site te herladen,
@@ -827,6 +902,9 @@ function initPage() {
     initCopyEmail();
     initContactForm();
     initDoom();
+    initClock();
+    initWordsReveal();
+    if (window.Scene) window.Scene.setPage(page);   // 3D-vorm schuift naar de plek voor deze pagina
 }
 
 async function goTo(href, push = true) {
@@ -844,7 +922,7 @@ async function goTo(href, push = true) {
         const newMain = doc.querySelector("main");
         if (!newMain) throw new Error("no <main>");
 
-        closeProject();
+        closeProject(true);
         if (doomDialog && doomDialog.open) doomDialog.close();
         const fresh = document.importNode(newMain, true);
         if (!calm) fresh.classList.add("is-entering");
@@ -887,8 +965,9 @@ function initRouter() {
 // =====================================================================
 //  START
 // =====================================================================
+initLoader();
 initPage();
 initNavScroll();
 initSpotlight();
+initMagnetic();
 initRouter();
-Music.init();

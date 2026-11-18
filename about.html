@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About me | Bartosz Jaworski</title>
-    <meta name="description" content="About Bartosz Jaworski: background, languages, hobbies and focus.">
-    <meta name="theme-color" content="#0a0b10">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c8cff'/%3E%3Cstop offset='1' stop-color='%23b08cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-weight='800' font-size='13' text-anchor='middle' fill='%23fff'%3EBJ%3C/text%3E%3C/svg%3E">
+    <title>About — Bartosz Jaworski</title>
+    <meta name="description" content="About Bartosz Jaworski: background, languages, interests and focus.">
+    <meta name="theme-color" content="#07080b">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23fcee0a' d='M0 0h24l8 8v24H0z'/%3E%3Ctext x='15' y='21.5' font-family='Arial' font-weight='800' font-size='13' text-anchor='middle' fill='%2307080b'%3EBJ%3C/text%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
-    <link href="assets/css/style.css?v=202611181400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="assets/css/style.css?v=202611190500" rel="stylesheet">
 </head>
 <body data-page="about">
     <header data-nav></header>
@@ -25,28 +25,28 @@
                     </div>
                     <div class="slide-dots" data-slide-dots></div>
                 </div>
-                <div>
-                    <p class="eyebrow reveal">About me</p>
-                    <h1 class="page-title reveal" style="--d:60ms">Hi, I'm <em>Bartosz</em></h1>
-                    <p class="lead reveal" style="--d:120ms">Developer in training who loves building websites, games and interactive projects. I learn the most by simply making things: trying an idea, getting stuck, solving it and improving it.</p>
+                <div class="about-text">
+                    <span class="kicker reveal">About</span>
+                    <h1 class="page-title split"><span class="line"><span>Hi, I'm</span></span><span class="line"><span><em>Bartosz.</em></span></span></h1>
+                    <p class="lead reveal" style="--d:300ms">A developer in training who loves building websites, games and interactive experiences. I learn the most by making things: trying an idea, getting stuck, solving it and refining it until it feels right.</p>
 
-                    <div class="info-grid reveal" style="--d:180ms">
-                        <div><span>Name</span><b>Bartosz Jaworski</b></div>
-                        <div><span>Languages</span><b>Dutch, English &amp; Polish</b></div>
-                        <div><span>Hobbies</span><b>Gaming, Gym</b></div>
-                        <div><span>Focus</span><b>Web, Unity, 3D</b></div>
-                    </div>
+                    <dl class="dl reveal">
+                        <div><dt>Name</dt><dd>Bartosz Jaworski</dd></div>
+                        <div><dt>Languages</dt><dd>Dutch, English &amp; Polish</dd></div>
+                        <div><dt>Focus</dt><dd>Web, Unity &amp; 3D</dd></div>
+                        <div><dt>Outside work</dt><dd>Gaming &amp; the gym</dd></div>
+                    </dl>
 
-                    <p class="label reveal">My path</p>
+                    <span class="label reveal">The journey so far</span>
                     <ul class="timeline reveal">
-                        <li><b>Front-end basics</b><span>HTML, CSS and JavaScript: quizzes, games and interactive pages.</span></li>
-                        <li><b>Full-stack</b><span>PHP, MySQL and Bootstrap: logins, accounts and dynamic data.</span></li>
-                        <li><b>Game dev &amp; 3D</b><span>Prototypes in Unity with C# and models in Blender.</span></li>
+                        <li data-n="01"><div><b>Front-end foundations</b><span>HTML, CSS and JavaScript: quizzes, games and interactive pages.</span></div></li>
+                        <li data-n="02"><div><b>Full-stack development</b><span>PHP, MySQL, Symfony and Bootstrap: logins, accounts and dynamic data.</span></div></li>
+                        <li data-n="03"><div><b>Game development &amp; 3D</b><span>Prototypes in Unity with C# and models in Blender.</span></div></li>
                     </ul>
 
-                    <div class="hero-cta reveal">
-                        <a href="documenten/CV_Bart.docx" download="CV_Bart.docx" class="btn btn-accent">Download CV</a>
-                        <a href="contact.html" class="btn btn-ghost">Get in touch</a>
+                    <div class="hero-cta about-cta reveal">
+                        <a href="documenten/CV_Bart.docx" download="CV_Bart.docx" class="btn btn-solid">Download CV</a>
+                        <a href="contact.html" class="text-link">Get in touch</a>
                     </div>
                 </div>
             </div>
@@ -55,6 +55,8 @@
 
     <footer data-foot></footer>
 
-    <script src="assets/js/app.js?v=202611181400"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="assets/js/scene.js?v=202611190500"></script>
+    <script src="assets/js/app.js?v=202611190500"></script>
 </body>
 </html>
