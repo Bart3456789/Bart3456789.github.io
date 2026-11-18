@@ -10,7 +10,11 @@ const SITE = {
     skillsFile: "data/skills.json",
     // Contactformulier: plak hier je Formspree-link (https://formspree.io/f/xxxxxxxx).
     // Leeg laten = het formulier opent gewoon je mailprogramma.
-    formEndpoint: ""
+    formEndpoint: "",
+    // Achtergrondmuziek: zet je mp3 op deze plek (of pas het pad aan). Leeg laten = geen muziek.
+    music: "assets/audio/music.mp3",
+    musicVolume: 0.35,      // 0 = stil, 1 = hard
+    musicLoopDelay: 3000    // wachttijd (ms) voordat het nummer opnieuw begint
 };
 
 const PAGES = [
@@ -34,7 +38,7 @@ let SKILLS = [];
 // =====================================================================
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
-const page = document.body.dataset.page || "";
+let page = document.body.dataset.page || "";   // verandert bij het wisselen van pagina (zie ROUTER)
 
 function esc(value) {
     return String(value ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -435,13 +439,16 @@ async function initSkills() {
 // =====================================================================
 //  HOMEPAGE: typewriter + ticker
 // =====================================================================
+let typeTimer;
 function initTypewriter() {
     const el = $("[data-words]");
     if (!el) return;
     const words = ["websites", "games", "web apps", "3D worlds"];
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let w = 0, c = words[0].length, deleting = true, wait = 14;
-    setInterval(() => {
+    clearInterval(typeTimer);
+    typeTimer = setInterval(() => {
+        if (!el.isConnected) { clearInterval(typeTimer); return; }
         if (wait-- > 0) return;
         c += deleting ? -1 : 1;
         el.textContent = words[w].slice(0, c);
@@ -462,13 +469,14 @@ async function initTicker() {
 // =====================================================================
 //  OVER MIJ: foto-slideshow
 // =====================================================================
+let slideTimer;
 function initSlides() {
     const box = $("[data-slides]");
     if (!box) return;
     const imgs = $$("img", box);
     const dots = $("[data-slide-dots]");
     if (imgs.length < 2) { imgs[0]?.classList.add("on"); return; }
-    let i = 0, timer;
+    let i = 0;
     dots.innerHTML = imgs.map((_, n) => `<button type="button" aria-label="Photo ${n + 1}"></button>`).join("");
     const dotBtns = $$("button", dots);
     const show = n => {
@@ -476,7 +484,7 @@ function initSlides() {
         imgs.forEach((img, k) => img.classList.toggle("on", k === i));
         dotBtns.forEach((d, k) => d.classList.toggle("on", k === i));
     };
-    const start = () => { clearInterval(timer); timer = setInterval(() => show(i + 1), 4500); };
+    const start = () => { clearInterval(slideTimer); slideTimer = setInterval(() => box.isConnected ? show(i + 1) : clearInterval(slideTimer), 4500); };
     dotBtns.forEach((d, n) => d.addEventListener("click", () => { show(n); start(); }));
     show(0); start();
 }
@@ -552,10 +560,12 @@ function initContactForm() {
 // =====================================================================
 //  DOOM (easter egg op de homepage)
 // =====================================================================
+let doomDialog;
 function initDoom() {
     const triggers = $$("[data-doom]");
     if (!triggers.length) return;
-    const dlg = document.createElement("dialog");
+    if (doomDialog) { bindDoom(triggers); return; }
+    const dlg = doomDialog = document.createElement("dialog");
     dlg.className = "modal doom";
     dlg.innerHTML = `
         <div class="modal-shell"><div class="modal-inner">
@@ -567,6 +577,7 @@ function initDoom() {
     const frame = $("iframe", dlg);
     const close = () => {
         if (dlg.open) dlg.close();
+        if (frame.src !== "about:blank") Music.resumeAfterGame();
         frame.src = "about:blank";
         document.body.classList.remove("modal-open");
     };
@@ -574,24 +585,186 @@ function initDoom() {
     dlg.addEventListener("click", e => { if (e.target === dlg) close(); });
     dlg.addEventListener("keydown", e => { if (e.key === "Escape") { e.preventDefault(); close(); } });
     dlg.addEventListener("close", close);
-    triggers.forEach(t => t.addEventListener("click", e => {
-        e.preventDefault();
+    dlg.open_ = () => {
+        Music.pauseForGame();
         frame.src = "https://silentspacemarine.com/";
         dlg.showModal();
         document.body.classList.add("modal-open");
-    }));
+    };
+    bindDoom(triggers);
+}
+function bindDoom(triggers) {
+    triggers.forEach(t => t.addEventListener("click", e => { e.preventDefault(); doomDialog.open_(); }));
+}
+
+// =====================================================================
+//  ACHTERGRONDMUZIEK
+//  - start bij de eerste klik/toets (browsers blokkeren geluid daarvoor)
+//  - speelt door bij het wisselen van pagina (zie ROUTER hieronder)
+//  - na het einde: SITE.musicLoopDelay ms stilte, dan opnieuw
+//  - aan/uit-knop rechtsonder; de keuze wordt onthouden
+// =====================================================================
+const Music = (() => {
+    const store = {
+        get: (k, s = localStorage) => { try { return s.getItem(k); } catch (e) { return null; } },
+        set: (k, v, s = localStorage) => { try { s.setItem(k, v); } catch (e) { /* privé-modus */ } }
+    };
+    let audio, button, loopTimer, fadeTimer, pausedForGame = false;
+    const wantsMusic = () => store.get("music.off") !== "1";
+
+    function setButton() {
+        if (!button) return;
+        const on = audio && (!audio.paused || loopTimer);
+        button.classList.toggle("on", Boolean(on));
+        button.setAttribute("aria-pressed", on ? "true" : "false");
+        button.querySelector("span").textContent = on ? "Music on" : "Music off";
+        button.title = on ? "Turn music off" : "Turn music on";
+    }
+
+    function fadeIn() {
+        clearInterval(fadeTimer);
+        audio.volume = 0;
+        fadeTimer = setInterval(() => {
+            audio.volume = Math.min(SITE.musicVolume, audio.volume + SITE.musicVolume / 20);
+            if (audio.volume >= SITE.musicVolume) clearInterval(fadeTimer);
+        }, 60);
+    }
+
+    function play() {
+        if (!audio || !wantsMusic() || pausedForGame) return;
+        const p = audio.play();
+        if (p && p.then) p.then(() => { fadeIn(); setButton(); }).catch(() => setButton());
+    }
+
+    function stop() {
+        clearTimeout(loopTimer); loopTimer = null;
+        if (audio) audio.pause();
+        setButton();
+    }
+
+    function init() {
+        if (!SITE.music || audio) return;
+        audio = new Audio(SITE.music);
+        audio.preload = "auto";
+        audio.volume = SITE.musicVolume;
+
+        // Na een harde refresh verder waar je was (niet opnieuw beginnen).
+        const saved = parseFloat(store.get("music.t", sessionStorage));
+        if (saved > 0) audio.addEventListener("loadedmetadata", () => {
+            if (saved < audio.duration - 1) audio.currentTime = saved;
+        }, { once: true });
+        audio.addEventListener("timeupdate", () => store.set("music.t", String(audio.currentTime), sessionStorage));
+
+        // Einde: even stil, dan opnieuw vanaf het begin.
+        audio.addEventListener("ended", () => {
+            store.set("music.t", "0", sessionStorage);
+            loopTimer = setTimeout(() => {
+                loopTimer = null;
+                audio.currentTime = 0;
+                play();
+            }, SITE.musicLoopDelay);
+        });
+        audio.addEventListener("play", setButton);
+        audio.addEventListener("pause", setButton);
+        // Bestand niet gevonden? Dan geen knop tonen.
+        audio.addEventListener("error", () => { if (button) button.hidden = true; });
+
+        button = document.createElement("button");
+        button.type = "button";
+        button.className = "music-btn";
+        button.innerHTML = `<i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>Music off</span>`;
+        button.addEventListener("click", e => {
+            e.stopPropagation();
+            if (audio.paused && !loopTimer) { store.set("music.off", "0"); play(); }
+            else { store.set("music.off", "1"); stop(); }
+        });
+        document.body.appendChild(button);
+        setButton();
+
+        // Probeer meteen te spelen; lukt dat niet, dan bij de eerste klik of toets.
+        play();
+        const firstTouch = () => {
+            ["pointerdown", "keydown"].forEach(t => document.removeEventListener(t, firstTouch, true));
+            if (audio.paused && !loopTimer) play();
+        };
+        ["pointerdown", "keydown"].forEach(t => document.addEventListener(t, firstTouch, true));
+    }
+
+    return {
+        init,
+        pauseForGame() { if (audio && !audio.paused) { pausedForGame = true; audio.pause(); } },
+        resumeAfterGame() { if (pausedForGame) { pausedForGame = false; play(); } }
+    };
+})();
+
+// =====================================================================
+//  ROUTER: wisselt van pagina zonder de hele site te herladen,
+//  zodat de muziek gewoon doorspeelt. Links naar andere sites,
+//  downloads en links met target="_blank" werken zoals altijd.
+// =====================================================================
+function initPage() {
+    renderChrome();
+    initTypewriter();
+    initTicker();
+    initFeatured();
+    initProjectsPage();
+    initSkills();
+    initSlides();
+    initCopyEmail();
+    initContactForm();
+    initDoom();
+}
+
+async function goTo(href, push = true) {
+    const url = new URL(href, location.href);
+    try {
+        const response = await fetch(url.pathname, { cache: "no-cache" });
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        const doc = new DOMParser().parseFromString(await response.text(), "text/html");
+        const newMain = doc.querySelector("main");
+        if (!newMain) throw new Error("no <main>");
+
+        closeProject();
+        if (doomDialog && doomDialog.open) doomDialog.close();
+        document.querySelector("main").replaceWith(document.importNode(newMain, true));
+        page = doc.body.dataset.page || "";
+        document.body.dataset.page = page;
+        document.title = doc.title;
+        const desc = doc.querySelector('meta[name="description"]');
+        const meta = document.querySelector('meta[name="description"]');
+        if (desc && meta) meta.content = desc.content;
+
+        if (push) history.pushState(null, "", url);
+        initPage();
+        if (url.hash && document.querySelector(url.hash)) document.querySelector(url.hash).scrollIntoView();
+        else window.scrollTo(0, 0);
+        const main = document.querySelector("main");
+        main.setAttribute("tabindex", "-1");
+        main.focus({ preventScroll: true });
+    } catch (e) {
+        location.href = url.href;   // vangnet: gewoon normaal laden
+    }
+}
+
+function initRouter() {
+    if (location.protocol === "file:") return;   // los bestand: fetch werkt niet, gewoon normaal laden
+    document.addEventListener("click", e => {
+        const link = e.target.closest("a[href]");
+        if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        if (link.target && link.target !== "_self") return;
+        if (link.hasAttribute("download")) return;
+        const url = new URL(link.href, location.href);
+        if (url.origin !== location.origin || !/(\.html|\/)$/.test(url.pathname)) return;
+        if (url.pathname === location.pathname && url.search === location.search && url.hash) return;   // anker op dezelfde pagina
+        e.preventDefault();
+        goTo(url.href);
+    });
+    window.addEventListener("popstate", () => goTo(location.href, false));
 }
 
 // =====================================================================
 //  START
 // =====================================================================
-renderChrome();
-initTypewriter();
-initTicker();
-initFeatured();
-initProjectsPage();
-initSkills();
-initSlides();
-initCopyEmail();
-initContactForm();
-initDoom();
+initPage();
+initRouter();
+Music.init();
