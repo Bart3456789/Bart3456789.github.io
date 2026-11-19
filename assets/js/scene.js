@@ -163,10 +163,37 @@
         new THREE.MeshBasicMaterial({ color: 0xfcee0a, wireframe: true, transparent: true, opacity: 0.08, depthWrite: false })
     );
     scene.add(knot);
-    // plek (in schermmaten), grootte en hoe snel ze meeschuiven met scrollen (parallax)
+
+    // ---------- nog meer objecten op de achtergrond (subtiel, aan de randen) ----------
+    const lineMat = (color, opacity) => new THREE.LineBasicMaterial({ color, transparent: true, opacity, depthWrite: false });
+    const edges = (geo, color, opacity) => new THREE.LineSegments(new THREE.EdgesGeometry(geo), lineMat(color, opacity));
+    // 3) cyaan draadmodel-octaëder (ruitvorm)
+    const octa = edges(new THREE.OctahedronGeometry(1, 0), 0x00e5ff, 0.32);
+    // 4) "datablok": een draadmodel-kubus met een klein geel blokje erin
+    const cube = new THREE.Group();
+    cube.add(edges(new THREE.BoxGeometry(1, 1, 1), 0x00e5ff, 0.26));
+    const core = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.32, 0.32), new THREE.MeshBasicMaterial({ color: 0xfcee0a, transparent: true, opacity: 0.55 }));
+    cube.add(core);
+    // 5) grote, schuine baan-ring ver weg
+    const halo = new THREE.Mesh(new THREE.TorusGeometry(1, 0.006, 6, 180), new THREE.MeshBasicMaterial({ color: 0xfcee0a, transparent: true, opacity: 0.22, depthWrite: false }));
+    // 6) cyaan draadmodel-dodecaëder
+    const dodeca = edges(new THREE.DodecahedronGeometry(1, 0), 0x00e5ff, 0.16);
+    // 7) derde kleine hologram-vorm
+    const mini2Uniforms = { uTime: { value: 0 }, uAmp: { value: 0.42 }, uGlow: { value: 0.55 } };
+    const mini2Mat = blobMat.clone();
+    mini2Mat.uniforms = mini2Uniforms;
+    const mini2 = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 20), mini2Mat);
+    [octa, cube, halo, dodeca, mini2].forEach(o => scene.add(o));
+
+    // plek (in schermmaten, -0.5 .. 0.5), diepte z, grootte en hoe snel ze meeschuiven met scrollen (parallax)
     const EXTRAS = [
-        { obj: mini, x: -0.36, y: -0.3, s: 0.28, speed: 0.22, spin: 0.25 },
-        { obj: knot, x: 0.16, y: 0.4,  s: 0.42, speed: 0.12, spin: 0.12 }
+        { obj: mini,   x: -0.44, y: -0.44, z: -1.5, s: 0.26, speed: 0.22, spin: 0.25 },
+        { obj: knot,   x: 0.16,  y: 0.4,   z: -2.5, s: 0.42, speed: 0.12, spin: 0.12 },
+        { obj: octa,   x: 0.42,  y: -0.36, z: -2,   s: 0.34, speed: 0.3,  spin: 0.3 },
+        { obj: cube,   x: 0.12,  y: -0.38, z: -3,   s: 0.34, speed: 0.18, spin: 0.2 },
+        { obj: halo,   x: -0.12, y: -0.46, z: -4.5, s: 1.1,  speed: 0.08, spin: 0.05 },
+        { obj: dodeca, x: -0.28, y: 0.4,   z: -3.5, s: 0.5,  speed: 0.1,  spin: 0.08 },
+        { obj: mini2,  x: 0.46,  y: 0.08,  z: -2.5, s: 0.2,  speed: 0.26, spin: 0.3 }
     ];
     // binnen een vaste band laten "rondgaan", zodat ze op elke hoogte van de pagina terugkomen
     const wrap = v => ((v + 0.75) % 1.5 + 1.5) % 1.5 - 0.75;
@@ -262,12 +289,18 @@
         // extra objecten: zweven rustig, draaien en schuiven elk met hun eigen snelheid mee met scrollen
         const scrolled = scrollY / innerHeight;
         miniUniforms.uTime.value = t * 1.3 + 40;
+        mini2Uniforms.uTime.value = t * 1.1 + 90;
+        core.rotation.set(-t * 0.8, t * 0.6, 0);
         EXTRAS.forEach((e, i) => {
             const bob = Math.sin(t * 0.4 + i * 2) * 0.02;
-            e.obj.position.set((e.x + mouse.x * 0.03 * (i + 1)) * viewW, wrap(e.y + scrolled * e.speed + bob) * viewH, -1.5 - i);
+            // verder weg = kleiner op het scherm; daarom de plek omrekenen zodat hij op de gekozen schermplek blijft
+            const depth = (camera.position.z - e.z) / camera.position.z;
+            const px = e.x + mouse.x * 0.02 * (1 + i % 3);
+            e.obj.position.set(px * viewW * depth, wrap(e.y + scrolled * e.speed + bob) * viewH * depth, e.z);
             e.obj.scale.setScalar(e.s * (viewW < 3 ? 0.65 : 1));
             e.obj.rotation.set(t * e.spin * 0.6 + mouse.y * 0.3, t * e.spin + mouse.x * 0.4, t * e.spin * 0.3);
         });
+        halo.rotation.set(1.2 + mouse.y * 0.1, 0.4, t * 0.05);   // ring blijft schuin liggen en draait rustig rond
 
         dust.rotation.y = t * 0.012 + mouse.x * 0.15;
         dust.rotation.x = mouse.y * 0.08;
