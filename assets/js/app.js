@@ -239,6 +239,17 @@ function loadError(target) {
 // Knoppen voor live demo / broncode (alleen als die links in projects.json staan).
 // "code": "school" in projects.json = schoolproject waarvan de code privé is gezet door school.
 const isSchool = value => same(value || "", "school");
+// Link-filter op de projectenpagina: repo = echte code-link, live = live-demo, locked = code privé door school.
+const LINK_TYPES = ["repo", "live", "locked"];
+const LINK_NAMES = { repo: "Repo", live: "Live", locked: "Locked" };
+function linkTypesOf(project) {
+    const links = project.links || {};
+    const types = [];
+    if (links.code && !isSchool(links.code)) types.push("repo");
+    if (links.live) types.push("live");
+    if (isSchool(links.code)) types.push("locked");
+    return types;
+}
 
 // Links naar live demo / broncode (alleen als die in projects.json staan).
 function projectLinks(project) {
@@ -292,12 +303,22 @@ async function initProjectsPage() {
     const params = new URLSearchParams(location.search);
     let active = params.get("skill") || "all";
     let level = LEVELS.includes(params.get("level")) ? params.get("level") : "all";
+    let linkType = LINK_TYPES.includes(params.get("links")) ? params.get("links") : "all";
     let filtersOpen = false;   // filtermenu (dropdown) open of dicht
 
     // Technieken uit de projecten (volgorde = volgorde in skills.json).
     const tools = SKILLS.map(s => s.name).filter(name => projectsWith(name).length);
     const byTool = (list, tool) => tool === "all" ? list : list.filter(p => p.tools.some(x => same(x, tool)));
     const byLevel = (list, lvl) => lvl === "all" ? list : list.filter(p => levelOf(p) === lvl);
+    const byLinks = (list, type) => type === "all" ? list : list.filter(p => linkTypesOf(p).includes(type));
+    // alle filters samen; "skip" laat er één weg (voor de aantallen per knop)
+    const filtered = (skip) => {
+        let list = projects;
+        if (skip !== "skill") list = byTool(list, active);
+        if (skip !== "level") list = byLevel(list, level);
+        if (skip !== "links") list = byLinks(list, linkType);
+        return list;
+    };
 
     function setParam(key, value) {
         const url = new URL(location.href);
@@ -306,20 +327,25 @@ async function initProjectsPage() {
     }
 
     function draw() {
-        const shown = byLevel(byTool(projects, active), level);
+        const shown = filtered();
 
         const techRow = ["all", ...tools].map(tool => {
             const on = same(active, tool);
-            const n = byTool(byLevel(projects, level), tool).length;
+            const n = byTool(filtered("skill"), tool).length;
             return `<button type="button" class="f-btn ${on ? "on" : ""}" data-filter="${esc(tool)}" aria-pressed="${on}">${tool === "all" ? "All" : esc(tool)}<sup>${pad(n)}</sup></button>`;
         }).join("");
         const levelRow = ["all", ...LEVELS].map(lvl => {
             const on = level === lvl;
-            const n = byLevel(byTool(projects, active), lvl).length;
+            const n = byLevel(filtered("level"), lvl).length;
             return `<button type="button" class="f-btn ${on ? "on" : ""}" data-level-filter="${lvl}" ${lvl !== "all" ? `data-level="${lvl}"` : ""} aria-pressed="${on}" ${n || on ? "" : "disabled"}>${lvl === "all" ? "All" : LEVEL_NAMES[lvl]}<sup>${pad(n)}</sup></button>`;
         }).join("");
-        const activeCount = (active !== "all") + (level !== "all");
-        const summary = [active !== "all" ? esc(active) : "", level !== "all" ? LEVEL_NAMES[level] : ""].filter(Boolean).join(" + ") || "All projects";
+        const linkRow = ["all", ...LINK_TYPES].map(type => {
+            const on = linkType === type;
+            const n = byLinks(filtered("links"), type).length;
+            return `<button type="button" class="f-btn ${on ? "on" : ""}" data-links-filter="${type}" aria-pressed="${on}" ${n || on ? "" : "disabled"}>${type === "all" ? "All" : LINK_NAMES[type]}<sup>${pad(n)}</sup></button>`;
+        }).join("");
+        const activeCount = (active !== "all") + (level !== "all") + (linkType !== "all");
+        const summary = [active !== "all" ? esc(active) : "", level !== "all" ? LEVEL_NAMES[level] : "", linkType !== "all" ? LINK_NAMES[linkType] : ""].filter(Boolean).join(" + ") || "All projects";
         filterBox.innerHTML = `
             <div class="filter-bar">
                 <button type="button" class="filter-toggle" data-filter-toggle aria-expanded="${filtersOpen}" aria-controls="filter-panel">
@@ -334,6 +360,7 @@ async function initProjectsPage() {
                 <div class="filter-panel-inner">
                     <div class="filter-row"><span class="filter-label">Technology</span><div class="filter-btns">${techRow}</div></div>
                     <div class="filter-row"><span class="filter-label">Difficulty</span><div class="filter-btns">${levelRow}</div></div>
+                    <div class="filter-row"><span class="filter-label">Links</span><div class="filter-btns">${linkRow}</div></div>
                 </div>
             </div>`;
         $("[data-filter-toggle]", filterBox).addEventListener("click", () => {
@@ -360,7 +387,14 @@ async function initProjectsPage() {
         $$("[data-level-filter]", filterBox).forEach(b => b.addEventListener("click", () => {
             level = b.dataset.levelFilter; setParam("level", level); draw();
         }));
-        $$("[data-reset]", grid.parentElement).forEach(r => r.addEventListener("click", () => { active = level = "all"; setParam("skill", "all"); setParam("level", "all"); draw(); }));
+        $$("[data-links-filter]", filterBox).forEach(b => b.addEventListener("click", () => {
+            linkType = b.dataset.linksFilter; setParam("links", linkType); draw();
+        }));
+        $$("[data-reset]", grid.parentElement).forEach(r => r.addEventListener("click", () => {
+            active = level = linkType = "all";
+            ["skill", "level", "links"].forEach(k => setParam(k, "all"));
+            draw();
+        }));
     }
     draw();
 
