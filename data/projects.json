@@ -1,5 +1,5 @@
 {
-    "_uitleg": "Elk project is een blok tussen { }. Verplicht: id (uniek, kleine letters, geen spaties), title, image en tools. tools = de technieken/talen; dat is ook de categorie waarop je filtert. Een nieuwe taal (bv. \"Python\") krijgt vanzelf een filterknop en een skill-kaart. difficulty = \"easy\", \"medium\", \"hard\" of \"extreme\" (de projectenpagina sorteert van extreme naar easy). Optioneel: tagline, challenge (één zin over het probleem dat je oploste), description (lijst met alinea's), features, learned, featured (true = op de homepage), links {\"live\": \"...\", \"code\": \"...\"} (vul in, dan verschijnen er knoppen) en gallery (lijst met extra afbeeldingen). Afbeeldingen zet je in assets/img/projects/.",
+    "_uitleg": "Elk project is een blok tussen { }. Verplicht: id (uniek, kleine letters, geen spaties), title, image en tools. tools = de technieken/talen; dat is ook de categorie waarop je filtert. Een nieuwe taal (bv. \"Python\") krijgt vanzelf een filterknop en een skill-kaart. difficulty = \"easy\", \"medium\", \"hard\" of \"extreme\" (de projectenpagina sorteert van extreme naar easy). Optioneel: tagline, challenge (één zin over het probleem dat je oploste), description (lijst met alinea's), features, learned, featured (true = op de homepage), links {\"live\": \"...\", \"code\": \"...\"} (vul in, dan verschijnen er knoppen; zet code op \"school\" als school de code privé heeft gezet, dan staat er een melding in plaats van een link) en gallery (lijst met extra afbeeldingen). Afbeeldingen zet je in assets/img/projects/.",
     "projects": [
         {
             "id": "quiz",
@@ -130,7 +130,7 @@
             ],
             "learned": "How a Symfony project is structured, and how to link it to a database so data is saved per user.",
             "featured": false,
-            "links": { "live": "", "code": "https://github.com/ROCMondriaanTIN/cohort25-project-periode-5-2025-2a-teame" }
+            "links": { "live": "", "code": "school" }
         }
     ]
 }

@@ -996,3 +996,9 @@ body[data-page="contact"] .page-title { font-size: clamp(2.4rem, 5vw, 4.4rem); }
     .big-cta { align-items: flex-start; }
 }
 .skills .s-card { align-items: stretch; text-align: left; }
+
+/* schoolproject: code is privé gezet door school (links.code = "school") */
+.school-tag { display: inline-flex; align-items: center; gap: .4rem; font-family: var(--mono); font-size: .66rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); cursor: help; }
+.school-tag svg, .school-note svg { width: 12px; height: 12px; color: var(--yellow); flex-shrink: 0; }
+.school-note { display: inline-flex; align-items: flex-start; gap: .5rem; font-size: .88rem; color: var(--ink-2); line-height: 1.45; }
+.school-note svg { margin-top: .2rem; }

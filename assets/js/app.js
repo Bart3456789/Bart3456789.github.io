@@ -34,6 +34,7 @@ const ICONS = {
     instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/>',
     external: '<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
     play: '<path d="M7 5v14l11-7z"/>',
+    lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
     left: '<path d="M15 6l-6 6 6 6"/>',
     right: '<path d="M9 6l6 6-6 6"/>'
 };
@@ -236,12 +237,16 @@ function loadError(target) {
 }
 
 // Knoppen voor live demo / broncode (alleen als die links in projects.json staan).
+// "code": "school" in projects.json = schoolproject waarvan de code privé is gezet door school.
+const isSchool = value => same(value || "", "school");
+
 // Links naar live demo / broncode (alleen als die in projects.json staan).
 function projectLinks(project) {
     const links = project.links || {};
     return [
         links.live ? `<a href="${esc(links.live)}" target="_blank" rel="noopener" aria-label="Live demo of ${esc(project.title)}">${icon("external")}Live</a>` : "",
-        links.code ? `<a href="${esc(links.code)}" target="_blank" rel="noopener" aria-label="Code of ${esc(project.title)} on GitHub">${icon("github")}Code</a>` : ""
+        isSchool(links.code) ? `<span class="school-tag" title="The code of this school project is set to private by the school">${icon("lock")}School · private</span>`
+            : links.code ? `<a href="${esc(links.code)}" target="_blank" rel="noopener" aria-label="Code of ${esc(project.title)} on GitHub">${icon("github")}Code</a>` : ""
     ].join("");
 }
 
@@ -467,7 +472,8 @@ function fillModal() {
     const links = p.links || {};
     const linkList = [
         links.live ? `<a href="${esc(links.live)}" target="_blank" rel="noopener">${icon("external")}Live demo</a>` : "",
-        links.code ? `<a href="${esc(links.code)}" target="_blank" rel="noopener">${icon("github")}Source code</a>` : ""
+        isSchool(links.code) ? `<span class="school-note">${icon("lock")}School project: the code is set to private by the school, so it can't be shared.</span>`
+            : links.code ? `<a href="${esc(links.code)}" target="_blank" rel="noopener">${icon("github")}Source code</a>` : ""
     ].join("");
     const desc = asList(p.description);
     const feats = asList(p.features);
