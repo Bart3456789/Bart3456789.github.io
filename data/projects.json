@@ -21,7 +21,7 @@
             ],
             "learned": "How to use JavaScript events, the DOM and a simple game state to build a complete user flow: from question to answer to score.",
             "featured": true,
-            "links": { "live": "", "code": "" }
+            "links": { "live": "", "code": "school" }
         },
         {
             "id": "slotmachine",
@@ -43,7 +43,7 @@
             ],
             "learned": "Working with randomness, timing and game states, and splitting my code into small reusable functions.",
             "featured": true,
-            "links": { "live": "", "code": "https://github.com/ROCMondriaanTIN/Project-SD-Po2" }
+            "links": { "live": "", "code": "school" }
         },
         {
             "id": "mon-in",
@@ -65,7 +65,7 @@
             ],
             "learned": "The step from static pages to a dynamic website: handling forms, managing users and saving and loading data from a database.",
             "featured": true,
-            "links": { "live": "", "code": "https://github.com/ROCMondriaanTIN/sd25-p03-proj-mon-in-makapaka/tree/bart" }
+            "links": { "live": "", "code": "school" }
         },
         {
             "id": "collectables",
@@ -87,7 +87,7 @@
             ],
             "learned": "Loading, structuring and presenting data, and thinking about what a user sees when there is no data yet.",
             "featured": false,
-            "links": { "live": "", "code": "https://github.com/ROCMondriaanTIN/sd25-project-p04-collectables-teqela" }
+            "links": { "live": "", "code": "school" }
         },
         {
             "id": "unity-platformer",
@@ -108,7 +108,7 @@
             ],
             "learned": "How Unity works with GameObjects, components and C# scripts, and how to test an idea quickly with a prototype.",
             "featured": false,
-            "links": { "live": "", "code": "https://github.com/ROCMondriaanTIN/sd25-kdlgp-p04-game-teletubbies" }
+            "links": { "live": "", "code": "school" }
         },
         {
             "id": "budget-buddy",
