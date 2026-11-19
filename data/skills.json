@@ -38,11 +38,6 @@
             "text": "Storing, retrieving and linking data."
         },
         {
-            "name": "Node.js",
-            "devicon": "nodejs",
-            "text": "JavaScript on the server: APIs and tools."
-        },
-        {
             "name": "Unity",
             "devicon": "unity",
             "invert": true,
@@ -52,11 +47,6 @@
             "name": "C#",
             "devicon": "csharp",
             "text": "Scripts and gameplay logic in Unity."
-        },
-        {
-            "name": "Blender",
-            "devicon": "blender",
-            "text": "Making 3D models and visual assets."
         }
     ]
 }
