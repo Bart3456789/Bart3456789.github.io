@@ -747,7 +747,7 @@ function initLoader() {
         <div class="loader-count">0</div><div class="loader-bar"></div>`;
     document.body.appendChild(el);
     document.body.classList.add("modal-open");          // niet scrollen tijdens de intro
-    const count = $(".loader-count", el), start = performance.now(), dur = 1600;
+    const count = $(".loader-count", el), start = performance.now(), dur = 600;
     const step = now => {
         const t = Math.min(1, (now - start) / dur);
         const eased = 1 - Math.pow(1 - t, 3);
@@ -757,8 +757,8 @@ function initLoader() {
         setTimeout(() => {
             el.classList.add("done");
             document.body.classList.remove("modal-open");
-            setTimeout(() => el.remove(), 1300);
-        }, 250);
+            setTimeout(() => el.remove(), 800);
+        }, 80);
     };
     requestAnimationFrame(step);
 }
