@@ -12,6 +12,7 @@ const SITE = {
     github: "https://github.com/Bart3456789",
     projectsFile: "data/projects.json",
     skillsFile: "data/skills.json",
+    threeUrl: "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
     // Contactformulier: plak hier je Formspree-link (https://formspree.io/f/xxxxxxxx).
     // Leeg laten = het formulier opent gewoon je mailprogramma.
     formEndpoint: ""
@@ -177,6 +178,7 @@ function initNavScroll() {
 // =====================================================================
 let projectsCache = null;
 let dataPromise = null;
+let imagesReady = Promise.resolve();   // klaar zodra alle projectfoto's binnen zijn
 
 async function fetchJson(url) {
     const response = await fetch(url, { cache: "no-cache" });
@@ -207,6 +209,13 @@ function loadData() {
             if (!skills.some(s => same(s.name, tool))) skills.push({ name: tool, auto: true });
         });
         SKILLS = skills.map(s => ({ ...s, iconUrl: iconFor(s) }));
+        // Projectfoto's meteen ophalen (klein, WebP), zodat ze klaar staan voor kaarten en case studies.
+        imagesReady = Promise.all(projectsCache.filter(p => p.image).map(p => new Promise(done => {
+            const img = new Image();
+            img.onload = img.onerror = done;
+            img.decoding = "async";
+            img.src = p.image;
+        })));
         return projectsCache;
     })();
     return dataPromise;
@@ -266,7 +275,7 @@ function projectCard(project, index) {
     return `
         <article class="card reveal" style="--d:${(index % 3) * 100}ms">
             <div class="p-media reveal-img" style="--d:${(index % 3) * 100 + 100}ms">
-                <img src="${esc(project.image)}" alt="Screenshot of ${esc(project.title)}" loading="lazy">
+                <img src="${esc(project.image)}" alt="Screenshot of ${esc(project.title)}" decoding="async"${index < 3 ? ' fetchpriority="high"' : ""}>
                 <span class="p-index">${pad(index + 1)}</span>
             </div>
             <div class="p-body">
@@ -1003,6 +1012,23 @@ function initRouter() {
 }
 
 // =====================================================================
+//  3D-ACHTERGROND LADEN
+//  Three.js (600 KB) pas ophalen als de pagina en de foto's binnen zijn,
+//  zodat de projectfoto's niet hoeven te wachten. De vorm fadet daarna rustig in.
+// =====================================================================
+function loadScene() {
+    const own = document.querySelector('script[src*="assets/js/app.js"]');
+    const version = own && own.src.includes("?v=") ? "?v=" + own.src.split("?v=")[1] : "";
+    const add = (src, next) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = script.onerror = next;   // ook bij een fout door: scene.js zet dan de CSS-gloed aan
+        document.body.appendChild(script);
+    };
+    add(SITE.threeUrl, () => add("assets/js/scene.js" + version, () => {}));
+}
+
+// =====================================================================
 //  START
 // =====================================================================
 initLoader();
@@ -1011,3 +1037,8 @@ initNavScroll();
 initSpotlight();
 initMagnetic();
 initRouter();
+// eerst pagina + projectfoto's, dan pas de 3D (hooguit 3 seconden wachten)
+const pageLoaded = new Promise(done => document.readyState === "complete" ? done() : addEventListener("load", done, { once: true }));
+pageLoaded
+    .then(() => Promise.race([loadData().catch(() => {}).then(() => imagesReady), new Promise(done => setTimeout(done, 3000))]))
+    .then(loadScene);

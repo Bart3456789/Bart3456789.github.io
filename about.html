@@ -9,8 +9,9 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23fcee0a' d='M0 0h24l8 8v24H0z'/%3E%3Ctext x='15' y='21.5' font-family='Arial' font-weight='800' font-size='13' text-anchor='middle' fill='%2307080b'%3EBJ%3C/text%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link href="assets/css/style.css?v=202611221200" rel="stylesheet">
+    <link href="assets/css/style.css?v=202611241140" rel="stylesheet">
 </head>
 <body data-page="about">
     <header data-nav></header>
@@ -20,8 +21,8 @@
             <div class="wrap about">
                 <div class="about-media reveal">
                     <div class="slides" data-slides>
-                        <img src="assets/img/me/1.webp" alt="Photo of Bartosz" class="on">
-                        <img src="assets/img/me/2.webp" alt="Another photo of Bartosz">
+                        <img src="assets/img/me/1.webp" alt="Photo of Bartosz" class="on" fetchpriority="high">
+                        <img src="assets/img/me/2.webp" alt="Another photo of Bartosz" decoding="async">
                     </div>
                     <div class="slide-dots" data-slide-dots></div>
                 </div>
@@ -55,8 +56,7 @@
 
     <footer data-foot></footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="assets/js/scene.js?v=202611221200"></script>
-    <script src="assets/js/app.js?v=202611221200"></script>
+    <!-- app.js laadt Three.js + scene.js zelf, nadat de pagina en foto's binnen zijn -->
+    <script src="assets/js/app.js?v=202611241140"></script>
 </body>
 </html>

@@ -26,7 +26,8 @@
     canvas.setAttribute("aria-hidden", "true");
     document.body.prepend(canvas);
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: (devicePixelRatio || 1) < 2,   // scherp scherm: antialias niet nodig, scheelt GPU
+        alpha: true, powerPreference: "high-performance" });
     renderer.setClearColor(0x000000, 0);
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
